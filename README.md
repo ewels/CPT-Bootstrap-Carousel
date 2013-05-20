@@ -1,7 +1,7 @@
 CPT Bootstrap Carousel
 ======================
 
-A custom post type for choosing images and content which outputs Bootstrap Image Carousel (slider) from a shortcode.
+A custom post type for choosing images and content which outputs Bootstrap Image Carousel (slider) from the `[image-carousel]` shortcode.
 
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
@@ -23,6 +23,22 @@ Installation
 1. Place the `[image-carousel]` shortcode in a Page or Post
 1. Create new items in the `Carousel` post type, uploading a Featured Image for each.
 
+Shortcode Options
+-----------------
+You can specify how long the carousel pauses for, and whether to display captions and the controls using optional
+shortcode attributes:
+
+1. `interval` _(default 5000)_
+    * Length of time for the caption to pause on each image. Time in milliseconds.
+1. `showcaption` _(default true)_
+    * Whether to display the text caption on each image or not. `true` or `false`.
+1. `showcontrols` _(default true)_
+    * Whether to display the control arrows or not. `true` or `false`.
+
+For example, to display the carousel with no captions, no controls and pausing for eight seconds, use the following:
+`[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
+
+
 Frequently Asked Questions
 --------------------------
 
@@ -43,5 +59,7 @@ Frequently Asked Questions
 Changelog
 ---------
 
+* __1.1__
+    * Added shortcode attributes (code contributed by @joshgerdes)
 * __1.0__
 	* Initial release
