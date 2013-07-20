@@ -104,7 +104,7 @@ function cptbc_frontend($atts){
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) { ?>
 				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>">
-					<?php if($image['url']) { echo '<a href="'.esc_url($image['url']).'">'; }
+					<?php if($image['url']) { echo '<a href="'.$image['url'].'">'; }
 					echo $image['image'];
 					if($image['url']) { echo '</a>'; }?>
 					<?php if($atts['showcaption'] === 'true') { ?>
