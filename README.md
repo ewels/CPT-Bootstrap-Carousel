@@ -22,6 +22,7 @@ Installation
 1. Make sure that your theme is loading the [Twitter Bootstrap](http://www.getbootstrap.com) CSS and Carousel javascript
 1. Place the `[image-carousel]` shortcode in a Page or Post
 1. Create new items in the `Carousel` post type, uploading a Featured Image for each.
+	1. *Optional:* You can hyperlink each image by entering the desired url `Image Link URL` admin metabox when adding a new carousel image.
 
 Shortcode Options
 -----------------
@@ -37,9 +38,6 @@ shortcode attributes:
 
 For example, to display the carousel with no captions, no controls and pausing for eight seconds, use the following:
 `[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
-
-= Other Options = 
-You may assign a url link to an image by entering the desired url to the custom field `url` when adding a new carousel image.
 
 
 Frequently Asked Questions
