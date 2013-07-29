@@ -72,7 +72,7 @@ You may assign a url link to an image by entering the desired url to the custom 
 
 = 1.2 =
 * Featured images are now shown in the admin list view
-* Added new custom field for image url (code contributed by @atnon)
+* Added new admin metabox for image url (written by @tallphil, based on code contributed by @atnon)
 
 = 1.1 =
 * Added shortcode attributes (code contributed by @joshgerdes)
@@ -85,7 +85,7 @@ You may assign a url link to an image by entering the desired url to the custom 
 = 1.2 =
 * Featured images are now shown in the admin list view.
 ** Note: This update creates a new thumbnail size. I recommend the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) to regenerate all of your image thumbnails.
-* Added a new custom field to give each image a link.
+* Added a new admin metabox to give each image a link (optional).
 
 = 1.1 =
 * Added shortcode attribute functionality for tweaking of carousel options.
