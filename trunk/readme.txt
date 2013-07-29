@@ -1,5 +1,5 @@
 === CPT Bootstrap Carousel ===
-Contributors: tallphil, joshgerdes
+Contributors: tallphil, joshgerdes, atnon
 Donate Link: http://phil.ewels.co.uk
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
@@ -49,6 +49,8 @@ shortcode attributes:
 For example, to display the carousel with no captions, no controls and pausing for eight seconds, use the following:
 `[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
 
+= Other Options = 
+You may assign an url link to an image by adding the custom field `url` and entering the wanted url as key when adding a new carousel image.
 
 == Frequently Asked Questions ==
 

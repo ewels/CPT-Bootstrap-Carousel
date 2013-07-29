@@ -39,7 +39,7 @@ function cptbc_post_type() {
 		'has_archive' => true, 
 		'hierarchical' => false,
 		'menu_position' => 21,
-		'supports' => array('title','excerpt','thumbnail', 'page-attributes')
+		'supports' => array('title','excerpt','thumbnail', 'page-attributes', 'custom-fields')
 	); 
 	register_post_type('cptbc', $args);
 }
@@ -88,7 +88,8 @@ function cptbc_frontend($atts){
 			$title = get_the_title();
 			$content = get_the_excerpt();
 			$image = get_the_post_thumbnail( get_the_ID(), 'full' );
-			$images[] = array('title' => $title, 'content' => $content, 'image' => $image);
+			$url = get_post_custom_values("url");
+			$images[] = array('title' => $title, 'content' => $content, 'image' => $image, 'url' => esc_url($url[0]));
 		}
 	}
 	if(count($images) > 0){
@@ -103,7 +104,9 @@ function cptbc_frontend($atts){
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) { ?>
 				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>">
-					<?php echo $image['image']; ?>
+					<?php if($image['url']) { echo '<a href="'.$image['url'].'">'; }
+					echo $image['image'];
+					if($image['url']) { echo '</a>'; }?>
 					<?php if($atts['showcaption'] === 'true') { ?>
 						<div class="carousel-caption">
 							<h4><?php echo $image['title']; ?></h4>
