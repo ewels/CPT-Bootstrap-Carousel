@@ -61,7 +61,7 @@ Changelog
 ---------
 * __1.2__
 	* Featured images are now shown in the admin list view
-		* Note: This update creates a new thumbnail size. I recommend the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) to regenerate all of your image thumbnails.
+		* Note: This update creates a new thumbnail size. I recommend using the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) WordPress plugin to regenerate all of your image thumbnails.
 	* Added new admin metabox for image url (written by @tallphil, based on code contributed by @atnon)
 * __1.1__
     * Added shortcode attributes (code contributed by @joshgerdes)

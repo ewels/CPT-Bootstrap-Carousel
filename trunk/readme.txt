@@ -82,7 +82,7 @@ For example, to display the carousel with no captions, no controls and pausing f
 
 = 1.2 =
 * Featured images are now shown in the admin list view.
-** Note: This update creates a new thumbnail size. I recommend the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) to regenerate all of your image thumbnails.
+** Note: This update creates a new thumbnail size. I recommend using the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) WordPress plugin to regenerate all of your image thumbnails.
 * Added a new admin metabox to give each image a link (optional).
 
 = 1.1 =
