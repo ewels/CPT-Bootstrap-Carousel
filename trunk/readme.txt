@@ -4,7 +4,7 @@ Donate Link: http://phil.ewels.co.uk
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
 Tested up to: 3.5.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -50,7 +50,7 @@ For example, to display the carousel with no captions, no controls and pausing f
 `[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
 
 = Other Options = 
-You may assign an url link to an image by adding the custom field `url` and entering the wanted url as key when adding a new carousel image.
+You may assign a url link to an image by entering the desired url to the custom field `url` when adding a new carousel image.
 
 == Frequently Asked Questions ==
 
@@ -70,6 +70,10 @@ You may assign an url link to an image by adding the custom field `url` and ente
 
 == Changelog ==
 
+= 1.2 =
+* Featured images are now shown in the admin list view
+* Added new custom field for image url (code contributed by @atnon)
+
 = 1.1 =
 * Added shortcode attributes (code contributed by @joshgerdes)
 
@@ -77,6 +81,11 @@ You may assign an url link to an image by adding the custom field `url` and ente
 * Initial release
 
  == Upgrade Notice ==
+
+= 1.2 =
+* Featured images are now shown in the admin list view.
+** Note: This update creates a new thumbnail size. I recommend the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) to regenerate all of your image thumbnails.
+* Added a new custom field to give each image a link.
 
 = 1.1 =
 * Added shortcode attribute functionality for tweaking of carousel options.

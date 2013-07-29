@@ -39,7 +39,7 @@ For example, to display the carousel with no captions, no controls and pausing f
 `[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
 
 = Other Options = 
-You may assign an url link to an image by adding the custom field `url` and entering the wanted url as key when adding a new carousel image.
+You may assign a url link to an image by entering the desired url to the custom field `url` when adding a new carousel image.
 
 
 Frequently Asked Questions
@@ -61,7 +61,10 @@ Frequently Asked Questions
 
 Changelog
 ---------
-
+* __1.2__
+	* Featured images are now shown in the admin list view
+		* Note: This update creates a new thumbnail size. I recommend the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) to regenerate all of your image thumbnails.
+	* Added new custom field for image url (code contributed by @atnon)
 * __1.1__
     * Added shortcode attributes (code contributed by @joshgerdes)
 * __1.0__
