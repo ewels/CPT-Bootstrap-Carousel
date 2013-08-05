@@ -120,7 +120,9 @@ function cptbc_shortcode($atts, $content = null) {
 	$defaults = array(
 		'interval' => '5000',
 		'showcaption' => 'true',
-		'showcontrols' => 'true'
+		'showcontrols' => 'true',
+		'orderby' => 'menu_order',
+		'order' => 'ASC'
 	);
 
 	// Parse incomming $atts into an array and merge it with $defaults
@@ -133,7 +135,7 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 // Display carousel
 function cptbc_frontend($atts){
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
-	$args = array( 'post_type' => 'cptbc', 'orderby' => 'menu_order', 'order' => 'ASC');
+	$args = array( 'post_type' => 'cptbc', 'orderby' => $atts['orderby'], 'order' => $atts['order']);
 	$loop = new WP_Query( $args );
 	$images = array();
 	while ( $loop->have_posts() ) {

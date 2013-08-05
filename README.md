@@ -35,9 +35,11 @@ shortcode attributes:
     * Whether to display the text caption on each image or not. `true` or `false`.
 1. `showcontrols` _(default true)_
     * Whether to display the control arrows or not. `true` or `false`.
+1. `orderby` and `order` _(default `menu_order` `ASC`)_
+	* What order to display the posts in. Use `orderby="rand"` to use a random order. Uses [WP_Query terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters).
 
-For example, to display the carousel with no captions, no controls and pausing for eight seconds, use the following:
-`[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
+For example, to display the carousel with no captions, no controls and pausing for eight seconds with images in a random order, use the following:
+`[image-carousel interval="8000" showcaption="false" showcontrols="false" orderby="rand"]`
 
 
 Frequently Asked Questions
