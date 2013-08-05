@@ -43,6 +43,12 @@ function cptbc_post_type() {
 	); 
 	register_post_type('cptbc', $args);
 }
+// Create a taxonomy for the carousel post type
+function cptbc_taxonomies () {
+	$args = array('hierarchical' => true);
+	register_taxonomy( 'carousel_category', 'cptbc', $args );
+}
+add_action( 'init', 'cptbc_taxonomies', 0 );
 
 
 // Add theme support for featured images if not already present
@@ -122,7 +128,8 @@ function cptbc_shortcode($atts, $content = null) {
 		'showcaption' => 'true',
 		'showcontrols' => 'true',
 		'orderby' => 'menu_order',
-		'order' => 'ASC'
+		'order' => 'ASC',
+		'category' => ''
 	);
 
 	// Parse incomming $atts into an array and merge it with $defaults
@@ -136,6 +143,9 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 function cptbc_frontend($atts){
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
 	$args = array( 'post_type' => 'cptbc', 'orderby' => $atts['orderby'], 'order' => $atts['order']);
+	if($atts['category'] != ''){
+		$args['carousel_category'] = $atts['category'];
+	}
 	$loop = new WP_Query( $args );
 	$images = array();
 	while ( $loop->have_posts() ) {

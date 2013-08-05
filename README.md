@@ -36,10 +36,12 @@ shortcode attributes:
 1. `showcontrols` _(default true)_
     * Whether to display the control arrows or not. `true` or `false`.
 1. `orderby` and `order` _(default `menu_order` `ASC`)_
-	* What order to display the posts in. Use `orderby="rand"` to use a random order. Uses [WP_Query terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters).
-
-For example, to display the carousel with no captions, no controls and pausing for eight seconds with images in a random order, use the following:
-`[image-carousel interval="8000" showcaption="false" showcontrols="false" orderby="rand"]`
+	* What order to display the posts in. Uses [WP_Query terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters).
+1. `category` _(default all)_
+	* Filter carousel items by a comma separated list of carousel category slugs.
+		
+For example, to display a carousel with images from the `global` and `home` categories, with no captions, no controls and pausing for eight seconds with images in a random order, use the following:
+`[image-carousel interval="8000" showcaption="false" showcontrols="false" orderby="rand" category="global,home"]`
 
 
 Frequently Asked Questions
@@ -61,6 +63,11 @@ Frequently Asked Questions
 
 Changelog
 ---------
+* __1.3__
+	* Added support for carousel categories, using filtering with the `category` shortcode
+	* Added shortcode attribute to specify ordering of images
+		* This means that images can now be in a random order
+	* Admin thumbnail images now link to the edit page
 * __1.2__
 	* Featured images are now shown in the admin list view
 		* Note: This update creates a new thumbnail size. I recommend using the [Regenerate Thumbnails](http://wordpress.org/plugins/regenerate-thumbnails/) WordPress plugin to regenerate all of your image thumbnails.
