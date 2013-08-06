@@ -79,6 +79,12 @@ To display a carousel with images from the `global` and `home` categories, with 
 
 1. You need to make sure that each image is the same height. You can do this by setting an `Aspect ratio` in the `Edit Image` section of the WordPress Media Library and cropping your images.
 
+== Screenshots ==
+
+1. Admin list interface showing Carousel images and titles.
+2. Admin image interface showing optional title and caption (Excerpt) fields, along with Category, order, image and URL
+3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
+
 == Changelog ==
 
 = 1.3 =
