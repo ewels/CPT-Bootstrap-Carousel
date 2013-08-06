@@ -3,7 +3,7 @@ Contributors: tallphil, joshgerdes, atnon
 Donate Link: http://phil.ewels.co.uk
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 3.5.1
+Tested up to: 3.6
 Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,14 +12,14 @@ A custom post type for choosing images and content which outputs Bootstrap Image
 
 == Description ==
 
-A custom post type for choosing images and content which outputs a [carousel](http://twitter.github.io/bootstrap/javascript.html#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`. 
+A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`. 
 
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
-* [Download Twitter Bootstrap](http://twitter.github.io/bootstrap/index.html)
+* [Download Twitter Bootstrap](http://getbootstrap.com/)
 * [Bootstrap WordPress Theme](http://320press.com/wpbs/)
 * [Bootstrap CDN](http://www.bootstrapcdn.com/) _(hotlink CSS and javascript files)_
-* [Bootstrap Carousel in action](http://twitter.github.io/bootstrap/examples/carousel.html)
+* [Bootstrap Carousel in action](http://getbootstrap.com/javascript/#carousel)
 
 The carousel can be tweaked using shortcode attributes, eg: `[image-carousel interval="8000" showcaption="false" showcontrols="false"]`
 
@@ -114,7 +114,7 @@ Try writing the shortcode using the 'Text' editor instead of the 'Visual' editor
 * Added support for carousel categories, using filtering with the `category` shortcode
 * Added `orderby` shortcode attribute to specify ordering of images
 	* This means that images can now be in a random order
-* Added `twbs` shortcode aatribute to allow the output of Twitter Bootstrap v3 markup
+* Added `twbs` shortcode attribute to allow the output of Twitter Bootstrap v3 markup
 * Added WordPress directory screenshots
 * Admin thumbnail images now link to the edit page
 
@@ -129,6 +129,9 @@ Try writing the shortcode using the 'Text' editor instead of the 'Visual' editor
 * Initial release
 
  == Upgrade Notice ==
+
+= 1.3 =
+* A bunch of requested features have been added - mainly random ordering and categories. See the changelog for more details.
 
 = 1.2 =
 * Featured images are now shown in the admin list view.

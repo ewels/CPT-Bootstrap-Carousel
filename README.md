@@ -1,14 +1,14 @@
 CPT Bootstrap Carousel
 ======================
 
-A custom post type for choosing images and content which outputs Bootstrap Image Carousel (slider) from the `[image-carousel]` shortcode.
+A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`. 
 
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
-* [Download Twitter Bootstrap](http://twitter.github.io/bootstrap/index.html)
+* [Download Twitter Bootstrap](http://getbootstrap.com/)
 * [Bootstrap WordPress Theme](http://320press.com/wpbs/)
 * [Bootstrap CDN](http://www.bootstrapcdn.com/) _(hotlink CSS and javascript files)_
-* [Bootstrap Carousel in action](http://twitter.github.io/bootstrap/examples/carousel.html)
+* [Bootstrap Carousel in action](http://getbootstrap.com/javascript/#carousel)
 
 I may consider adding an option to load the Bootstrap files in the future if there is demand. Let me know if you'd like it!
 
@@ -98,7 +98,7 @@ Changelog
 	* Added support for carousel categories, using filtering with the `category` shortcode
 	* Added `orderby` shortcode attribute to specify ordering of images
 		* This means that images can now be in a random order
-	* Added `twbs` shortcode aatribute to allow the output of Twitter Bootstrap v3 markup
+	* Added `twbs` shortcode attribute to allow the output of Twitter Bootstrap v3 markup
 	* Added WordPress directory screenshots
 	* Admin thumbnail images now link to the edit page
 * __1.2__
