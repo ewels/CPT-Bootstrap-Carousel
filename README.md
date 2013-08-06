@@ -39,11 +39,19 @@ shortcode attributes:
 	* What order to display the posts in. Uses [WP_Query terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters).
 1. `category` _(default all)_
 	* Filter carousel items by a comma separated list of carousel category slugs.
-		
-For example, to display a carousel with images from the `global` and `home` categories, with no captions, no controls and pausing for eight seconds with images in a random order, use the following:
-`[image-carousel interval="8000" showcaption="false" showcontrols="false" orderby="rand" category="global,home"]`
+1. `twbs` _(default 2)_
+	* Output markup for Twitter Bootstrap Version 2 or 3.
 
+For example, to display a carousel with no captions or controls, use the following:
+`[image-carousel showcaption="false" showcontrols="false"]`
 
+To display a carousel which pauses for 8 seconds and shows images in a random order:
+`[image-carousel interval="8000" orderby="rand"]`
+
+To display a carousel with images from the `global` and `home` categories, with markup for Twitter Bootstrap v3.x:
+`[image-carousel category="global,home" twbs="3"]`
+	
+	
 Frequently Asked Questions
 --------------------------
 

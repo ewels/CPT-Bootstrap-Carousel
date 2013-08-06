@@ -129,7 +129,8 @@ function cptbc_shortcode($atts, $content = null) {
 		'showcontrols' => 'true',
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
-		'category' => ''
+		'category' => '',
+		'twbs' => '2'
 	);
 
 	// Parse incomming $atts into an array and merge it with $defaults
@@ -189,7 +190,10 @@ function cptbc_frontend($atts){
 				</div>
 			<?php } ?>
 			</div>
-			<?php if($atts['showcontrols'] === 'true') { ?>
+			<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="icon-prev"></span></a>
+				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="icon-next"></span></a>
+			<?php } else if($atts['showcontrols'] === 'true'){ ?>
 				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
 			<?php } ?>
