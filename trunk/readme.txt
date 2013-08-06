@@ -65,13 +65,36 @@ To display a carousel with images from the `global` and `home` categories, with 
 
 == Frequently Asked Questions ==
 
-= Nothing is showing up at all =
+= How do I insert the carousel? =
+
+First of all, install and activate the plugin. Go to 'Carousel' in the WordPress admin pages and add some images. Then, insert the carousel using the `[image-carousel]` into the body of any page.
+
+= Can I customise the way it looks? =
+
+The carousel shortcode has a number of attributes that you can use to customise the output. These are described on the [Installation](http://wordpress.org/plugins/cpt-bootstrap-carousel/installation/) page.
+
+= Can I insert the carousel into a WordPress template instead of a page? =
+
+Absolutely - you just need to use the [do_shortcode](http://codex.wordpress.org/Function_Reference/do_shortcode) WordPress function. For example:
+`<?php echo do_shortcode('[image-carousel]'); ?>`
+
+= Can I change the order that the images display in? =
+
+You can specify the order that the carousel displays images by using the `orderby` and `order` shortcode attributes. You can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters), such as random, by date, by title and by menu order.
+
+= Can I have different carousels with different images on the same site? =
+
+Yes - create a few categories and add your specific images to a specific category. Then, when inserting the shortcode into the page, specify which category you want it to display images from using the `category` shortcode attribute.
+
+= Help! Nothing is showing up at all =
 
 1. Is the plugin installed and activated?
 1. Have you added any items in the `Carousel` post type?
 1. Have you placed the `[image-carousel]` shortcode in your page?
 
-= My images are showing but they're all over the place  =
+Try writing the shortcode using the 'Text' editor instead of the 'Visual' editor, as the visual editor can sometimes add extra unwanted markup.
+
+= My images are showing but they're all over the place =
 
 1. Is your theme loading the Bootstrap CSS and Javascript? _(look for `bootstrap.css` in the source HTML)_
 
@@ -89,8 +112,10 @@ To display a carousel with images from the `global` and `home` categories, with 
 
 = 1.3 =
 * Added support for carousel categories, using filtering with the `category` shortcode
-* Added shortcode attribute to specify ordering of images
+* Added `category` shortcode attribute to specify ordering of images
 	* This means that images can now be in a random order
+* Added `twbs` shortcode aatribute to allow the output of Twitter Bootstrap v3 markup
+* Added WordPress directory screenshots
 * Admin thumbnail images now link to the edit page
 
 = 1.2 =
