@@ -112,7 +112,7 @@ Try writing the shortcode using the 'Text' editor instead of the 'Visual' editor
 
 = 1.3 =
 * Added support for carousel categories, using filtering with the `category` shortcode
-* Added `category` shortcode attribute to specify ordering of images
+* Added `orderby` shortcode attribute to specify ordering of images
 	* This means that images can now be in a random order
 * Added `twbs` shortcode aatribute to allow the output of Twitter Bootstrap v3 markup
 * Added WordPress directory screenshots
