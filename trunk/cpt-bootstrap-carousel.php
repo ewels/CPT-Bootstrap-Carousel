@@ -130,6 +130,7 @@ function cptbc_shortcode($atts, $content = null) {
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'category' => '',
+		'id' => '',
 		'twbs' => '2'
 	);
 
@@ -143,9 +144,12 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 // Display carousel
 function cptbc_frontend($atts){
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
-	$args = array( 'post_type' => 'cptbc', 'orderby' => $atts['orderby'], 'order' => $atts['order']);
+	$args = array( 'post_type' => 'cptbc', 'posts_per_page' => '-1', 'orderby' => $atts['orderby'], 'order' => $atts['order']);
 	if($atts['category'] != ''){
 		$args['carousel_category'] = $atts['category'];
+	}
+	if($atts['id'] != ''){
+		$args['p'] = $atts['id'];
 	}
 	$loop = new WP_Query( $args );
 	$images = array();
@@ -198,6 +202,13 @@ function cptbc_frontend($atts){
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
 			<?php } ?>
 		</div>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('#cptbc_<?php echo $id; ?>').carousel({
+					interval: <?php echo $atts['interval']; ?>
+				});
+			});
+		</script>
 <?php }
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -207,17 +218,5 @@ function cptbc_frontend($atts){
 	
 	return $output;
 }
-
-// Call the carousel in javascript, else it won't start scrolling on its own
-function cptbc_footer_js() {
-?>
-<script type="text/javascript">
-	jQuery(function(){
-		jQuery('.carousel').carousel()
-	});
-</script>
-<?php
-}
-add_action('wp_footer', 'cptbc_footer_js');
 
 ?>

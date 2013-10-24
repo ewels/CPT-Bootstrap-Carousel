@@ -65,6 +65,15 @@ To display a carousel with images from the `global` and `home` categories, with 
 
 == Frequently Asked Questions ==
 
+= The carousel doesn't start sliding itself / setting interval doesn't work =
+
+This can be caused by having your jQuery and Bootstrap javascript files included in the wrong place.
+
+* Make sure that jQuery is only being included once
+* Make sure that the Bootstrap javascript file is being included after jQuery
+	* NB: This often means putting it after `wp_head()` in your theme's `header.php` file
+* Make sure that both jQuery and Bootstrap are being included in the theme header, not footer
+
 = How do I insert the carousel? =
 
 First of all, install and activate the plugin. Go to 'Carousel' in the WordPress admin pages and add some images. Then, insert the carousel using the `[image-carousel]` into the body of any page.
