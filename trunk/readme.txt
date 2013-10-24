@@ -43,8 +43,8 @@ You can specify how long the carousel pauses for, and whether to display caption
 
 * `orderby` and `order` _(default `menu_order` `ASC`)_
 	* What order to display the posts in. Uses [WP_Query terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters).
-`[image-carousel orderby="rand"]`
-`[image-carousel orderby="date" orderby="DESC"]`
+`[image-carousel orderby="rand"]
+[image-carousel orderby="date" orderby="DESC"]`
 
 
 * `category` _(default all)_
@@ -54,7 +54,7 @@ You can specify how long the carousel pauses for, and whether to display caption
 
 * `id` _(default all)_
 	* Specify the ID of a specific carousel post to display only one image.
-	* Find the image ID by looking at the edit post link, eg. `/wp-admin/post.php?post=**104**&action=edit`
+	* Find the image ID by looking at the edit post link, eg. post 109 would be `/wp-admin/post.php?post=109&action=edit`
 `[image-carousel id="109"]`
 
 
@@ -128,11 +128,11 @@ Try writing the shortcode using the 'Text' editor instead of the 'Visual' editor
 
 = My images are showing but they're all over the place =
 
-1. Is your theme loading the Bootstrap CSS and Javascript? _(look for `bootstrap.css` in the source HTML)_
+Is your theme loading the Bootstrap CSS and Javascript? _(look for `bootstrap.css` in the source HTML)_
 
 = The carousel makes the content jump each time it changes =
 
-1. You need to make sure that each image is the same height. You can do this by setting an `Aspect ratio` in the `Edit Image` section of the WordPress Media Library and cropping your images.
+You need to make sure that each image is the same height. You can do this by setting an `Aspect ratio` in the `Edit Image` section of the WordPress Media Library and cropping your images.
 
 == Screenshots ==
 
