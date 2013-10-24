@@ -1,6 +1,6 @@
 === CPT Bootstrap Carousel ===
 Contributors: tallphil, joshgerdes, atnon
-Donate Link: http://phil.ewels.co.uk
+Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
 Tested up to: 3.6.1
