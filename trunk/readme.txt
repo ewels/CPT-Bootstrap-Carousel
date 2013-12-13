@@ -1,10 +1,10 @@
 === CPT Bootstrap Carousel ===
-Contributors: tallphil, joshgerdes, atnon
+Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 3.6.1
-Stable tag: 1.4
+Tested up to: 3.8
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -61,6 +61,10 @@ You can specify how long the carousel pauses for, and whether to display caption
 * `twbs` _(default 2)_
 	* Output markup for Twitter Bootstrap Version 2 or 3.
 `[image-carousel twbs="3"]`
+
+= Credits =
+
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @joshgerdes, @atnon and @grahamharper.
 
 
 == Installation ==
