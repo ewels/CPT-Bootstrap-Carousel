@@ -9,7 +9,9 @@ Author URI: http://phil.ewels.co.uk
 License: GPLv2
 */
 
+////////////////////////////
 // Custom Post Type Setup
+////////////////////////////
 add_action( 'init', 'cptbc_post_type' );
 function cptbc_post_type() {
 	$labels = array(
@@ -116,13 +118,9 @@ function cptbc_mb_save_details(){
 }
 add_action('save_post', 'cptbc_mb_save_details');
 
-
-
-// FRONT END
-
-// Shortcode
-function cptbc_shortcode($atts, $content = null) {
-	// Set default shortcode attributes
+// Set up settings defaults
+register_activation_hook(__FILE__, 'cptbc_set_options');
+function cptbc_set_options (){
 	$defaults = array(
 		'interval' => '5000',
 		'showcaption' => 'true',
@@ -133,9 +131,281 @@ function cptbc_shortcode($atts, $content = null) {
 		'id' => '',
 		'twbs' => '2'
 	);
+	add_option('cptbc_settings', $defaults);
+}
+// Clean up on uninstall
+register_activation_hook(__FILE__, 'cptbc_deactivate');
+function cptbc_deactivate(){
+	delete_option('cptbc_settings');
+}
+
+
+///////////////////
+// SETTINGS PAGE
+///////////////////
+class cptbc_settings_page {
+	// Holds the values to be used in the fields callbacks
+	private $options;
+    	
+	// Start up
+	public function __construct() {
+	    add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+	    add_action( 'admin_init', array( $this, 'page_init' ) );
+	}
+    	
+	// Add settings page
+	public function add_plugin_page() {
+		add_submenu_page('edit.php?post_type=cptbc', 'Settings', 'Settings', 'manage_options', 'cpt-bootstrap-carousel', array($this,'create_admin_page'));
+	}
+    	
+	// Options page callback
+	public function create_admin_page() {
+	    // Set class property
+	    $this->options = get_option( 'cptbc_settings' );
+		if(!$this->options){
+			cptbc_set_options ();
+			$this->options = get_option( 'cptbc_settings' );
+		}
+	    ?>
+	    <div class="wrap">
+			<?php screen_icon('edit');?> <h2>CPT Bootstrap Carousel Settings</h2>
+			<p>You can set the default behaviour of your carousels here. All of these settings can be overridden by using <a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">shortcode attributes</a>.</p>
+		         
+	        <form method="post" action="options.php">
+	        <?php
+	            settings_fields( 'cptbc_settings' );   
+	            do_settings_sections( 'cpt-bootstrap-carousel' );
+	            submit_button(); 
+	        ?>
+	        </form>
+	    </div>
+	    <?php
+	}
+    	
+	// Register and add settings
+	public function page_init() {        
+	    register_setting(
+	        'cptbc_settings', // Option group
+	        'cptbc_settings', // Option name
+	        array( $this, 'sanitize' ) // Sanitize
+	    );
+    	
+	    add_settings_section(
+	        'cptbc_settings_options', // ID
+	        '', // Title - nothing to say here.
+	        array( $this, 'cptbc_settings_options_header' ), // Callback
+	        'cpt-bootstrap-carousel' // Page
+	    );  
+    	
+	    add_settings_field(
+	        'twbs', // ID
+	        'Twitter Bootstrap Version', // Title 
+	        array( $this, 'twbs_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+    	
+	    add_settings_field(
+	        'interval', // ID
+	        'Slide Interval (milliseconds)', // Title
+	        array( $this, 'interval_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section
+	    );
+		
+	    add_settings_field(
+	        'showcaption', // ID
+	        'Show Slide Captions?', // Title 
+	        array( $this, 'showcaption_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+		
+	    add_settings_field(
+	        'showcontrols', // ID
+	        'Show Slide Controls?', // Title 
+	        array( $this, 'showcontrols_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+		
+	    add_settings_field(
+	        'orderby', // ID
+	        'Order Slides By', // Title 
+	        array( $this, 'orderby_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+		
+	    add_settings_field(
+	        'order', // ID
+	        'Ordering Direction', // Title 
+	        array( $this, 'order_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+		
+	    add_settings_field(
+	        'category', // ID
+	        'Restrict to Category', // Title 
+	        array( $this, 'category_callback' ), // Callback
+	        'cpt-bootstrap-carousel', // Page
+	        'cptbc_settings_options' // Section           
+	    );
+		   
+	}
+    	
+	// Sanitize each setting field as needed -  @param array $input Contains all settings fields as array keys
+	public function sanitize( $input ) {
+	    $new_input = array();
+		foreach($input as $key => $var){
+			if($key == 'twbs' || $key == 'interval'){
+				$new_input[$key] = absint( $input[$key] );
+				if($key == 'interval' && $new_input[$key] == 0){
+					$new_input[$key] = 5000;
+				}
+			} else {
+				$new_input[$key] = sanitize_text_field( $input[$key] );
+			}
+		}
+	    return $new_input;
+	}
+    	
+	// Print the Section text
+	public function cptbc_settings_options_header() {
+	    // nothing to say here.
+	}
+    	
+	public function twbs_callback() {
+		if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '3'){
+			$cptbc_twbs3 = ' selected="selected"';
+			$cptbc_twbs2 = '';
+		} else {
+			$cptbc_twbs3 = '';
+			$cptbc_twbs2 = ' selected="selected"';
+		}
+		print '<select id="twbs" name="cptbc_settings[twbs]">
+			<option value="2"'.$cptbc_twbs2.'>2.x</option>
+			<option value="3"'.$cptbc_twbs3.'>3.x</option>
+		</select>';
+	}
+	
+	public function interval_callback() {
+	    printf('<input type="text" id="interval" name="cptbc_settings[interval]" value="%s" size="6" />',
+	        isset( $this->options['interval'] ) ? esc_attr( $this->options['interval']) : '');
+	}
+	
+	public function showcaption_callback() {
+		if(isset( $this->options['showcaption'] ) && $this->options['showcaption'] == 'false'){
+			$cptbc_showcaption_t = '';
+			$cptbc_showcaption_f = ' selected="selected"';
+		} else {
+			$cptbc_showcaption_t = ' selected="selected"';
+			$cptbc_showcaption_f = '';
+		}
+		print '<select id="showcaption" name="cptbc_settings[showcaption]">
+			<option value="true"'.$cptbc_showcaption_t.'>Show</option>
+			<option value="false"'.$cptbc_showcaption_f.'>Hide</option>
+		</select>';
+	}
+	
+	public function showcontrols_callback() {
+		if(isset( $this->options['showcontrols'] ) && $this->options['showcontrols'] == 'false'){
+			$cptbc_showcontrols_t = '';
+			$cptbc_showcontrols_f = ' selected="selected"';
+		} else {
+			$cptbc_showcontrols_t = ' selected="selected"';
+			$cptbc_showcontrols_f = '';
+		}
+		print '<select id="showcontrols" name="cptbc_settings[showcontrols]">
+			<option value="true"'.$cptbc_showcontrols_t.'>Show</option>
+			<option value="false"'.$cptbc_showcontrols_f.'>Hide</option>
+		</select>';
+	}
+	
+	public function orderby_callback() {
+		$orderby_options = array (
+			'menu_order' => 'Menu order, as set in Carousel overview page',
+			'date' => 'Date slide was published',
+			'rand' => 'Random ordering',
+			'title' => 'Slide title'			
+		);
+		print '<select id="orderby" name="cptbc_settings[orderby]">';
+		foreach($orderby_options as $val => $option){
+			print '<option value="'.$val.'"';
+			if(isset( $this->options['orderby'] ) && $this->options['orderby'] == $val){
+				print ' selected="selected"';
+			}
+			print ">$option</option>";
+		}
+		print '</select>';
+	}
+	
+	public function order_callback() {
+		if(isset( $this->options['order'] ) && $this->options['order'] == 'DESC'){
+			$cptbc_showcontrols_a = '';
+			$cptbc_showcontrols_d = ' selected="selected"';
+		} else {
+			$cptbc_showcontrols_a = ' selected="selected"';
+			$cptbc_showcontrols_d = '';
+		}
+		print '<select id="order" name="cptbc_settings[order]">
+			<option value="ASC"'.$cptbc_showcontrols_a.'>Ascending</option>
+			<option value="DESC"'.$cptbc_showcontrols_d.'>Decending</option>
+		</select>';
+	}
+	
+	public function category_callback() {
+		$cats = get_terms('carousel_category');
+		print '<select id="orderby" name="cptbc_settings[category]">
+			<option value="">All Categories</option>';
+		foreach($cats as $cat){
+			print '<option value="'.$cat->term_id.'"';
+			if(isset( $this->options['category'] ) && $this->options['category'] == $cat->term_id){
+				print ' selected="selected"';
+			}
+			print ">".$cat->name."</option>";
+		}
+		print '</select>';
+	}
+    	
+	
+}
+
+if( is_admin() ){
+    $cptbc_settings_page = new cptbc_settings_page();
+}
+
+// Add settings link on plugin page
+function cptbc_settings_link ($links) { 
+	$settings_link = '<a href="edit.php?post_type=cptbc&page=cpt-bootstrap-carousel">Settings</a>'; 
+	array_unshift($links, $settings_link); 
+	return $links; 
+}
+$cptbc_plugin = plugin_basename(__FILE__); 
+add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
+
+
+
+
+
+
+///////////////////
+// FRONT END
+///////////////////
+
+// Shortcode
+function cptbc_shortcode($atts, $content = null) {
+    // Set default shortcode attributes
+	$options = get_option( 'cptbc_settings' );
+	if(!$options){
+		cptbc_set_options ();
+		$options = get_option( 'cptbc_settings' );
+	}
+	$options['id'] = '';
 
 	// Parse incomming $atts into an array and merge it with $defaults
-	$atts = shortcode_atts($defaults, $atts);
+	$atts = shortcode_atts($options, $atts);
 
 	return cptbc_frontend($atts);
 }
