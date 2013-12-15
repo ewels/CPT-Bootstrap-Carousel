@@ -24,7 +24,7 @@ The plugin assumes that you're already using Bootstrap, so you need to load the 
 If you'd like to contribute to this plugin, you can find it [hosted on GitHub](https://github.com/tallphil/cpt-bootstrap-carousel).
 
 = Shortcode Options =
-You can specify how long the carousel pauses for, and whether to display captions and the controls using optional shortcode attributes. Most of these can be used in combination.
+As of version 1.5, nearly all of these options can be set in the CPT Bootstrap Carousel Settings page. However, if you'd like different settings for different carousels, you can override these by using shortcode options...
 
 * `interval` _(default 5000)_
     * Length of time for the caption to pause on each image. Time in milliseconds.
@@ -112,7 +112,7 @@ Absolutely - you just need to use the [do_shortcode](http://codex.wordpress.org/
 
 = Can I change the order that the images display in? =
 
-You can specify the order that the carousel displays images by using the `orderby` and `order` shortcode attributes. You can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters), such as random, by date, by title and by menu order.
+You can specify the order that the carousel displays images by changing the setting in the Settings page, or by using the `orderby` and `order` shortcode attributes. The settings page has common settings, or you can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters) for the shortcode.
 
 = Can I have different carousels with different images on the same site? =
 
@@ -145,6 +145,11 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.5 =
+* Added new Settings page. Means less shortcode attributes, more user friendly
+* Added i18n functions so that the plugin can be translated
+* Fix: Bug where featured images were shown on all post types. Noticed by @grahamharper
 
 = 1.4 =
 * Fix: Bug limited carousel to only 10 images. Now displays all images.

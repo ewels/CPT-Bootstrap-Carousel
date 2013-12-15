@@ -14,7 +14,7 @@ Also hosted on the [WordPress Plugins Directory](http://wordpress.org/support/vi
 
 Shortcode Options
 -----------------
-You can specify how long the carousel pauses for, and whether to display captions and the controls using optional shortcode attributes. Most of these can be used in combination.
+As of version 1.5, nearly all of these options can be set in the CPT Bootstrap Carousel Settings page. However, if you'd like different settings for different carousels, you can override these by using shortcode options...
 
 * `interval` _(default 5000)_
     * Length of time for the caption to pause on each image. Time in milliseconds.
@@ -51,8 +51,10 @@ You can specify how long the carousel pauses for, and whether to display caption
 * `twbs` _(default 2)_
 	* Output markup for Twitter Bootstrap Version 2 or 3.
 	* `[image-carousel twbs="3"]`
-
-
+	
+Credits
+-------
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @joshgerdes, @atnon and @grahamharper.
 
 Installation
 ------------
@@ -101,7 +103,7 @@ Absolutely - you just need to use the [do_shortcode](http://codex.wordpress.org/
 
 **Can I change the order that the images display in?**
 
-You can specify the order that the carousel displays images by using the `orderby` and `order` shortcode attributes. You can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters), such as random, by date, by title and by menu order.
+You can specify the order that the carousel displays images by changing the setting in the Settings page, or by using the `orderby` and `order` shortcode attributes. The settings page has common settings, or you can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters) for the shortcode.
 
 **Can I have different carousels with different images on the same site?**
 
@@ -129,12 +131,15 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.5__
+	* Added new Settings page. Means less shortcode attributes, more user friendly
+	* Added i18n functions so that the plugin can be translated
+	* Fix: Bug where featured images were shown on all post types. Noticed by @grahamharper
 * __1.4__
 	* Fix: Bug limited carousel to only 10 images. Now displays all images.
 	* Fix: Specifying interval didn't always worked. Re-written javascript to make it more reliable
 	* Added `id` shortcode attribute to specify a single image for the carousel
 	* Restructured the readme file to make usage clearer
-
 * __1.3__
 	* Added support for carousel categories, using filtering with the `category` shortcode
 	* Added `orderby` shortcode attribute to specify ordering of images
