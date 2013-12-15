@@ -6,8 +6,16 @@ Description: A custom post type for choosing images and content which outputs <a
 Version: 1.5
 Author: Phil Ewels
 Author URI: http://phil.ewels.co.uk
+Text Domain: cpt-bootstrap-carousel
 License: GPLv2
 */
+
+// Initialise - load in translations
+function cptbc_loadtranslations () {
+	$plugin_dir = basename(dirname(__FILE__));
+	load_plugin_textdomain( 'cpt-bootstrap-carousel', false, $plugin_dir );
+}
+add_action('plugins_loaded', 'cptbc_loadtranslations');
 
 ////////////////////////////
 // Custom Post Type Setup
@@ -15,18 +23,18 @@ License: GPLv2
 add_action( 'init', 'cptbc_post_type' );
 function cptbc_post_type() {
 	$labels = array(
-		'name' => 'Carousel Images',
-		'singular_name' => 'Carousel Image',
-		'add_new' => 'Add New',
-		'add_new_item' => 'Add New Carousel Image',
-		'edit_item' => 'Edit Carousel Image',
-		'new_item' => 'New Carousel Image',
-		'view_item' => 'View Carousel Image',
-		'search_items' => 'Search Carousel Images',
-		'not_found' =>  'No Carousel Image',
-		'not_found_in_trash' => 'No Carousel Images found in Trash', 
+		'name' => __('Carousel Images', 'cpt-bootstrap-carousel'),
+		'singular_name' => __('Carousel Image', 'cpt-bootstrap-carousel'),
+		'add_new' => __('Add New', 'cpt-bootstrap-carousel'),
+		'add_new_item' => __('Add New Carousel Image', 'cpt-bootstrap-carousel'),
+		'edit_item' => __('Edit Carousel Image', 'cpt-bootstrap-carousel'),
+		'new_item' => __('New Carousel Image', 'cpt-bootstrap-carousel'),
+		'view_item' => __('View Carousel Image', 'cpt-bootstrap-carousel'),
+		'search_items' => __('Search Carousel Images', 'cpt-bootstrap-carousel'),
+		'not_found' => __('No Carousel Image', 'cpt-bootstrap-carousel'),
+		'not_found_in_trash' => __('No Carousel Images found in Trash', 'cpt-bootstrap-carousel'),
 		'parent_item_colon' => '',
-		'menu_name' => 'Carousel'
+		'menu_name' => __('Carousel', 'cpt-bootstrap-carousel')
 	);
 	$args = array(
 		'labels' => $labels,
@@ -78,7 +86,7 @@ function cptbc_get_featured_image($post_ID) {
 	}  
 }
 function cptbc_columns_head($defaults) {  
-	$defaults['featured_image'] = 'Featured Image';  
+	$defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');  
 	return $defaults;  
 }  
 function cptbc_columns_content($column_name, $post_ID) {  
@@ -99,10 +107,10 @@ function cptbc_image_url(){
   $cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
   $cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
   ?>
-  <label>Image URL:</label>
+  <label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
   <input name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
-  <small><em>(optional - leave blank for no link)</em></small><br /><br />
-  <label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> Open link in new window?</label>
+  <small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small><br /><br />
+  <label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label>
   <?php
 }
 function cptbc_admin_init_custpost(){
@@ -155,7 +163,7 @@ class cptbc_settings_page {
     	
 	// Add settings page
 	public function add_plugin_page() {
-		add_submenu_page('edit.php?post_type=cptbc', 'Settings', 'Settings', 'manage_options', 'cpt-bootstrap-carousel', array($this,'create_admin_page'));
+		add_submenu_page('edit.php?post_type=cptbc', __('Settings', 'cpt-bootstrap-carousel'), __('Settings', 'cpt-bootstrap-carousel'), 'manage_options', 'cpt-bootstrap-carousel', array($this,'create_admin_page'));
 	}
     	
 	// Options page callback
@@ -168,8 +176,8 @@ class cptbc_settings_page {
 		}
 	    ?>
 	    <div class="wrap">
-			<?php screen_icon('edit');?> <h2>CPT Bootstrap Carousel Settings</h2>
-			<p>You can set the default behaviour of your carousels here. All of these settings can be overridden by using <a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">shortcode attributes</a>.</p>
+			<?php screen_icon('edit');?> <h2>CPT Bootstrap Carousel <?php _e('Settings', 'cpt-bootstrap-carousel'); ?></h2>
+			<p><?php printf(__('You can set the default behaviour of your carousels here. All of these settings can be overridden by using %s shortcode attributes %s.', 'cpt-bootstrap-carousel'),'<a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">', '</a>'); ?></p>
 		         
 	        <form method="post" action="options.php">
 	        <?php
@@ -199,7 +207,7 @@ class cptbc_settings_page {
     	
 	    add_settings_field(
 	        'twbs', // ID
-	        'Twitter Bootstrap Version', // Title 
+	        __('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'twbs_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -207,7 +215,7 @@ class cptbc_settings_page {
     	
 	    add_settings_field(
 	        'interval', // ID
-	        'Slide Interval (milliseconds)', // Title
+	        __('Slide Interval (milliseconds)', 'cpt-bootstrap-carousel'), // Title
 	        array( $this, 'interval_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section
@@ -215,7 +223,7 @@ class cptbc_settings_page {
 		
 	    add_settings_field(
 	        'showcaption', // ID
-	        'Show Slide Captions?', // Title 
+	        __('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'showcaption_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -223,7 +231,7 @@ class cptbc_settings_page {
 		
 	    add_settings_field(
 	        'showcontrols', // ID
-	        'Show Slide Controls?', // Title 
+	        __('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'showcontrols_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -231,7 +239,7 @@ class cptbc_settings_page {
 		
 	    add_settings_field(
 	        'orderby', // ID
-	        'Order Slides By', // Title 
+	        __('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'orderby_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -239,7 +247,7 @@ class cptbc_settings_page {
 		
 	    add_settings_field(
 	        'order', // ID
-	        'Ordering Direction', // Title 
+	        __('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'order_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -247,7 +255,7 @@ class cptbc_settings_page {
 		
 	    add_settings_field(
 	        'category', // ID
-	        'Restrict to Category', // Title 
+	        __('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
 	        array( $this, 'category_callback' ), // Callback
 	        'cpt-bootstrap-carousel', // Page
 	        'cptbc_settings_options' // Section           
@@ -304,8 +312,8 @@ class cptbc_settings_page {
 			$cptbc_showcaption_f = '';
 		}
 		print '<select id="showcaption" name="cptbc_settings[showcaption]">
-			<option value="true"'.$cptbc_showcaption_t.'>Show</option>
-			<option value="false"'.$cptbc_showcaption_f.'>Hide</option>
+			<option value="true"'.$cptbc_showcaption_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
+			<option value="false"'.$cptbc_showcaption_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
 		</select>';
 	}
 	
@@ -318,17 +326,17 @@ class cptbc_settings_page {
 			$cptbc_showcontrols_f = '';
 		}
 		print '<select id="showcontrols" name="cptbc_settings[showcontrols]">
-			<option value="true"'.$cptbc_showcontrols_t.'>Show</option>
-			<option value="false"'.$cptbc_showcontrols_f.'>Hide</option>
+			<option value="true"'.$cptbc_showcontrols_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
+			<option value="false"'.$cptbc_showcontrols_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
 		</select>';
 	}
 	
 	public function orderby_callback() {
 		$orderby_options = array (
-			'menu_order' => 'Menu order, as set in Carousel overview page',
-			'date' => 'Date slide was published',
-			'rand' => 'Random ordering',
-			'title' => 'Slide title'			
+			'menu_order' => __('Menu order, as set in Carousel overview page', 'cpt-bootstrap-carousel'),
+			'date' => __('Date slide was published', 'cpt-bootstrap-carousel'),
+			'rand' => __('Random ordering', 'cpt-bootstrap-carousel'),
+			'title' => __('Slide title', 'cpt-bootstrap-carousel')			
 		);
 		print '<select id="orderby" name="cptbc_settings[orderby]">';
 		foreach($orderby_options as $val => $option){
@@ -350,15 +358,15 @@ class cptbc_settings_page {
 			$cptbc_showcontrols_d = '';
 		}
 		print '<select id="order" name="cptbc_settings[order]">
-			<option value="ASC"'.$cptbc_showcontrols_a.'>Ascending</option>
-			<option value="DESC"'.$cptbc_showcontrols_d.'>Decending</option>
+			<option value="ASC"'.$cptbc_showcontrols_a.'>'.__('Ascending', 'cpt-bootstrap-carousel').'</option>
+			<option value="DESC"'.$cptbc_showcontrols_d.'>'.__('Decending', 'cpt-bootstrap-carousel').'</option>
 		</select>';
 	}
 	
 	public function category_callback() {
 		$cats = get_terms('carousel_category');
 		print '<select id="orderby" name="cptbc_settings[category]">
-			<option value="">All Categories</option>';
+			<option value="">'.__('All Categories', 'cpt-bootstrap-carousel').'</option>';
 		foreach($cats as $cat){
 			print '<option value="'.$cat->term_id.'"';
 			if(isset( $this->options['category'] ) && $this->options['category'] == $cat->term_id){
@@ -378,7 +386,7 @@ if( is_admin() ){
 
 // Add settings link on plugin page
 function cptbc_settings_link ($links) { 
-	$settings_link = '<a href="edit.php?post_type=cptbc&page=cpt-bootstrap-carousel">Settings</a>'; 
+	$settings_link = '<a href="edit.php?post_type=cptbc&page=cpt-bootstrap-carousel">'.__('Settings', 'cpt-bootstrap-carousel').'</a>'; 
 	array_unshift($links, $settings_link); 
 	return $links; 
 }
