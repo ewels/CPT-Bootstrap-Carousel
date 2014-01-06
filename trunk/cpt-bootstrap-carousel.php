@@ -12,7 +12,7 @@ License: GPLv2
 
 // Initialise - load in translations
 function cptbc_loadtranslations () {
-	$plugin_dir = basename(dirname(__FILE__));
+	$plugin_dir = basename(dirname(__FILE__)).'/languages';
 	load_plugin_textdomain( 'cpt-bootstrap-carousel', false, $plugin_dir );
 }
 add_action('plugins_loaded', 'cptbc_loadtranslations');
@@ -473,8 +473,8 @@ function cptbc_frontend($atts){
 			<?php } ?>
 			</div>
 			<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
-				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="icon-prev"></span></a>
-				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="icon-next"></span></a>
+				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			<?php } else if($atts['showcontrols'] === 'true'){ ?>
 				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>

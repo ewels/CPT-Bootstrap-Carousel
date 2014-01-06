@@ -1,0 +1,180 @@
+# Copyright (C) 2013 CPT Bootstrap Carousel
+# This file is distributed under the same license as the CPT Bootstrap Carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: CPT Bootstrap Carousel 1.5\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/cpt-bootstrap-carousel\n"
+"POT-Creation-Date: 2013-12-15 15:20:37+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-12-15 17:33+0100\n"
+"Last-Translator: Phil Ewels <phil@tallphil.co.uk>\n"
+"Language-Team: Ewels <phil@tallphil.co.uk>\n"
+"Language: en_GB\n"
+"X-Generator: Poedit 1.6.2\n"
+
+#: cpt-bootstrap-carousel.php:26
+msgid "Carousel Images"
+msgstr "Carousel Images"
+
+#: cpt-bootstrap-carousel.php:27
+msgid "Carousel Image"
+msgstr "Carousel Image"
+
+#: cpt-bootstrap-carousel.php:28
+msgid "Add New"
+msgstr "Add New"
+
+#: cpt-bootstrap-carousel.php:29
+msgid "Add New Carousel Image"
+msgstr "Add New Carousel Image"
+
+#: cpt-bootstrap-carousel.php:30
+msgid "Edit Carousel Image"
+msgstr "Edit Carousel Image"
+
+#: cpt-bootstrap-carousel.php:31
+msgid "New Carousel Image"
+msgstr "New Carousel Image"
+
+#: cpt-bootstrap-carousel.php:32
+msgid "View Carousel Image"
+msgstr "View Carousel Image"
+
+#: cpt-bootstrap-carousel.php:33
+msgid "Search Carousel Images"
+msgstr "Search Carousel Images"
+
+#: cpt-bootstrap-carousel.php:34
+msgid "No Carousel Image"
+msgstr "No Carousel Image"
+
+#: cpt-bootstrap-carousel.php:35
+msgid "No Carousel Images found in Trash"
+msgstr "No Carousel Images found in Trash"
+
+#: cpt-bootstrap-carousel.php:37
+msgid "Carousel"
+msgstr "Carousel"
+
+#: cpt-bootstrap-carousel.php:89
+msgid "Featured Image"
+msgstr "Featured Image"
+
+#: cpt-bootstrap-carousel.php:110
+msgid "Image URL"
+msgstr "Image URL"
+
+#: cpt-bootstrap-carousel.php:112
+msgid "(optional - leave blank for no link)"
+msgstr "(optional - leave blank for no link)"
+
+#: cpt-bootstrap-carousel.php:113
+msgid "Open link in new window?"
+msgstr "Open link in new window?"
+
+#: cpt-bootstrap-carousel.php:166 cpt-bootstrap-carousel.php:179
+#: cpt-bootstrap-carousel.php:389
+msgid "Settings"
+msgstr "Settings"
+
+#: cpt-bootstrap-carousel.php:180
+msgid ""
+"You can set the default behaviour of your carousels here. All of these "
+"settings can be overridden by using %s shortcode attributes %s."
+msgstr ""
+"You can set the default behaviour of your carousels here. All of these "
+"settings can be overridden by using %s shortcode attributes %s."
+
+#: cpt-bootstrap-carousel.php:210
+msgid "Twitter Bootstrap Version"
+msgstr "Twitter Bootstrap Version"
+
+#: cpt-bootstrap-carousel.php:218
+msgid "Slide Interval (milliseconds)"
+msgstr "Slide Interval (milliseconds)"
+
+#: cpt-bootstrap-carousel.php:226
+msgid "Show Slide Captions?"
+msgstr "Show Slide Captions?"
+
+#: cpt-bootstrap-carousel.php:234
+msgid "Show Slide Controls?"
+msgstr "Show Slide Controls?"
+
+#: cpt-bootstrap-carousel.php:242
+msgid "Order Slides By"
+msgstr "Order Slides By"
+
+#: cpt-bootstrap-carousel.php:250
+msgid "Ordering Direction"
+msgstr "Ordering Direction"
+
+#: cpt-bootstrap-carousel.php:258
+msgid "Restrict to Category"
+msgstr "Restrict to Category"
+
+#: cpt-bootstrap-carousel.php:315 cpt-bootstrap-carousel.php:329
+msgid "Show"
+msgstr "Show"
+
+#: cpt-bootstrap-carousel.php:316 cpt-bootstrap-carousel.php:330
+msgid "Hide"
+msgstr "Hide"
+
+#: cpt-bootstrap-carousel.php:336
+msgid "Menu order, as set in Carousel overview page"
+msgstr "Menu order, as set in Carousel overview page"
+
+#: cpt-bootstrap-carousel.php:337
+msgid "Date slide was published"
+msgstr "Date slide was published"
+
+#: cpt-bootstrap-carousel.php:338
+msgid "Random ordering"
+msgstr "Random ordering"
+
+#: cpt-bootstrap-carousel.php:339
+msgid "Slide title"
+msgstr "Slide title"
+
+#: cpt-bootstrap-carousel.php:361
+msgid "Ascending"
+msgstr "Ascending"
+
+#: cpt-bootstrap-carousel.php:362
+msgid "Decending"
+msgstr "Decending"
+
+#: cpt-bootstrap-carousel.php:369
+msgid "All Categories"
+msgstr "All Categories"
+
+#. Plugin Name of the plugin/theme
+msgid "CPT Bootstrap Carousel"
+msgstr "CPT Bootstrap Carousel"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.tallphil.co.uk/bootstrap-carousel/"
+msgstr "http://www.tallphil.co.uk/bootstrap-carousel/"
+
+#. Description of the plugin/theme
+msgid ""
+"A custom post type for choosing images and content which outputs <a href="
+"\"http://twitter.github.io/bootstrap/javascript.html#carousel\" target="
+"\"_blank\">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap "
+"javascript and CSS to be loaded separately."
+msgstr ""
+"A custom post type for choosing images and content which outputs <a href="
+"\"http://twitter.github.io/bootstrap/javascript.html#carousel\" target="
+"\"_blank\">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap "
+"javascript and CSS to be loaded separately."
+
+#. Author of the plugin/theme
+msgid "Phil Ewels"
+msgstr "Phil Ewels"
+
+#. Author URI of the plugin/theme
+msgid "http://phil.ewels.co.uk"
+msgstr "http://phil.ewels.co.uk"
