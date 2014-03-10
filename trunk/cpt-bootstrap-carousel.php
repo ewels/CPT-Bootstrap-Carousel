@@ -434,6 +434,7 @@ function cptbc_frontend($atts){
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
 		if ( '' != get_the_post_thumbnail() ) {
+			$post_id = get_the_ID();
 			$title = get_the_title();
 			$content = get_the_excerpt();
 			$image = get_the_post_thumbnail( get_the_ID(), 'full' );
@@ -453,7 +454,7 @@ function cptbc_frontend($atts){
 			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) { ?>
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>">
+				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $post_id; ?>">
 					<?php if($image['url']) {
 						echo '<a href="'.$image['url'].'"';
 						if($image['url_openblank']) {
