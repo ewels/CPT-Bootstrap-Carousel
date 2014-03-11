@@ -440,7 +440,7 @@ function cptbc_frontend($atts){
 			$image = get_the_post_thumbnail( get_the_ID(), 'full' );
 			$url = get_post_meta(get_the_ID(), 'cptbc_image_url');
 			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank');
-			$images[] = array('title' => $title, 'content' => $content, 'image' => $image, 'url' => esc_url($url[0]), 'url_openblank' => $url_openblank[0] == "1" ? true : false);
+			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'url' => esc_url($url[0]), 'url_openblank' => $url_openblank[0] == "1" ? true : false);
 		}
 	}
 	if(count($images) > 0){
@@ -454,7 +454,7 @@ function cptbc_frontend($atts){
 			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) { ?>
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $post_id; ?>">
+				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>">
 					<?php if($image['url']) {
 						echo '<a href="'.$image['url'].'"';
 						if($image['url_openblank']) {
