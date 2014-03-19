@@ -464,7 +464,7 @@ function cptbc_frontend($atts){
 					}
 					echo $image['image'];
 					if($image['url']) { echo '</a>'; }?>
-					<?php if($atts['showcaption'] === 'true') { ?>
+					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
 						<div class="carousel-caption">
 							<h4><?php echo $image['title']; ?></h4>
 							<p><?php echo $image['content']; ?></p>
