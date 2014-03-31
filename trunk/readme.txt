@@ -100,6 +100,7 @@ This can be caused by having your jQuery and Bootstrap javascript files included
 * Make sure that the Bootstrap javascript file is being included after jQuery
 	* NB: This often means putting it after `wp_head()` in your theme's `header.php` file
 * Make sure that both jQuery and Bootstrap are being included in the theme header, not footer
+* Make sure that the Bootstrap javascript file is referenced _after_ the jQuery file.
 
 = How do I insert the carousel? =
 
