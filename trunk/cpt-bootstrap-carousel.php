@@ -120,8 +120,12 @@ add_action("add_meta_boxes", "cptbc_admin_init_custpost");
 function cptbc_mb_save_details(){
 	global $post;
 	if (isset($_POST["cptbc_image_url"])) {
+		$openblank = 0;
+		if(isset($_POST["cptbc_image_url_openblank"]) && $_POST["cptbc_image_url_openblank"] == '1'){
+			$openblank = 1;
+		}
 		update_post_meta($post->ID, "cptbc_image_url", esc_url($_POST["cptbc_image_url"]));
-		update_post_meta($post->ID, "cptbc_image_url_openblank", $_POST["cptbc_image_url_openblank"]);
+		update_post_meta($post->ID, "cptbc_image_url_openblank", $openblank);
 	}
 }
 add_action('save_post', 'cptbc_mb_save_details');
