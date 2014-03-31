@@ -138,6 +138,7 @@ Changelog
 	* Added a unique CSS id attribute to each item, based on the wordpress post ID
 	* Fixed a bug where the plugin was throwing and error when WP_DEBUG was on
 	* Updated the FAQ a little
+	* Changed the default version of bootstrap to v3 for new installs. This can be customised in the settings.
 * __1.5__
 	* Added new Settings page. Means less shortcode attributes, more user friendly
 	* Added i18n functions so that the plugin can be translated

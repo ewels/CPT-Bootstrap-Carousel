@@ -153,6 +153,7 @@ You need to make sure that each image is the same height. You can do this by set
 * Added a unique CSS id attribute to each item, based on the wordpress post ID
 * Fixed a bug where the plugin was throwing and error when WP_DEBUG was on
 * Updated the FAQ a little
+* Changed the default version of bootstrap to v3 for new installs. This can be customised in the settings.
 
 = 1.5 =
 * Added new Settings page. Means less shortcode attributes, more user friendly
