@@ -141,7 +141,7 @@ function cptbc_set_options (){
 		'order' => 'ASC',
 		'category' => '',
 		'id' => '',
-		'twbs' => '2'
+		'twbs' => '3'
 	);
 	add_option('cptbc_settings', $defaults);
 }
