@@ -2,8 +2,8 @@
 /*
 Plugin Name: CPT Bootstrap Carousel
 Plugin URI: http://www.tallphil.co.uk/bootstrap-carousel/
-Description: A custom post type for choosing images and content which outputs <a href="http://twitter.github.io/bootstrap/javascript.html#carousel" target="_blank">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap javascript and CSS to be loaded separately.
-Version: 1.5
+Description: A custom post type for choosing images and content which outputs <a href="http://getbootstrap.com/javascript/#carousel" target="_blank">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap javascript and CSS to be loaded separately.
+Version: 1.6
 Author: Phil Ewels
 Author URI: http://phil.ewels.co.uk
 Text Domain: cpt-bootstrap-carousel

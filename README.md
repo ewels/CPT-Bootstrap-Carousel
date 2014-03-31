@@ -132,6 +132,12 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.6__
+	* Made the title and caption linked if we have a URL
+	* Stopped the caption div from displaying if there is not caption
+	* Added a unique CSS id attribute to each item, based on the wordpress post ID
+	* Fixed a bug where the plugin was throwing and error when WP_DEBUG was on
+	* Updated the FAQ a little
 * __1.5__
 	* Added new Settings page. Means less shortcode attributes, more user friendly
 	* Added i18n functions so that the plugin can be translated
