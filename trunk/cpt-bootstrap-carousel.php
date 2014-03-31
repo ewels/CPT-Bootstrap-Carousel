@@ -457,21 +457,24 @@ function cptbc_frontend($atts){
 			<?php } ?>
 			</ol>
 			<div class="carousel-inner">
-			<?php foreach ($images as $key => $image) { ?>
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>">
-					<?php if($image['url']) {
-						echo '<a href="'.$image['url'].'"';
-						if($image['url_openblank']) {
-							echo ' target="_blank"';
-						}
-						echo '>';
+			<?php foreach ($images as $key => $image) {
+				$linkstart = '';
+				$linkend = '';
+				if($image['url']) {
+					$linkstart = '<a href="'.$image['url'].'"';
+					if($image['url_openblank']) {
+						$linkstart .= ' target="_blank"';
 					}
-					echo $image['image'];
-					if($image['url']) { echo '</a>'; }?>
+					$linkstart .= '>';
+					$linkend = '</a>';
+				}
+			?>
+				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>">
+					<?php echo $linkstart.$image['image'].$linkend; ?>
 					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
 						<div class="carousel-caption">
-							<h4><?php echo $image['title']; ?></h4>
-							<p><?php echo $image['content']; ?></p>
+							<h4><?php echo $linkstart.$image['title'].$linkend; ?></h4>
+							<p><?php echo $linkstart.$image['content'].$linkend; ?></p>
 						</div>
 					<?php } ?>
 				</div>
