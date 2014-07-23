@@ -450,11 +450,11 @@ function cptbc_frontend($atts){
 	if(count($images) > 0){
 		ob_start();
 		?>
-		<div id="cptbc_<?php echo $id; ?>" class="carousel slide">
+		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" data-ride="carousel" data-interval="<?php echo $atts['interval']; ?>">
 			<ol class="carousel-indicators">
-			<?php foreach ($images as $key => $image) { ?>
-				<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" data-interval="<?php echo $atts['interval']; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
-			<?php } ?>
+				<?php foreach ($images as $key => $image) { ?>
+					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+				<?php } ?>
 			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) {
@@ -488,13 +488,6 @@ function cptbc_frontend($atts){
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
 			<?php } ?>
 		</div>
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery('#cptbc_<?php echo $id; ?>').carousel({
-					interval: <?php echo $atts['interval']; ?>
-				});
-			});
-		</script>
 <?php }
 	$output = ob_get_contents();
 	ob_end_clean();
