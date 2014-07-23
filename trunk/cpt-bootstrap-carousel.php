@@ -452,6 +452,10 @@ function cptbc_frontend($atts){
 		?>
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" data-ride="carousel" data-interval="<?php echo $atts['interval']; ?>">
 			<ol class="carousel-indicators">
+				<?php foreach ($images as $key => $image) { ?>
+					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+				<?php } ?>
+			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) {
 				$linkstart = '';
@@ -476,10 +480,6 @@ function cptbc_frontend($atts){
 				</div>
 			<?php } ?>
 			</div>
-			<?php foreach ($images as $key => $image) { ?>
-				<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" data-interval="<?php echo $atts['interval']; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
-			<?php } ?>
-			</ol>
 			<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
 				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
