@@ -93,7 +93,7 @@ function cptbc_columns_content($column_name, $post_ID) {
 	if ($column_name == 'featured_image') {  
 		$post_featured_image = cptbc_get_featured_image($post_ID);  
 		if ($post_featured_image) {  
-			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" /></a>';  
+			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';  
 		}  
 	}  
 }
@@ -102,16 +102,16 @@ add_action('manage_cptbc_posts_custom_column', 'cptbc_columns_content', 10, 2);
 
 // Extra admin field for image URL
 function cptbc_image_url(){
-  global $post;
-  $custom = get_post_custom($post->ID);
-  $cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
-  $cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
-  ?>
-  <label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
-  <input name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
-  <small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small><br /><br />
-  <label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label>
-  <?php
+	global $post;
+	$custom = get_post_custom($post->ID);
+	$cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
+	$cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
+	?>
+	<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
+	<input name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
+	<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small><br /><br />
+	<label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label>
+	<?php
 }
 function cptbc_admin_init_custpost(){
 	add_meta_box("cptbc_image_url", "Image Link URL", "cptbc_image_url", "cptbc", "side", "low");
@@ -137,6 +137,8 @@ function cptbc_set_options (){
 		'interval' => '5000',
 		'showcaption' => 'true',
 		'showcontrols' => 'true',
+		'customprev' => '',
+		'customnext' => '',
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'category' => '',
@@ -158,118 +160,134 @@ function cptbc_deactivate(){
 class cptbc_settings_page {
 	// Holds the values to be used in the fields callbacks
 	private $options;
-    	
+			
 	// Start up
 	public function __construct() {
-	    add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
-	    add_action( 'admin_init', array( $this, 'page_init' ) );
+			add_action( 'admin_menu', array( $this, 'add_plugin_page' ) );
+			add_action( 'admin_init', array( $this, 'page_init' ) );
 	}
-    	
+			
 	// Add settings page
 	public function add_plugin_page() {
 		add_submenu_page('edit.php?post_type=cptbc', __('Settings', 'cpt-bootstrap-carousel'), __('Settings', 'cpt-bootstrap-carousel'), 'manage_options', 'cpt-bootstrap-carousel', array($this,'create_admin_page'));
 	}
-    	
+			
 	// Options page callback
 	public function create_admin_page() {
-	    // Set class property
-	    $this->options = get_option( 'cptbc_settings' );
+			// Set class property
+			$this->options = get_option( 'cptbc_settings' );
 		if(!$this->options){
 			cptbc_set_options ();
 			$this->options = get_option( 'cptbc_settings' );
 		}
-	    ?>
-	    <div class="wrap">
+			?>
+			<div class="wrap">
 			<?php screen_icon('edit');?> <h2>CPT Bootstrap Carousel <?php _e('Settings', 'cpt-bootstrap-carousel'); ?></h2>
 			<p><?php printf(__('You can set the default behaviour of your carousels here. All of these settings can be overridden by using %s shortcode attributes %s.', 'cpt-bootstrap-carousel'),'<a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">', '</a>'); ?></p>
-		         
-	        <form method="post" action="options.php">
-	        <?php
-	            settings_fields( 'cptbc_settings' );   
-	            do_settings_sections( 'cpt-bootstrap-carousel' );
-	            submit_button(); 
-	        ?>
-	        </form>
-	    </div>
-	    <?php
+						 
+					<form method="post" action="options.php">
+					<?php
+							settings_fields( 'cptbc_settings' );   
+							do_settings_sections( 'cpt-bootstrap-carousel' );
+							submit_button(); 
+					?>
+					</form>
+			</div>
+			<?php
 	}
-    	
+			
 	// Register and add settings
 	public function page_init() {        
-	    register_setting(
-	        'cptbc_settings', // Option group
-	        'cptbc_settings', // Option name
-	        array( $this, 'sanitize' ) // Sanitize
-	    );
-    	
-	    add_settings_section(
-	        'cptbc_settings_options', // ID
-	        '', // Title - nothing to say here.
-	        array( $this, 'cptbc_settings_options_header' ), // Callback
-	        'cpt-bootstrap-carousel' // Page
-	    );  
-    	
-	    add_settings_field(
-	        'twbs', // ID
-	        __('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'twbs_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
-    	
-	    add_settings_field(
-	        'interval', // ID
-	        __('Slide Interval (milliseconds)', 'cpt-bootstrap-carousel'), // Title
-	        array( $this, 'interval_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section
-	    );
+			register_setting(
+					'cptbc_settings', // Option group
+					'cptbc_settings', // Option name
+					array( $this, 'sanitize' ) // Sanitize
+			);
+			
+			add_settings_section(
+					'cptbc_settings_options', // ID
+					'', // Title - nothing to say here.
+					array( $this, 'cptbc_settings_options_header' ), // Callback
+					'cpt-bootstrap-carousel' // Page
+			);  
+			
+			add_settings_field(
+					'twbs', // ID
+					__('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'twbs_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
+			
+			add_settings_field(
+					'interval', // ID
+					__('Slide Interval (milliseconds)', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'interval_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
 		
-	    add_settings_field(
-	        'showcaption', // ID
-	        __('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'showcaption_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
+			add_settings_field(
+					'showcaption', // ID
+					__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'showcaption_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
 		
-	    add_settings_field(
-	        'showcontrols', // ID
-	        __('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'showcontrols_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
+			add_settings_field(
+					'showcontrols', // ID
+					__('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'showcontrols_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
+			
+			add_settings_field(
+					'customprev', // ID
+					__('Custom prev button class', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'customprev_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
+			
+			add_settings_field(
+					'customnext', // ID
+					__('Custom next button class', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'customnext_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
 		
-	    add_settings_field(
-	        'orderby', // ID
-	        __('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'orderby_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
+			add_settings_field(
+					'orderby', // ID
+					__('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'orderby_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
 		
-	    add_settings_field(
-	        'order', // ID
-	        __('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'order_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
+			add_settings_field(
+					'order', // ID
+					__('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'order_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
 		
-	    add_settings_field(
-	        'category', // ID
-	        __('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
-	        array( $this, 'category_callback' ), // Callback
-	        'cpt-bootstrap-carousel', // Page
-	        'cptbc_settings_options' // Section           
-	    );
-		   
+			add_settings_field(
+					'category', // ID
+					__('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'category_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section           
+			);
+			 
 	}
-    	
+			
 	// Sanitize each setting field as needed -  @param array $input Contains all settings fields as array keys
 	public function sanitize( $input ) {
-	    $new_input = array();
+			$new_input = array();
 		foreach($input as $key => $var){
 			if($key == 'twbs' || $key == 'interval'){
 				$new_input[$key] = absint( $input[$key] );
@@ -280,14 +298,14 @@ class cptbc_settings_page {
 				$new_input[$key] = sanitize_text_field( $input[$key] );
 			}
 		}
-	    return $new_input;
+			return $new_input;
 	}
-    	
+			
 	// Print the Section text
 	public function cptbc_settings_options_header() {
-	    // nothing to say here.
+			// nothing to say here.x
 	}
-    	
+			
 	public function twbs_callback() {
 		if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '3'){
 			$cptbc_twbs3 = ' selected="selected"';
@@ -303,8 +321,8 @@ class cptbc_settings_page {
 	}
 	
 	public function interval_callback() {
-	    printf('<input type="text" id="interval" name="cptbc_settings[interval]" value="%s" size="6" />',
-	        isset( $this->options['interval'] ) ? esc_attr( $this->options['interval']) : '');
+			printf('<input type="text" id="interval" name="cptbc_settings[interval]" value="%s" size="6" />',
+					isset( $this->options['interval'] ) ? esc_attr( $this->options['interval']) : '');
 	}
 	
 	public function showcaption_callback() {
@@ -325,14 +343,31 @@ class cptbc_settings_page {
 		if(isset( $this->options['showcontrols'] ) && $this->options['showcontrols'] == 'false'){
 			$cptbc_showcontrols_t = '';
 			$cptbc_showcontrols_f = ' selected="selected"';
-		} else {
+			$cptbc_showcontrols_c = '';
+		} else if(isset( $this->options['showcontrols'] ) && $this->options['showcontrols'] == 'true'){
 			$cptbc_showcontrols_t = ' selected="selected"';
 			$cptbc_showcontrols_f = '';
+			$cptbc_showcontrols_c = '';
+		} else if(isset( $this->options['showcontrols'] ) && $this->options['showcontrols'] == 'custom'){
+			$cptbc_showcontrols_t = '';
+			$cptbc_showcontrols_f = '';
+			$cptbc_showcontrols_c = ' selected="selected"';
 		}
 		print '<select id="showcontrols" name="cptbc_settings[showcontrols]">
 			<option value="true"'.$cptbc_showcontrols_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
 			<option value="false"'.$cptbc_showcontrols_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
+			<option value="custom"'.$cptbc_showcontrols_c.'>'.__('Custom', 'cpt-bootstrap-carousel').'</option>
 		</select>';
+	}
+	
+	public function customnext_callback() {
+			printf('<input type="text" id="customnext" name="cptbc_settings[customnext]" value="%s" size="6" />',
+					isset( $this->options['customnext'] ) ? esc_attr( $this->options['customnext']) : '');
+	}
+	
+	public function customprev_callback() {
+			printf('<input type="text" id="customprev" name="cptbc_settings[customprev]" value="%s" size="6" />',
+					isset( $this->options['customprev'] ) ? esc_attr( $this->options['customprev']) : '');
 	}
 	
 	public function orderby_callback() {
@@ -340,7 +375,7 @@ class cptbc_settings_page {
 			'menu_order' => __('Menu order, as set in Carousel overview page', 'cpt-bootstrap-carousel'),
 			'date' => __('Date slide was published', 'cpt-bootstrap-carousel'),
 			'rand' => __('Random ordering', 'cpt-bootstrap-carousel'),
-			'title' => __('Slide title', 'cpt-bootstrap-carousel')			
+			'title' => __('Slide title', 'cpt-bootstrap-carousel')      
 		);
 		print '<select id="orderby" name="cptbc_settings[orderby]">';
 		foreach($orderby_options as $val => $option){
@@ -380,12 +415,12 @@ class cptbc_settings_page {
 		}
 		print '</select>';
 	}
-    	
+			
 	
 }
 
 if( is_admin() ){
-    $cptbc_settings_page = new cptbc_settings_page();
+		$cptbc_settings_page = new cptbc_settings_page();
 }
 
 // Add settings link on plugin page
@@ -408,7 +443,7 @@ add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
 
 // Shortcode
 function cptbc_shortcode($atts, $content = null) {
-    // Set default shortcode attributes
+		// Set default shortcode attributes
 	$options = get_option( 'cptbc_settings' );
 	if(!$options){
 		cptbc_set_options ();
@@ -450,10 +485,10 @@ function cptbc_frontend($atts){
 	if(count($images) > 0){
 		ob_start();
 		?>
-		<div id="cptbc_<?php echo $id; ?>" class="carousel slide">
+		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" data-ride="carousel" data-interval="<?php echo $atts['interval']; ?>">
 			<ol class="carousel-indicators">
 			<?php foreach ($images as $key => $image) { ?>
-				<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" data-interval="<?php echo $atts['interval']; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+				<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
 			<?php } ?>
 			</ol>
 			<div class="carousel-inner">
@@ -486,21 +521,17 @@ function cptbc_frontend($atts){
 			<?php } else if($atts['showcontrols'] === 'true'){ ?>
 				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
+			<?php } else if($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
+				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
+				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
 			<?php } ?>
 		</div>
-		<script type="text/javascript">
-			jQuery(document).ready(function() {
-				jQuery('#cptbc_<?php echo $id; ?>').carousel({
-					interval: <?php echo $atts['interval']; ?>
-				});
-			});
-		</script>
 <?php }
 	$output = ob_get_contents();
 	ob_end_clean();
 	
 	// Restore original Post Data
-	wp_reset_postdata();	
+	wp_reset_postdata();  
 	
 	return $output;
 }
