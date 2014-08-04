@@ -447,6 +447,65 @@ add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
 
 
 
+///////////////////
+// CONTEXTUAL HELP
+///////////////////
+function cptbc_contextual_help_tab() {
+	$help = '<p>You can add a <strong>CPT Bootstrap Carousel</strong> image carousel using the shortcode <code>[image-carousel]</code>.</p>
+		<p>You can read the full plugin documentation on the <a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">WordPress plugins page</a></p>
+		<p>Most settings can be changed in the <a href="">settings page</a> but you can also specify options for individual carousels
+		using the following settings:</p>
+		
+		<ul>
+			<li><code>interval</code> <em>(default 5000)</em>
+			<ul>
+				<li>Length of time for the caption to pause on each image. Time in milliseconds.</li>
+			</ul></li>
+			
+			<li><code>showcaption</code> <em>(default true)</em>
+			<ul>
+				<li>Whether to display the text caption on each image or not. true or false.</li>
+			</ul></li>
+			
+			<li><code>showcontrols</code> <em>(default true)</em>
+			<ul>
+				<li>Whether to display the control arrows or not. true or false.</li>
+			</ul></li>
+			
+			<li><code>orderby</code> and <code>order</code> <em>(default menu_order ASC)</em>
+			<ul>
+				<li>What order to display the posts in. Uses WP_Query terms.</li>
+			</ul></li>
+			
+			<li><code>category</code> <em>(default all)</em>
+			<ul>
+				<li>Filter carousel items by a comma separated list of carousel category slugs.</li>
+			</ul></li>
+			
+			<li><code>id</code> <em>(default all)</em>
+			<ul>
+				<li>Specify the ID of a specific carousel post to display only one image.</li>';
+	if(isset($_GET['post'])){
+		$help .= '<li>The ID of the post you\'re currently editing is <strong>'.$_GET['post'].'</strong></li>';
+	}
+	$help .= '
+			</ul></li>
+			
+			<li><code>twbs</code> <em>(default 2)</em>
+			<ul>
+				<li>Output markup for Twitter Bootstrap Version 2 or 3.</li>
+			</ul></li>
+		</ul>
+			';
+	$screen = get_current_screen();
+	$screen->add_help_tab( array(
+	   'id' => 'cptbc_contextual_help',
+	   'title' => __('Carousel'),
+	   'content' => __($help)
+	) );
+}
+add_action('load-post.php', 'cptbc_contextual_help_tab');
+add_action('load-post-new.php', 'cptbc_contextual_help_tab');
 
 
 

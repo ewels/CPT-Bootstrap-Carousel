@@ -132,6 +132,11 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.7 dev__
+	* Added custom classes for next/prev buttons - written by @reddo
+	* Added admin column for categories
+	* Made the category dropdown in the settings work (bugfix)
+	* Addeed contextual help on post and page editing screens
 * __1.6__
 	* Made the title and caption linked if we have a URL
 	* Stopped the caption div from displaying if there is not caption
