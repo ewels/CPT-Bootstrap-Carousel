@@ -54,7 +54,7 @@ As of version 1.5, nearly all of these options can be set in the CPT Bootstrap C
 	
 Credits
 -------
-This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @joshgerdes, @atnon and @grahamharper.
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon and @grahamharper.
 
 Installation
 ------------
