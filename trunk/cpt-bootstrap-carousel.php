@@ -87,6 +87,7 @@ function cptbc_get_featured_image($post_ID) {
 }
 function cptbc_columns_head($defaults) {  
 	$defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');  
+	$defaults['category'] = __('Category', 'cpt-bootstrap-carousel');  
 	return $defaults;  
 }  
 function cptbc_columns_content($column_name, $post_ID) {  
@@ -95,7 +96,19 @@ function cptbc_columns_content($column_name, $post_ID) {
 		if ($post_featured_image) {  
 			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';  
 		}  
-	}  
+	}
+	if ($column_name == 'category') {  
+		$post_categories = get_the_terms($post_ID, 'carousel_category');
+		if ($post_categories) {
+			$output = '';
+			foreach($post_categories as $cat){
+				$output .= $cat->name.', ';
+			}
+			echo trim($output, ', ');
+		} else {
+			echo 'No categories';
+		}
+	}
 }
 add_filter('manage_cptbc_posts_columns', 'cptbc_columns_head');  
 add_action('manage_cptbc_posts_custom_column', 'cptbc_columns_content', 10, 2);
@@ -407,8 +420,8 @@ class cptbc_settings_page {
 		print '<select id="orderby" name="cptbc_settings[category]">
 			<option value="">'.__('All Categories', 'cpt-bootstrap-carousel').'</option>';
 		foreach($cats as $cat){
-			print '<option value="'.$cat->term_id.'"';
-			if(isset( $this->options['category'] ) && $this->options['category'] == $cat->term_id){
+			print '<option value="'.$cat->name.'"';
+			if(isset( $this->options['category'] ) && $this->options['category'] == $cat->name){
 				print ' selected="selected"';
 			}
 			print ">".$cat->name."</option>";
@@ -461,7 +474,12 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 // Display carousel
 function cptbc_frontend($atts){
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
-	$args = array( 'post_type' => 'cptbc', 'posts_per_page' => '-1', 'orderby' => $atts['orderby'], 'order' => $atts['order']);
+	$args = array(
+		'post_type' => 'cptbc',
+		'posts_per_page' => '-1',
+		'orderby' => $atts['orderby'],
+		'order' => $atts['order']
+	);
 	if($atts['category'] != ''){
 		$args['carousel_category'] = $atts['category'];
 	}
@@ -526,6 +544,13 @@ function cptbc_frontend($atts){
 				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
 			<?php } ?>
 		</div>
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('#cptbc_<?php echo $id; ?>').carousel({
+					interval: <?php echo $atts['interval']; ?>
+				});
+			});
+		</script>
 <?php }
 	$output = ob_get_contents();
 	ob_end_clean();
