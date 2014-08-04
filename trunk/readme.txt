@@ -4,7 +4,7 @@ Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
 Tested up to: 3.8.1
-Stable tag: 1.6
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,12 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.7 =
+* Added custom classes for next/prev buttons - written by @reddo
+* Added admin column for categories
+* Made the category dropdown in the settings work (bugfix)
+* Addeed contextual help on post and page editing screens
 
 = 1.6 =
 * Made the title and caption linked if we have a URL

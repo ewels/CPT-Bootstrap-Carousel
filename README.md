@@ -132,7 +132,7 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
-* __1.7 dev__
+* __1.7__
 	* Added custom classes for next/prev buttons - written by @reddo
 	* Added admin column for categories
 	* Made the category dropdown in the settings work (bugfix)
