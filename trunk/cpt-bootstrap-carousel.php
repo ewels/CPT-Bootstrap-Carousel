@@ -563,11 +563,13 @@ function cptbc_frontend($atts){
 		ob_start();
 		?>
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" data-ride="carousel" data-interval="<?php echo $atts['interval']; ?>">
-			<ol class="carousel-indicators">
-			<?php foreach ($images as $key => $image) { ?>
-				<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+			<?php if( count( $images ) > 1 ){ ?>
+				<ol class="carousel-indicators">
+				<?php foreach ($images as $key => $image) { ?>
+					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+				<?php } ?>
+				</ol>
 			<?php } ?>
-			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) {
 				$linkstart = '';
@@ -592,15 +594,17 @@ function cptbc_frontend($atts){
 				</div>
 			<?php } ?>
 			</div>
-			<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
-				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-			<?php } else if($atts['showcontrols'] === 'true'){ ?>
-				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
-				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
-			<?php } else if($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
-				<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
-				<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+			<?php if( count( $images ) > 1 ){ ?>
+				<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+				<?php } else if($atts['showcontrols'] === 'true'){ ?>
+					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
+					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
+				<?php } else if($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
+					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
+					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+				<?php } ?>
 			<?php } ?>
 		</div>
 		<script type="text/javascript">
