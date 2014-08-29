@@ -568,8 +568,8 @@ function cptbc_frontend($atts){
 				<?php foreach ($images as $key => $image) { ?>
 					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
 				<?php } ?>
+				</ol>
 			<?php } ?>
-			</ol>
 			<div class="carousel-inner">
 			<?php foreach ($images as $key => $image) {
 				$linkstart = '';
