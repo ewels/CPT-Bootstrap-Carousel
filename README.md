@@ -134,6 +134,8 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.8.1__
+	* Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
 * __1.8__
 	* Bumped "tested with" up to `WP 4.0`
 	* Added new plugin icon and updated the banner + screenshots
