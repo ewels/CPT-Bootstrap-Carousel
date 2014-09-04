@@ -153,6 +153,8 @@ You need to make sure that each image is the same height. You can do this by set
 * Carousel controls now hidden if there is only one image - thanks to @rchq
 * Option to use a different WordPress image size, suggested by oheijo
 * Added option to specify HTML tags for caption and title. Suggested by smtk
+* New option to use background images instead of `<img>` tags. Good for resizing. Suggested by @cla63 and @cookierebes
+* New Serbo-Croatian translation! Thanks to borisa from http://www.webhostinghub.com
 
 = 1.7 =
 * Added custom classes for next/prev buttons - written by @reddo
