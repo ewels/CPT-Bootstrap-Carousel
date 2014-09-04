@@ -3,8 +3,8 @@ Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 3.8.1
-Stable tag: 1.7
+Tested up to: 4.0
+Stable tag: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -146,6 +146,12 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.8 =
+* Bumped "tested with" up to WP 4.0
+* Added new plugin icon and updated the banner + screenshots
+* Carousel controls now hidden if there is only one image - thanks to @rchq
+* Option to use a different WordPress image size, suggested by oheijo
 
 = 1.7 =
 * Added custom classes for next/prev buttons - written by @reddo

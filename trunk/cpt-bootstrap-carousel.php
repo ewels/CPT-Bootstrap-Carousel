@@ -3,7 +3,7 @@
 Plugin Name: CPT Bootstrap Carousel
 Plugin URI: http://www.tallphil.co.uk/bootstrap-carousel/
 Description: A custom post type for choosing images and content which outputs <a href="http://getbootstrap.com/javascript/#carousel" target="_blank">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap javascript and CSS to be loaded separately.
-Version: 1.6
+Version: 1.8
 Author: Phil Ewels
 Author URI: http://phil.ewels.co.uk
 Text Domain: cpt-bootstrap-carousel
@@ -66,7 +66,7 @@ add_action( 'init', 'cptbc_taxonomies', 0 );
 function cptbc_addFeaturedImageSupport() {
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
 	if( $supportedTypes === false ) {
-		add_theme_support( 'post-thumbnails', array( 'cptbc' ) );      
+		add_theme_support( 'post-thumbnails', array( 'cptbc' ) );	  
 		add_image_size('featured_preview', 100, 55, true);
 	} elseif( is_array( $supportedTypes ) ) {
 		$supportedTypes[0][] = 'cptbc';
@@ -155,6 +155,7 @@ function cptbc_set_options (){
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'category' => '',
+		'image_size' => 'full',
 		'id' => '',
 		'twbs' => '3'
 	);
@@ -210,7 +211,7 @@ class cptbc_settings_page {
 	}
 			
 	// Register and add settings
-	public function page_init() {        
+	public function page_init() {		
 			register_setting(
 					'cptbc_settings', // Option group
 					'cptbc_settings', // Option name
@@ -229,7 +230,7 @@ class cptbc_settings_page {
 					__('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'twbs_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
 			);
 			
 			add_settings_field(
@@ -245,7 +246,7 @@ class cptbc_settings_page {
 					__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'showcaption_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
 			);
 		
 			add_settings_field(
@@ -253,7 +254,7 @@ class cptbc_settings_page {
 					__('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'showcontrols_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
 			);
 			
 			add_settings_field(
@@ -277,7 +278,7 @@ class cptbc_settings_page {
 					__('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'orderby_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
 			);
 		
 			add_settings_field(
@@ -285,15 +286,23 @@ class cptbc_settings_page {
 					__('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'order_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
 			);
-		
+
 			add_settings_field(
 					'category', // ID
 					__('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'category_callback' ), // Callback
 					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section           
+					'cptbc_settings_options' // Section		   
+			);
+			
+			add_settings_field(
+					'image_size', // ID
+					__('Image Size', 'cpt-bootstrap-carousel'), // Title 
+					array( $this, 'image_size_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section		   
 			);
 			 
 	}
@@ -388,7 +397,7 @@ class cptbc_settings_page {
 			'menu_order' => __('Menu order, as set in Carousel overview page', 'cpt-bootstrap-carousel'),
 			'date' => __('Date slide was published', 'cpt-bootstrap-carousel'),
 			'rand' => __('Random ordering', 'cpt-bootstrap-carousel'),
-			'title' => __('Slide title', 'cpt-bootstrap-carousel')      
+			'title' => __('Slide title', 'cpt-bootstrap-carousel')	  
 		);
 		print '<select id="orderby" name="cptbc_settings[orderby]">';
 		foreach($orderby_options as $val => $option){
@@ -425,6 +434,20 @@ class cptbc_settings_page {
 				print ' selected="selected"';
 			}
 			print ">".$cat->name."</option>";
+		}
+		print '</select>';
+	}
+	
+	public function image_size_callback() {
+		$image_sizes = get_intermediate_image_sizes();
+		print '<select id="orderby" name="cptbc_settings[image_size]">
+			<option value="">'.__('All Categories', 'cpt-bootstrap-carousel').'</option>';
+		foreach($image_sizes as $size_name => $size_attrs){
+			print '<option value="'.$size_name.'"';
+			if(isset( $this->options['img_size'] ) && $this->options['img_size'] == $size_name){
+				print ' selected="selected"';
+			}
+			print ">".$size_name."</option>";
 		}
 		print '</select>';
 	}
@@ -480,6 +503,11 @@ function cptbc_contextual_help_tab() {
 			<li><code>category</code> <em>(default all)</em>
 			<ul>
 				<li>Filter carousel items by a comma separated list of carousel category slugs.</li>
+			</ul></li>
+			
+			<li><code>image_size</code> <em>(default full)</em>
+			<ul>
+				<li>WordPress image size to use, useful for small carousels</li>
 			</ul></li>
 			
 			<li><code>id</code> <em>(default all)</em>
@@ -542,6 +570,11 @@ function cptbc_frontend($atts){
 	if($atts['category'] != ''){
 		$args['carousel_category'] = $atts['category'];
 	}
+	if($atts['image_size'] != ''){
+		$img_size = $atts['image_size'];
+	} else {
+		$img_size = 'full';
+	}
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
@@ -549,7 +582,7 @@ function cptbc_frontend($atts){
 	$images = array();
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
-		if ( '' != get_the_post_thumbnail() ) {
+		if ( '' != get_the_post_thumbnail(get_the_ID(), $img_size) ) {
 			$post_id = get_the_ID();
 			$title = get_the_title();
 			$content = get_the_excerpt();
