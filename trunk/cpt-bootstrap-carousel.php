@@ -155,6 +155,10 @@ function cptbc_set_options (){
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'category' => '',
+		'before_title' => '<h4>',
+		'after_title' => '</h4>',
+		'before_caption' => '<p>',
+		'after_caption' => '</p>',
 		'image_size' => 'full',
 		'id' => '',
 		'twbs' => '3'
@@ -298,6 +302,38 @@ class cptbc_settings_page {
 			);
 			
 			add_settings_field(
+					'before_title', // ID
+					__('HTML to print before title text', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'before_title_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
+			
+			add_settings_field(
+					'after_title', // ID
+					__('HTML to print after title text', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'after_title_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
+			
+			add_settings_field(
+					'before_caption', // ID
+					__('HTML to print before caption text', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'before_caption_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
+			
+			add_settings_field(
+					'after_caption', // ID
+					__('HTML to print after caption text', 'cpt-bootstrap-carousel'), // Title
+					array( $this, 'after_caption_callback' ), // Callback
+					'cpt-bootstrap-carousel', // Page
+					'cptbc_settings_options' // Section
+			);
+			
+			add_settings_field(
 					'image_size', // ID
 					__('Image Size', 'cpt-bootstrap-carousel'), // Title 
 					array( $this, 'image_size_callback' ), // Callback
@@ -438,6 +474,26 @@ class cptbc_settings_page {
 		print '</select>';
 	}
 	
+	public function before_title_callback() {
+			printf('<input type="text" id="before_title" name="cptbc_settings[before_title]" value="%s" size="6" />',
+					isset( $this->options['before_title'] ) ? esc_attr( $this->options['before_title']) : '<h1>');
+	}
+	
+	public function after_title_callback() {
+			printf('<input type="text" id="after_title" name="cptbc_settings[after_title]" value="%s" size="6" />',
+					isset( $this->options['after_title'] ) ? esc_attr( $this->options['before_title']) : '</h1>');
+	}
+	
+	public function before_caption_callback() {
+			printf('<input type="text" id="before_caption" name="cptbc_settings[before_caption]" value="%s" size="6" />',
+					isset( $this->options['before_caption'] ) ? esc_attr( $this->options['before_caption']) : '<p>');
+	}
+	
+	public function after_caption_callback() {
+			printf('<input type="text" id="after_caption" name="cptbc_settings[after_caption]" value="%s" size="6" />',
+					isset( $this->options['after_caption'] ) ? esc_attr( $this->options['after_caption']) : '</p>');
+	}
+	
 	public function image_size_callback() {
 		$image_sizes = get_intermediate_image_sizes();
 		print '<select id="orderby" name="cptbc_settings[image_size]">
@@ -570,11 +626,7 @@ function cptbc_frontend($atts){
 	if($atts['category'] != ''){
 		$args['carousel_category'] = $atts['category'];
 	}
-	if($atts['image_size'] != ''){
-		$img_size = $atts['image_size'];
-	} else {
-		$img_size = 'full';
-	}
+	
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
@@ -582,7 +634,7 @@ function cptbc_frontend($atts){
 	$images = array();
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
-		if ( '' != get_the_post_thumbnail(get_the_ID(), $img_size) ) {
+		if ( '' != get_the_post_thumbnail(get_the_ID(), $atts['image_size']) ) {
 			$post_id = get_the_ID();
 			$title = get_the_title();
 			$content = get_the_excerpt();
@@ -620,8 +672,8 @@ function cptbc_frontend($atts){
 					<?php echo $linkstart.$image['image'].$linkend; ?>
 					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
 						<div class="carousel-caption">
-							<h4><?php echo $linkstart.$image['title'].$linkend; ?></h4>
-							<p><?php echo $linkstart.$image['content'].$linkend; ?></p>
+							<?php echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title']; ?>
+							<?php echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption']; ?>
 						</div>
 					<?php } ?>
 				</div>
