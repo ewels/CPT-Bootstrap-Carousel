@@ -161,7 +161,9 @@ function cptbc_set_options (){
 		'after_caption' => '</p>',
 		'image_size' => 'full',
 		'id' => '',
-		'twbs' => '3'
+		'twbs' => '3',
+		'use_background_images' => '0',
+		'background_images_height' => '500'
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -192,176 +194,194 @@ class cptbc_settings_page {
 			
 	// Options page callback
 	public function create_admin_page() {
-			// Set class property
-			$this->options = get_option( 'cptbc_settings' );
+		// Set class property
+		$this->options = get_option( 'cptbc_settings' );
 		if(!$this->options){
 			cptbc_set_options ();
 			$this->options = get_option( 'cptbc_settings' );
 		}
-			?>
-			<div class="wrap">
-			<?php screen_icon('edit');?> <h2>CPT Bootstrap Carousel <?php _e('Settings', 'cpt-bootstrap-carousel'); ?></h2>
-			<p><?php printf(__('You can set the default behaviour of your carousels here. All of these settings can be overridden by using %s shortcode attributes %s.', 'cpt-bootstrap-carousel'),'<a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">', '</a>'); ?></p>
-						 
-					<form method="post" action="options.php">
-					<?php
-							settings_fields( 'cptbc_settings' );   
-							do_settings_sections( 'cpt-bootstrap-carousel' );
-							submit_button(); 
-					?>
-					</form>
-			</div>
-			<?php
+		?>
+		<div class="wrap">
+		<h2>CPT Bootstrap Carousel <?php _e('Settings', 'cpt-bootstrap-carousel'); ?></h2>
+		<p><?php printf(__('You can set the default behaviour of your carousels here. All of these settings can be overridden by using %s shortcode attributes %s.', 'cpt-bootstrap-carousel'),'<a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">', '</a>'); ?></p>
+					 
+				<form method="post" action="options.php">
+				<?php
+						settings_fields( 'cptbc_settings' );   
+						do_settings_sections( 'cpt-bootstrap-carousel' );
+						submit_button(); 
+				?>
+				</form>
+		</div>
+		<?php
 	}
 			
 	// Register and add settings
 	public function page_init() {		
-			register_setting(
-					'cptbc_settings', // Option group
-					'cptbc_settings', // Option name
-					array( $this, 'sanitize' ) // Sanitize
-			);
-			
-			add_settings_section(
-					'cptbc_settings_options', // ID
-					'', // Title - nothing to say here.
-					array( $this, 'cptbc_settings_options_header' ), // Callback
-					'cpt-bootstrap-carousel' // Page
-			);  
-			
-			add_settings_field(
-					'twbs', // ID
-					__('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'twbs_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
-			
-			add_settings_field(
-					'interval', // ID
-					__('Slide Interval (milliseconds)', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'interval_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
+		register_setting(
+				'cptbc_settings', // Option group
+				'cptbc_settings', // Option name
+				array( $this, 'sanitize' ) // Sanitize
+		);
 		
-			add_settings_field(
-					'showcaption', // ID
-					__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'showcaption_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
+		add_settings_section(
+				'cptbc_settings_options', // ID
+				'', // Title - nothing to say here.
+				array( $this, 'cptbc_settings_options_header' ), // Callback
+				'cpt-bootstrap-carousel' // Page
+		);  
 		
-			add_settings_field(
-					'showcontrols', // ID
-					__('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'showcontrols_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
-			
-			add_settings_field(
-					'customprev', // ID
-					__('Custom prev button class', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'customprev_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
-			
-			add_settings_field(
-					'customnext', // ID
-					__('Custom next button class', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'customnext_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
+		add_settings_field(
+				'twbs', // ID
+				__('Twitter Bootstrap Version', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'twbs_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
 		
-			add_settings_field(
-					'orderby', // ID
-					__('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'orderby_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
+		add_settings_field(
+				'interval', // ID
+				__('Slide Interval (milliseconds)', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'interval_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+	
+		add_settings_field(
+				'showcaption', // ID
+				__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'showcaption_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
+	
+		add_settings_field(
+				'showcontrols', // ID
+				__('Show Slide Controls?', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'showcontrols_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
 		
-			add_settings_field(
-					'order', // ID
-					__('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'order_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
+		add_settings_field(
+				'customprev', // ID
+				__('Custom prev button class', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'customprev_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+		
+		add_settings_field(
+				'customnext', // ID
+				__('Custom next button class', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'customnext_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+	
+		add_settings_field(
+				'orderby', // ID
+				__('Order Slides By', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'orderby_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
+	
+		add_settings_field(
+				'order', // ID
+				__('Ordering Direction', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'order_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
 
-			add_settings_field(
-					'category', // ID
-					__('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'category_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
-			
-			add_settings_field(
-					'before_title', // ID
-					__('HTML to print before title text', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'before_title_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
-			
-			add_settings_field(
-					'after_title', // ID
-					__('HTML to print after title text', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'after_title_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
-			
-			add_settings_field(
-					'before_caption', // ID
-					__('HTML to print before caption text', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'before_caption_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
-			
-			add_settings_field(
-					'after_caption', // ID
-					__('HTML to print after caption text', 'cpt-bootstrap-carousel'), // Title
-					array( $this, 'after_caption_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section
-			);
-			
-			add_settings_field(
-					'image_size', // ID
-					__('Image Size', 'cpt-bootstrap-carousel'), // Title 
-					array( $this, 'image_size_callback' ), // Callback
-					'cpt-bootstrap-carousel', // Page
-					'cptbc_settings_options' // Section		   
-			);
+		add_settings_field(
+				'category', // ID
+				__('Restrict to Category', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'category_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
+		
+		add_settings_field(
+				'before_title', // ID
+				__('HTML before title', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'before_title_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+		
+		add_settings_field(
+				'after_title', // ID
+				__('HTML after title', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'after_title_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+		
+		add_settings_field(
+				'before_caption', // ID
+				__('HTML before caption text', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'before_caption_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+		
+		add_settings_field(
+				'after_caption', // ID
+				__('HTML after caption text', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'after_caption_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
+		
+		add_settings_field(
+				'image_size', // ID
+				__('Image Size', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'image_size_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
+		
+		add_settings_field(
+				'use_background_images', // ID
+				__('Use background images?', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'use_background_images_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
+		
+		add_settings_field(
+				'background_images_height', // ID
+				__('Height if using bkgrnd images (px)', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'background_images_height_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section
+		);
 			 
 	}
 			
 	// Sanitize each setting field as needed -  @param array $input Contains all settings fields as array keys
 	public function sanitize( $input ) {
-			$new_input = array();
+		$new_input = array();
 		foreach($input as $key => $var){
-			if($key == 'twbs' || $key == 'interval'){
+			if($key == 'twbs' || $key == 'interval' || $key == 'background_images_height'){
 				$new_input[$key] = absint( $input[$key] );
 				if($key == 'interval' && $new_input[$key] == 0){
 					$new_input[$key] = 5000;
 				}
-			} else {
+			} else if ($key == 'before_title' || $key == 'after_title' || $key == 'before_caption' || $key == 'after_caption'){
+				$new_input[$key] = $input[$key]; // Don't sanitise these, meant to be html!
+			} else { 
 				$new_input[$key] = sanitize_text_field( $input[$key] );
 			}
 		}
-			return $new_input;
+		return $new_input;
 	}
 			
 	// Print the Section text
 	public function cptbc_settings_options_header() {
-			// nothing to say here.x
+			// nothing to say here.
 	}
 			
 	public function twbs_callback() {
@@ -476,12 +496,12 @@ class cptbc_settings_page {
 	
 	public function before_title_callback() {
 			printf('<input type="text" id="before_title" name="cptbc_settings[before_title]" value="%s" size="6" />',
-					isset( $this->options['before_title'] ) ? esc_attr( $this->options['before_title']) : '<h1>');
+					isset( $this->options['before_title'] ) ? esc_attr( $this->options['before_title']) : '<h4>');
 	}
 	
 	public function after_title_callback() {
 			printf('<input type="text" id="after_title" name="cptbc_settings[after_title]" value="%s" size="6" />',
-					isset( $this->options['after_title'] ) ? esc_attr( $this->options['before_title']) : '</h1>');
+					isset( $this->options['after_title'] ) ? esc_attr( $this->options['after_title']) : '</h4>');
 	}
 	
 	public function before_caption_callback() {
@@ -496,17 +516,42 @@ class cptbc_settings_page {
 	
 	public function image_size_callback() {
 		$image_sizes = get_intermediate_image_sizes();
-		print '<select id="orderby" name="cptbc_settings[image_size]">
-			<option value="">'.__('All Categories', 'cpt-bootstrap-carousel').'</option>';
-		foreach($image_sizes as $size_name => $size_attrs){
-			print '<option value="'.$size_name.'"';
-			if(isset( $this->options['img_size'] ) && $this->options['img_size'] == $size_name){
+		print '<select id="image_size" name="cptbc_settings[image_size]">
+			<option value="full"';
+			if(isset( $this->options['image_size'] ) && $this->options['image_size'] == $size){
 				print ' selected="selected"';
 			}
-			print ">".$size_name."</option>";
+			echo '>Full (default)</option>';
+		foreach($image_sizes as $size){
+			print '<option value="'.$size.'"';
+			if(isset( $this->options['image_size'] ) && $this->options['image_size'] == $size){
+				print ' selected="selected"';
+			}
+			print ">".ucfirst($size)."</option>";
 		}
 		print '</select>';
 	}
+	
+	public function use_background_images_callback() {
+		print '<select id="use_background_images" name="cptbc_settings[use_background_images]">';
+		print '<option value="0"';
+		if(isset( $this->options['use_background_images'] ) && $this->options['use_background_images'] == 0){
+			print ' selected="selected"';
+		}
+		echo '>No (default)</option>';
+		print '<option value="1"';
+		if(isset( $this->options['use_background_images'] ) && $this->options['use_background_images'] == 1){
+			print ' selected="selected"';
+		}
+		echo '>Yes</option>';
+		print '</select>';
+	}
+	
+	public function background_images_height_callback() {
+		printf('<input type="text" id="background_images_height" name="cptbc_settings[background_images_height]" value="%s" size="6" />',
+				isset( $this->options['background_images_height'] ) ? esc_attr( $this->options['background_images_height']) : '500px');
+	}
+	
 			
 	
 }
@@ -626,10 +671,14 @@ function cptbc_frontend($atts){
 	if($atts['category'] != ''){
 		$args['carousel_category'] = $atts['category'];
 	}
-	
+	if(!isset($atts['before_title'])) $atts['before_title'] = '<h4>';
+	if(!isset($atts['after_title'])) $atts['after_title'] = '</h4>';
+	if(!isset($atts['before_caption'])) $atts['before_caption'] = '<p>';
+	if(!isset($atts['after_caption'])) $atts['after_caption'] = '</p>';
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
+
 	$loop = new WP_Query( $args );
 	$images = array();
 	while ( $loop->have_posts() ) {
@@ -638,10 +687,11 @@ function cptbc_frontend($atts){
 			$post_id = get_the_ID();
 			$title = get_the_title();
 			$content = get_the_excerpt();
-			$image = get_the_post_thumbnail( get_the_ID(), 'full' );
+			$image = get_the_post_thumbnail( get_the_ID(), $atts['image_size'] );
+			$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), $atts['image_size'])[0];
 			$url = get_post_meta(get_the_ID(), 'cptbc_image_url');
 			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank');
-			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'url' => esc_url($url[0]), 'url_openblank' => $url_openblank[0] == "1" ? true : false);
+			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url[0]), 'url_openblank' => $url_openblank[0] == "1" ? true : false);
 		}
 	}
 	if(count($images) > 0){
@@ -668,8 +718,8 @@ function cptbc_frontend($atts){
 					$linkend = '</a>';
 				}
 			?>
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>">
-					<?php echo $linkstart.$image['image'].$linkend; ?>
+				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;"'; } ?>>
+					<?php if($atts['use_background_images'] == 0){ echo $linkstart.$image['image'].$linkend; } ?>
 					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
 						<div class="carousel-caption">
 							<?php echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title']; ?>
