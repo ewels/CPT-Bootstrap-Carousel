@@ -54,7 +54,9 @@ As of version 1.5, nearly all of these options can be set in the CPT Bootstrap C
 	
 Credits
 -------
-This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon and @grahamharper.
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon, @grahamharper, @rchq, @oheijo, @smtk, @cla63 and @cookierebes.
+
+The Serbo-Croation translation was kindly provided by Borisa Djuraskovic from http://www.webhostinghub.com
 
 Installation
 ------------
@@ -132,6 +134,14 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.8__
+	* Bumped "tested with" up to `WP 4.0`
+	* Added new plugin icon and updated the banner + screenshots
+	* Carousel controls now hidden if there is only one image - thanks to @rchq
+	* Option to use a different WordPress image size, suggested by oheijo
+	* Added option to specify HTML tags for caption and title. Suggested by smtk
+	* New option to use background images instead of `<img>` tags. Good for resizing. Suggested by @cla63 and @cookierebes
+	* New Serbo-Croatian translation! Thanks to borisa from http://www.webhostinghub.com
 * __1.7__
 	* Added custom classes for next/prev buttons - written by @reddo
 	* Added admin column for categories

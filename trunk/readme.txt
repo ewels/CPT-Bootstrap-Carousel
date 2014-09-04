@@ -64,7 +64,9 @@ As of version 1.5, nearly all of these options can be set in the CPT Bootstrap C
 
 = Credits =
 
-This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @joshgerdes, @atnon and @grahamharper.
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon, @grahamharper, @rchq, @oheijo, @smtk, @cla63 and @cookierebes.
+
+The Serbo-Croation translation was kindly provided by Borisa Djuraskovic from http://www.webhostinghub.com
 
 
 == Installation ==
