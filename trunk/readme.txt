@@ -150,6 +150,7 @@ You need to make sure that each image is the same height. You can do this by set
 == Changelog ==
 
 = 1.9 =
+* Prevented the help tab from displaying on pages other than Carousel Items
 * Made the output buffer cleaning only happen if we have images (thanks @ChrisLomax)
 
 = 1.8.1 =
