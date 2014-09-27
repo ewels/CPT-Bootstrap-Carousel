@@ -163,7 +163,8 @@ function cptbc_set_options (){
 		'id' => '',
 		'twbs' => '3',
 		'use_background_images' => '0',
-		'background_images_height' => '500'
+		'background_images_height' => '500',
+        'use_javascript_animation' => '1'
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -358,6 +359,14 @@ class cptbc_settings_page {
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_options' // Section
 		);
+        
+		add_settings_field(
+				'use_javascript_animation', // ID
+				__('Use Javascript to animate carousel?', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'use_javascript_animation_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_options' // Section		   
+		);
 			 
 	}
 			
@@ -551,8 +560,21 @@ class cptbc_settings_page {
 		printf('<input type="text" id="background_images_height" name="cptbc_settings[background_images_height]" value="%s" size="6" />',
 				isset( $this->options['background_images_height'] ) ? esc_attr( $this->options['background_images_height']) : '500px');
 	}
-	
-			
+    
+	public function use_javascript_animation_callback() {
+		print '<select id="use_javascript_animation" name="cptbc_settings[use_javascript_animation]">';
+		print '<option value="1"';
+		if(isset( $this->options['use_javascript_animation'] ) && $this->options['use_javascript_animation'] == 1){
+			print ' selected="selected"';
+		}
+		echo '>Yes (default)</option>';
+		print '<option value="0"';
+		if(isset( $this->options['use_javascript_animation'] ) && $this->options['use_javascript_animation'] == 0){
+			print ' selected="selected"';
+		}
+		echo '>No</option>';
+		print '</select>';
+	}			
 	
 }
 
@@ -679,6 +701,7 @@ function cptbc_frontend($atts){
 	if(!isset($atts['after_caption'])) $atts['after_caption'] = '</p>';
 	if(!isset($atts['image_size'])) $atts['image_size'] = 'full';
 	if(!isset($atts['use_background_images'])) $atts['use_background_images'] = '0';
+	if(!isset($atts['use_javascript_animation'])) $atts['use_javascript_animation'] = '1';
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
@@ -703,7 +726,7 @@ function cptbc_frontend($atts){
 	if(count($images) > 0){
 		ob_start();
 		?>
-		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" data-ride="carousel" data-interval="<?php echo $atts['interval']; ?>">
+		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
 			<?php if( count( $images ) > 1 ){ ?>
 				<ol class="carousel-indicators">
 				<?php foreach ($images as $key => $image) { ?>
@@ -748,6 +771,7 @@ function cptbc_frontend($atts){
 				<?php } ?>
 			<?php } ?>
 		</div>
+        <?php if($atts['use_javascript_animation'] == '1'){ ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery('#cptbc_<?php echo $id; ?>').carousel({
@@ -755,6 +779,7 @@ function cptbc_frontend($atts){
 				});
 			});
 		</script>
+        <?php } // use_javascript_animation? ?>
 <?php
 		$output = ob_get_contents();
 		ob_end_clean();
