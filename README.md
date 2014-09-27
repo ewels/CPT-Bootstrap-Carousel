@@ -137,6 +137,7 @@ Changelog
 * __1.9__
   * Prevented the help tab from displaying on pages other than Carousel Items
   * Made the output buffer cleaning only happen if we have images (thanks @ChrisLomax)
+  * Tidied up some warnings generated when WP_DEBUG was true
 * __1.8.1__
 	* Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
 * __1.8__

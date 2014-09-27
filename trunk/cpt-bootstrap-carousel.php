@@ -518,7 +518,7 @@ class cptbc_settings_page {
 		$image_sizes = get_intermediate_image_sizes();
 		print '<select id="image_size" name="cptbc_settings[image_size]">
 			<option value="full"';
-			if(isset( $this->options['image_size'] ) && $this->options['image_size'] == $size){
+			if(isset( $this->options['image_size'] ) && $this->options['image_size'] == 'full'){
 				print ' selected="selected"';
 			}
 			echo '>Full (default)</option>';
@@ -677,6 +677,8 @@ function cptbc_frontend($atts){
 	if(!isset($atts['after_title'])) $atts['after_title'] = '</h4>';
 	if(!isset($atts['before_caption'])) $atts['before_caption'] = '<p>';
 	if(!isset($atts['after_caption'])) $atts['after_caption'] = '</p>';
+	if(!isset($atts['image_size'])) $atts['image_size'] = 'full';
+	if(!isset($atts['use_background_images'])) $atts['use_background_images'] = '0';
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
