@@ -4,7 +4,7 @@ Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 1.8.1
+Stable tag: 1.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -148,6 +148,9 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.9 =
+* Made the output buffer cleaning only happen if we have images (thanks @ChrisLomax)
 
 = 1.8.1 =
 * Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.

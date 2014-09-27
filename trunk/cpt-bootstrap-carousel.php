@@ -3,7 +3,7 @@
 Plugin Name: CPT Bootstrap Carousel
 Plugin URI: http://www.tallphil.co.uk/bootstrap-carousel/
 Description: A custom post type for choosing images and content which outputs <a href="http://getbootstrap.com/javascript/#carousel" target="_blank">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap javascript and CSS to be loaded separately.
-Version: 1.8.1
+Version: 1.9
 Author: Phil Ewels
 Author URI: http://phil.ewels.co.uk
 Text Domain: cpt-bootstrap-carousel
@@ -681,6 +681,7 @@ function cptbc_frontend($atts){
 
 	$loop = new WP_Query( $args );
 	$images = array();
+	$output = '';
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
 		if ( '' != get_the_post_thumbnail(get_the_ID(), $atts['image_size']) ) {
@@ -750,9 +751,10 @@ function cptbc_frontend($atts){
 				});
 			});
 		</script>
-<?php }
-	$output = ob_get_contents();
-	ob_end_clean();
+<?php
+		$output = ob_get_contents();
+		ob_end_clean();
+	} // if(count($images) > 0){
 	
 	// Restore original Post Data
 	wp_reset_postdata();  
