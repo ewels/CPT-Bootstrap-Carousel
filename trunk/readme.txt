@@ -154,7 +154,7 @@ You need to make sure that each image is the same height. You can do this by set
 * Made the output buffer cleaning only happen if we have images (thanks @ChrisLomax)
 * Tidied up some warnings generated when WP_DEBUG was true
 * New settings option to rely on data-attributes only, without any Javascript chunks
-* Split the plugin into three files to make code easier to maintain
+* Split the plugin into multiple files to make code easier to maintain
 
 = 1.8.1 =
 * Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
