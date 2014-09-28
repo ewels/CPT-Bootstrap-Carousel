@@ -140,6 +140,7 @@ Changelog
   * Tidied up some warnings generated when WP_DEBUG was true
   * New settings option to rely on data-attributes only, without any Javascript chunks
   * Split the plugin into multiple files to make code easier to maintain
+  * Rewrote the settings page to be clearer
 * __1.8.1__
 	* Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
 * __1.8__
