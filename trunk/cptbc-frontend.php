@@ -47,6 +47,7 @@ function cptbc_frontend($atts){
 	if(!isset($atts['image_size'])) $atts['image_size'] = 'full';
 	if(!isset($atts['use_background_images'])) $atts['use_background_images'] = '0';
 	if(!isset($atts['use_javascript_animation'])) $atts['use_javascript_animation'] = '1';
+    if(!isset($atts['select_background_images_style_size'])) $atts['select_background_images_style_size'] = 'cover';
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
