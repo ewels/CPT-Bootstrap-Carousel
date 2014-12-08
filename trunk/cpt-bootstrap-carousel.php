@@ -80,5 +80,3 @@ add_action( 'after_setup_theme', 'cptbc_addFeaturedImageSupport');
 require_once('cptbc-admin.php');
 require_once('cptbc-settings.php');
 require_once('cptbc-frontend.php');
-
-?>
