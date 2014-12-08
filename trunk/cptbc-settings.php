@@ -488,5 +488,3 @@ function cptbc_settings_link ($links) {
 }
 $cptbc_plugin = plugin_basename(__FILE__); 
 add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
-
-?>

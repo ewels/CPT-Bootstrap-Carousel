@@ -136,5 +136,3 @@ function cptbc_frontend($atts){
 	
 	return $output;
 }
-
-?>
