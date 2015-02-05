@@ -63,9 +63,10 @@ function cptbc_frontend($atts){
 			$image = get_the_post_thumbnail( get_the_ID(), $atts['image_size'] );
 			$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), $atts['image_size']);
 			$image_src = $image_src[0];
-			$url = get_post_meta(get_the_ID(), 'cptbc_image_url');
-			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank');
-			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url[0]), 'url_openblank' => $url_openblank[0] == "1" ? true : false);
+			$url = get_post_meta(get_the_ID(), 'cptbc_image_url', true);
+			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank', true);
+			$link_text = get_post_meta(get_the_ID(), 'cptbc_image_link_text', true);
+			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
 		}
 	}
 	if(count($images) > 0){
@@ -99,10 +100,16 @@ function cptbc_frontend($atts){
 							<?php echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title']; ?>
 							<?php echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption']; ?>
 							<?php if($image['url'] && $atts['link_button'] == 1){ 
+									if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
+									$target = '';
 									if($image['url_openblank']) {
 										$target = ' target="_blank"';
 									}
-									 echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">'.$atts['link_button_text'].'</a>';
+									echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">';
+									if(isset($image['link_text']) && strlen($image['link_text']) > 0) echo $image['link_text'];
+									else echo $atts['link_button_text'];
+									echo '</a>';
+									if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
 								 } ?>
 						</div>
 					<?php } ?>

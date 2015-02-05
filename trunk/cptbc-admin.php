@@ -54,11 +54,17 @@ function cptbc_image_url(){
 	$custom = get_post_custom($post->ID);
 	$cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
 	$cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
+	$cptbc_image_link_text = isset($custom['cptbc_image_link_text']) ?  $custom['cptbc_image_link_text'][0] : '';
 	?>
 	<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
 	<input name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
 	<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small><br /><br />
-	<label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label>
+	
+	<label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label><br /><br />
+	
+	<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
+	<input name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" /> <br />
+	<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
 	<?php
 }
 function cptbc_admin_init_custpost(){
@@ -74,6 +80,7 @@ function cptbc_mb_save_details(){
 		}
 		update_post_meta($post->ID, "cptbc_image_url", esc_url($_POST["cptbc_image_url"]));
 		update_post_meta($post->ID, "cptbc_image_url_openblank", $openblank);
+		update_post_meta($post->ID, "cptbc_image_link_text", sanitize_text_field($_POST["cptbc_image_link_text"]));
 	}
 }
 add_action('save_post', 'cptbc_mb_save_details');
