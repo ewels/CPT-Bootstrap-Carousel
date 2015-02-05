@@ -83,7 +83,7 @@ function cptbc_frontend($atts){
 			<?php foreach ($images as $key => $image) {
 				$linkstart = '';
 				$linkend = '';
-				if($image['url']) {
+				if($image['url'] && $atts['link_button'] == 0) {
 					$linkstart = '<a href="'.$image['url'].'"';
 					if($image['url_openblank']) {
 						$linkstart .= ' target="_blank"';
@@ -98,6 +98,12 @@ function cptbc_frontend($atts){
 						<div class="carousel-caption">
 							<?php echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title']; ?>
 							<?php echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption']; ?>
+							<?php if($image['url'] && $atts['link_button'] == 1){ 
+									if($image['url_openblank']) {
+										$target = ' target="_blank"';
+									}
+									 echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">'.$atts['link_button_text'].'</a>';
+								 } ?>
 						</div>
 					<?php } ?>
 				</div>

@@ -28,6 +28,9 @@ function cptbc_set_options (){
 		'before_caption' => '<p>',
 		'after_caption' => '</p>',
 		'image_size' => 'full',
+		'link_button' => '1',
+		'link_button_text' => 'Read more',
+		'link_button_class' => 'Read more',
 		'id' => '',
 		'twbs' => '3',
 		'use_background_images' => '0',
@@ -193,6 +196,27 @@ class cptbc_settings_page {
 		);
         
         // Markup Section
+		add_settings_field(
+				'link_button', // ID
+				__('Show links as button in caption', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'link_button_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_markup' // Section
+		);
+		add_settings_field(
+				'link_button_text', // ID
+				__('Default text for link buttons', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'link_button_text_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_markup' // Section
+		);
+		add_settings_field(
+				'link_button_class', // ID
+				__('Class for link buttons', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'link_button_class_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_markup' // Section
+		);
 		add_settings_field(
 				'customprev', // ID
 				__('Custom prev button class', 'cpt-bootstrap-carousel'), // Title
@@ -404,6 +428,7 @@ class cptbc_settings_page {
 				isset( $this->options['background_images_height'] ) ? esc_attr( $this->options['background_images_height']) : '500px');
         echo '<p class="description">'.__("If using background images above, how tall do you want the carousel to be?", 'cpt-bootstrap-carousel').'</p>';
 	}
+
 	public function use_javascript_animation_callback() {
 		print '<select id="use_javascript_animation" name="cptbc_settings[use_javascript_animation]">';
 		print '<option value="1"';
@@ -421,6 +446,29 @@ class cptbc_settings_page {
 	}
     
     // Markup section
+	public function link_button_callback(){
+		print '<select id="link_button" name="cptbc_settings[link_button]">';
+		print '<option value="1"';
+		if(isset( $this->options['link_button'] ) && $this->options['link_button'] == 1){
+			print ' selected="selected"';
+		}
+		echo '>Yes (default)</option>';
+		print '<option value="0"';
+		if(isset( $this->options['link_button'] ) && $this->options['link_button'] == 0){
+			print ' selected="selected"';
+		}
+		echo '>No</option>';
+		print '</select>';
+	}
+	public function link_button_text_callback() {
+			printf('<input type="text" id="link_button_text" name="cptbc_settings[link_button_text]" value="%s" size="15" />',
+					isset( $this->options['link_button_text'] ) ? esc_attr( $this->options['link_button_text']) : 'Read more');
+	}
+	public function before_title_callback() {
+			printf('<input type="text" id="link_button_class" name="cptbc_settings[link_button_class]" value="%s" size="6" />',
+					isset( $this->options['link_button_class'] ) ? esc_attr( $this->options['link_button_class']) : 'btn btn-default');
+			echo '<p class="description">'.__("Bootstrap style buttons must have the class <code>btn</code> and then one of the following: <code>btn-default</code>, <code>btn-primary</code>, <code>btn-success</code>, <code>btn-warning</code>, <code>btn-danger</code> or <code>btn-info</code>.", 'cpt-bootstrap-carousel').' <a href="http://getbootstrap.com/css/#buttons-options" target="_blank">Bootstrap documentation</a>.</p>';
+	}
 	public function before_title_callback() {
 			printf('<input type="text" id="before_title" name="cptbc_settings[before_title]" value="%s" size="6" />',
 					isset( $this->options['before_title'] ) ? esc_attr( $this->options['before_title']) : '<h4>');
