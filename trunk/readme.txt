@@ -64,7 +64,7 @@ As of version 1.5, nearly all of these options can be set in the CPT Bootstrap C
 
 = Credits =
 
-This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon, @grahamharper, @rchq, @oheijo, @smtk, @cla63 and @cookierebes.
+This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon, @grahamharper, @rchq, @oheijo, @smtk, @cla63, @cookierebes and @sipman.
 
 The Serbo-Croation translation was kindly provided by Borisa Djuraskovic from http://www.webhostinghub.com
 
@@ -156,6 +156,7 @@ You need to make sure that each image is the same height. You can do this by set
 * New settings option to rely on data-attributes only, without any Javascript chunks
 * Split the plugin into multiple files to make code easier to maintain
 * Re-wrote the settings page to make things clearer
+* Added new feature to have a link button instead of clickable slider image
 
 = 1.8.1 =
 * Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
