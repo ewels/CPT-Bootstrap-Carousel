@@ -152,3 +152,4 @@ function cptbc_contextual_help_tab() {
     } // if( $screen->post_type === 'cptbc'){
 add_action('load-post.php', 'cptbc_contextual_help_tab');
 add_action('load-post-new.php', 'cptbc_contextual_help_tab');
+

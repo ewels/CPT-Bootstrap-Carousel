@@ -37,7 +37,8 @@ function cptbc_set_options (){
 		'twbs' => '3',
 		'use_background_images' => '0',
 		'background_images_height' => '500',
-        'use_javascript_animation' => '1'
+        'background_images_style_size' => 'cover',
+        'use_javascript_animation' => '1',
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -193,6 +194,13 @@ class cptbc_settings_page {
 				'background_images_height', // ID
 				__('Height if using bkgrnd images (px)', 'cpt-bootstrap-carousel'), // Title
 				array( $this, 'background_images_height_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_setup' // Section
+		);
+		add_settings_field(
+				'background_images_style_size', // ID
+				__('Background images size style', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'background_images_style_size_callback' ), // Callback
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_setup' // Section
 		);
@@ -472,6 +480,26 @@ class cptbc_settings_page {
 		print '</select>';
         echo '<p class="description">'.__("The Bootstrap Carousel is designed to work usign data-attributes. Sometimes the animation doesn't work correctly with this, so the default is to include a small portion of Javascript to fire the carousel. You can choose not to include this here.", 'cpt-bootstrap-carousel').'</p>';
 	}
+	public function background_images_style_size_callback() {
+		print '<select id="select_background_images_style_size" name="cptbc_settings[select_background_images_style_size]">';
+		print '<option value="cover"';
+		if(isset( $this->options['select_background_images_style_size'] ) && $this->options['select_background_images_style_size'] === 'cover'){
+			print ' selected="selected"';
+		}
+		echo '>Cover (default)</option>';
+		print '<option value="contain"';
+		if(isset( $this->options['select_background_images_style_size'] ) && $this->options['select_background_images_style_size'] === 'contain'){
+			print ' selected="selected"';
+		}
+		echo '>Contain</option>';
+		print '<option value="auto"';
+		if(isset( $this->options['select_background_images_style_size'] ) && $this->options['select_background_images_style_size'] === 'auto'){
+			print ' selected="selected"';
+		}
+		echo '>Auto</option>';
+		print '</select>';
+        echo '<p class="description">'.__('If you find that your images are not scaling correctly when using background images try switching the style to \'contain\' or \'auto\'', 'cpt-bootstrap-carousel').'</p>';
+	}
 
 	// Link buttons section
 	public function link_button_callback(){
@@ -547,4 +575,3 @@ function cptbc_settings_link ($links) {
 }
 $cptbc_plugin = plugin_basename(__FILE__); 
 add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
-
