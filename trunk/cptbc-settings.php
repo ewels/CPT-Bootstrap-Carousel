@@ -272,7 +272,7 @@ class cptbc_settings_page {
 	public function interval_callback() {
 			printf('<input type="text" id="interval" name="cptbc_settings[interval]" value="%s" size="6" />',
 					isset( $this->options['interval'] ) ? esc_attr( $this->options['interval']) : '');
-            echo '<p class="description">'.__('How long each image shows for before it slides.', 'cpt-bootstrap-carousel').'</p>';
+            echo '<p class="description">'.__('How long each image shows for before it slides. Set to 0 to disable animation.', 'cpt-bootstrap-carousel').'</p>';
 	}
 	public function showcaption_callback() {
 		if(isset( $this->options['showcaption'] ) && $this->options['showcaption'] == 'false'){
@@ -461,4 +461,3 @@ function cptbc_settings_link ($links) {
 $cptbc_plugin = plugin_basename(__FILE__); 
 add_filter("plugin_action_links_$cptbc_plugin", 'cptbc_settings_link' );
 
-?>
