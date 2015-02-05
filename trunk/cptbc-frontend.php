@@ -47,6 +47,7 @@ function cptbc_frontend($atts){
 	if(!isset($atts['image_size'])) $atts['image_size'] = 'full';
 	if(!isset($atts['use_background_images'])) $atts['use_background_images'] = '0';
 	if(!isset($atts['use_javascript_animation'])) $atts['use_javascript_animation'] = '1';
+    if(!isset($atts['select_background_images_style_size'])) $atts['select_background_images_style_size'] = 'cover';
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
@@ -93,7 +94,7 @@ function cptbc_frontend($atts){
 					$linkend = '</a>';
 				}
 			?>
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover;"'; } ?>>
+				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
 					<?php if($atts['use_background_images'] == 0){ echo $linkstart.$image['image'].$linkend; } ?>
 					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
 						<div class="carousel-caption">
