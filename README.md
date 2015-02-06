@@ -58,6 +58,11 @@ This plugin was written by @tallphil with help and suggestions from several othe
 
 The Serbo-Croation translation was kindly provided by Borisa Djuraskovic from http://www.webhostinghub.com
 
+Contributing
+-------
+If you would like to contribute to this plugin, please make a personal fork and then submit a pull request. I will happily review the code and then merge when we're both happy. [More details](CONTRIBUTING.md).
+
+
 Installation
 ------------
 
