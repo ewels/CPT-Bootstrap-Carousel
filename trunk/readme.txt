@@ -68,6 +68,9 @@ This plugin was written by @tallphil with help and suggestions from several othe
 
 The Serbo-Croation translation was kindly provided by Borisa Djuraskovic from http://www.webhostinghub.com
 
+= Credits =
+
+If you would like to contribute to this plugin, please go to the [GitHub repository](https://github.com/ewels/cpt-bootstrap-carousel) and make a personal fork of the development version. You can then make your changes and submit a pull request. I will happily review the code and then merge when we're both happy. You can read more details [here](https://github.com/ewels/cpt-bootstrap-carousel/blob/master/CONTRIBUTING.md).
 
 == Installation ==
 
