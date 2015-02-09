@@ -160,6 +160,7 @@ You need to make sure that each image is the same height. You can do this by set
 * Split the plugin into multiple files to make code easier to maintain
 * Re-wrote the settings page to make things clearer
 * Added new feature to have a link button instead of clickable slider image
+* Bugfix: Carousel items with links using background images now work.
 
 = 1.8.1 =
 * Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.

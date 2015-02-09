@@ -147,6 +147,7 @@ Changelog
   * Split the plugin into multiple files to make code easier to maintain
   * Rewrote the settings page to be clearer
   * Added new feature to have a link button instead of clickable slider image
+  * Bugfix: Carousel items with links using background images now work.
 * __1.8.1__
 	* Bugfix. Apologies to anyone who ran into it and thanks to kylewhenderson for the spot.
 * __1.8__
