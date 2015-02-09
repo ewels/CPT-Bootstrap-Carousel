@@ -30,6 +30,8 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 
 // Display carousel
 function cptbc_frontend($atts){
+
+	// Build the attributes
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
 	$args = array(
 		'post_type' => 'cptbc',
@@ -52,6 +54,7 @@ function cptbc_frontend($atts){
 		$args['p'] = $atts['id'];
 	}
 
+	// Collect the carousel content. Needs printing in two loops later (bullets and content)
 	$loop = new WP_Query( $args );
 	$images = array();
 	$output = '';
@@ -70,19 +73,28 @@ function cptbc_frontend($atts){
 			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
 		}
 	}
+
+	// Check we actually have something to show
 	if(count($images) > 0){
 		ob_start();
 		?>
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
-			<?php if( count( $images ) > 1 ){ ?>
+			
+			<?php // First content - the carousel indicators
+			if( count( $images ) > 1 ){ ?>
 				<ol class="carousel-indicators">
 				<?php foreach ($images as $key => $image) { ?>
 					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
 				<?php } ?>
 				</ol>
 			<?php } ?>
+
 			<div class="carousel-inner">
-			<?php foreach ($images as $key => $image) {
+			<?php
+			// Carousel Content
+			foreach ($images as $key => $image) {
+
+				// Build anchor link so it can be reused
 				$linkstart = '';
 				$linkend = '';
 				if($image['url'] && $atts['link_button'] == 0) {
@@ -92,33 +104,57 @@ function cptbc_frontend($atts){
 					}
 					$linkstart .= '>';
 					$linkend = '</a>';
-				}
-			?>
+				} ?>
+
 				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
-					<?php if($atts['use_background_images'] == 0){ echo $linkstart.$image['image'].$linkend; } ?>
-					<?php if($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) { ?>
-						<div class="carousel-caption">
-							<?php echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title']; ?>
-							<?php echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption']; ?>
-							<?php if($image['url'] && $atts['link_button'] == 1){ 
-									if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
-									$target = '';
-									if($image['url_openblank']) {
-										$target = ' target="_blank"';
-									}
-									echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">';
-									if(isset($image['link_text']) && strlen($image['link_text']) > 0) echo $image['link_text'];
-									else echo $atts['link_button_text'];
-									echo '</a>';
-									if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
-								 } ?>
-						</div>
-					<?php } ?>
+					<?php
+					// Regular behaviour - display image with link around it
+					if($atts['use_background_images'] == 0){
+						echo $linkstart.$image['image'].$linkend;
+					// Backgorund images mode - need block level link inside carousel link if we have a linl
+					} else if($image['url'] && $atts['link_button'] == 0) {
+						echo '<a href="'.$image['url'].'"';
+						if($image['url_openblank']) {
+							$linkstart .= ' target="_blank"';
+						}
+						echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
+					} 
+					// The Caption div
+					if(($atts['showcaption'] === 'true' && strlen($image['title']) > 0 && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
+						echo '<div class="carousel-caption">';
+						// Title
+						if(strlen($image['title']) > 0){
+							echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title'];
+						}
+						// Caption
+						if(strlen($image['content']) > 0){
+							echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption'];
+						}
+						// Link Button
+						if($image['url'] && $atts['link_button'] == 1){ 
+							if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
+							$target = '';
+							if($image['url_openblank']) {
+								$target = ' target="_blank"';
+							}
+							echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">';
+							if(isset($image['link_text']) && strlen($image['link_text']) > 0) {
+								echo $image['link_text'];
+							} else {
+								echo $atts['link_button_text'];
+							}
+							echo '</a>';
+							if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
+						}
+						echo '</div>';
+					} ?>
 				</div>
 			<?php } ?>
 			</div>
-			<?php if( count( $images ) > 1 ){ ?>
-				<?php if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+
+			<?php // Previous / Next controls
+			if( count( $images ) > 1 ){
+				if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 				<?php } else if($atts['showcontrols'] === 'true'){ ?>
@@ -127,10 +163,13 @@ function cptbc_frontend($atts){
 				<?php } else if($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
-				<?php } ?>
-			<?php } ?>
+				<?php }
+			} ?>
+
 		</div>
-        <?php if($atts['use_javascript_animation'] == '1'){ ?>
+
+        <?php // Javascript animation fallback
+        if($atts['use_javascript_animation'] == '1'){ ?>
 		<script type="text/javascript">
 			jQuery(document).ready(function() {
 				jQuery('#cptbc_<?php echo $id; ?>').carousel({
@@ -138,11 +177,12 @@ function cptbc_frontend($atts){
 				});
 			});
 		</script>
-        <?php } // use_javascript_animation? ?>
-<?php
+        <?php }
+
+        // Collect the output
 		$output = ob_get_contents();
 		ob_end_clean();
-	} // if(count($images) > 0){
+	}
 	
 	// Restore original Post Data
 	wp_reset_postdata();  
