@@ -109,6 +109,10 @@ First of all, install and activate the plugin. Go to 'Carousel' in the WordPress
 Absolutely - you just need to use the [do_shortcode](http://codex.wordpress.org/Function_Reference/do_shortcode) WordPress function. For example:
 `<?php echo do_shortcode('[image-carousel]'); ?>`
 
+**I get grey bars at the side of my images / The image isn't aligned (or doesn't reach the far side of the carousel)**
+
+This happens when the carousel is bigger than your images. Either upload higher resolution images, or select the "Use background images?" option in the settings (this will stretch the images though, so they may get a little blurry).
+
 **Can I change the order that the images display in?**
 
 You can specify the order that the carousel displays images by changing the setting in the Settings page, or by using the `orderby` and `order` shortcode attributes. The settings page has common settings, or you can use any terms described for the [WP_Query orderby terms](http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters) for the shortcode.
