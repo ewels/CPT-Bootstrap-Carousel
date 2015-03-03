@@ -93,7 +93,11 @@ function cptbc_frontend($atts){
 			<?php
 			// Carousel Content
 			foreach ($images as $key => $image) {
-
+				
+				if( !isset($atts['link_button']) ) {
+					$atts['link_button'] = 0;
+				}
+				
 				// Build anchor link so it can be reused
 				$linkstart = '';
 				$linkend = '';
