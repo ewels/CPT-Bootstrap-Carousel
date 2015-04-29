@@ -49,6 +49,7 @@ function cptbc_post_type() {
 		'has_archive' => true, 
 		'hierarchical' => false,
 		'menu_position' => 21,
+		'menu_icon' => 'dashicons-images-alt',
 		'supports' => array('title','excerpt','thumbnail', 'page-attributes')
 	); 
 	register_post_type('cptbc', $args);
