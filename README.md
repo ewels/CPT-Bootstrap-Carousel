@@ -143,6 +143,15 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.9.1__
+  * Titles and captions now show if present, independently of each other (previously both needed to be filled in)
+    * You can hide them by leaving blank, or setting _Show Slide Titles / Captions?_ to False in the settings
+  * New German translation courtesy of @stefan-meier
+  * `Undefined index` warning fixed by @pfernandez
+  * Carousel items now have proper CSS IDs (by @chickahoona)
+  * Fixed bug where interval of 0 was replaced with the default interval time
+  * Nicer icon in the WordPress admin (thanks @stefan-meier)
+  * Localization file path issue fixed (thanks @stefan-meier)
 * __1.9__
   * Prevented the help tab from displaying on pages other than Carousel Items
   * Made the output buffer cleaning only happen if we have images (thanks @ChrisLomax)

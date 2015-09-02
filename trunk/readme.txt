@@ -3,8 +3,8 @@ Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 4.2
-Stable tag: 1.9
+Tested up to: 4.3
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,6 +155,16 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.9.1 =
+* Titles and captions now show if present, independently of each other (previously both needed to be filled in)
+  * You can hide them by leaving blank, or setting _Show Slide Titles / Captions?_ to False in the settings
+* New German translation courtesy of @stefan-meier
+* `Undefined index` warning fixed by @pfernandez
+* Carousel items now have proper CSS IDs (by @chickahoona)
+* Fixed bug where interval of 0 was replaced with the default interval time
+* Nicer icon in the WordPress admin (thanks @stefan-meier)
+* Localization file path issue fixed (thanks @stefan-meier)
 
 = 1.9 =
 * Prevented the help tab from displaying on pages other than Carousel Items

@@ -133,7 +133,7 @@ class cptbc_settings_page {
 		);
 		add_settings_field(
 				'showcaption', // ID
-				__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
+				__('Show Slide Titles / Captions?', 'cpt-bootstrap-carousel'), // Title 
 				array( $this, 'showcaption_callback' ), // Callback
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_behaviour' // Section		   
