@@ -124,14 +124,14 @@ function cptbc_frontend($atts){
 						echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
 					} 
 					// The Caption div
-					if(($atts['showcaption'] === 'true' && (strlen($image['title']) > 0 || strlen($image['content']) > 0)) || ($image['url'] && $atts['link_button'] == 1))  {
+					if(($atts['showtitle'] === 'true' && strlen($image['title']) > 0) || ($atts['showcaption'] === 'true' && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
 						echo '<div class="carousel-caption">';
 						// Title
-						if(strlen($image['title']) > 0){
+						if($atts['showtitle'] === 'true' && strlen($image['title']) > 0){
 							echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title'];
 						}
 						// Caption
-						if(strlen($image['content']) > 0){
+						if($atts['showcaption'] === 'true' && strlen($image['content']) > 0){
 							echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption'];
 						}
 						// Link Button

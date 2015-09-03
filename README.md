@@ -143,6 +143,8 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.9.2dev__
+  * Separated settings option for _Show Caption / Titles?_ into two, one for each.
 * __1.9.1__
   * Titles and captions now show if present, independently of each other (previously both needed to be filled in)
     * You can hide them by leaving blank, or setting _Show Slide Titles / Captions?_ to False in the settings

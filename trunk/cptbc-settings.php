@@ -16,6 +16,7 @@ register_activation_hook(__FILE__, 'cptbc_set_options');
 function cptbc_set_options (){
 	$defaults = array(
 		'interval' => '5000',
+		'showtitle' => 'true',
 		'showcaption' => 'true',
 		'showcontrols' => 'true',
 		'customprev' => '',
@@ -132,8 +133,15 @@ class cptbc_settings_page {
 				'cptbc_settings_behaviour' // Section
 		);
 		add_settings_field(
+				'showtitle', // ID
+				__('Show Slide Titles?', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'showtitle_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_behaviour' // Section		   
+		);
+		add_settings_field(
 				'showcaption', // ID
-				__('Show Slide Titles / Captions?', 'cpt-bootstrap-carousel'), // Title 
+				__('Show Slide Captions?', 'cpt-bootstrap-carousel'), // Title 
 				array( $this, 'showcaption_callback' ), // Callback
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_behaviour' // Section		   
@@ -330,6 +338,19 @@ class cptbc_settings_page {
 			printf('<input type="text" id="interval" name="cptbc_settings[interval]" value="%s" size="15" />',
 					isset( $this->options['interval'] ) ? esc_attr( $this->options['interval']) : '');
             echo '<p class="description">'.__('How long each image shows for before it slides. Set to 0 to disable animation.', 'cpt-bootstrap-carousel').'</p>';
+	}
+	public function showtitle_callback() {
+		if(isset( $this->options['showtitle'] ) && $this->options['showtitle'] == 'false'){
+			$cptbc_showtitle_t = '';
+			$cptbc_showtitle_f = ' selected="selected"';
+		} else {
+			$cptbc_showtitle_t = ' selected="selected"';
+			$cptbc_showtitle_f = '';
+		}
+		print '<select id="showtitle" name="cptbc_settings[showtitle]">
+			<option value="true"'.$cptbc_showtitle_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
+			<option value="false"'.$cptbc_showtitle_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
+		</select>';
 	}
 	public function showcaption_callback() {
 		if(isset( $this->options['showcaption'] ) && $this->options['showcaption'] == 'false'){
