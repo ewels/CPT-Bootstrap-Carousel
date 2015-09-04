@@ -186,6 +186,8 @@ function cptbc_frontend($atts){
         // Collect the output
 		$output = ob_get_contents();
 		ob_end_clean();
+	} else {
+		$output = '<!-- CPT Bootstrap Carousel - no images found for #cptbc_'.$id.' -->';
 	}
 	
 	// Restore original Post Data
