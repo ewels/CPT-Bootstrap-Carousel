@@ -40,7 +40,12 @@ function cptbc_frontend($atts){
 		'order' => $atts['order']
 	);
 	if($atts['category'] != ''){
-		$args['carousel_category'] = $atts['category'];
+		$args['tax_query'][] = array(
+			'taxonomy'  => 'carousel_category',
+			'field'     => 'slug',
+			'terms'     => $atts['category'],
+			'operator'  => 'IN'
+		);
 	}
 	if(!isset($atts['before_title'])) $atts['before_title'] = '<h4>';
 	if(!isset($atts['after_title'])) $atts['after_title'] = '</h4>';
