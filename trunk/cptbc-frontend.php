@@ -115,7 +115,7 @@ function cptbc_frontend($atts){
 					$linkend = '</a>';
 				} ?>
 
-				<div class="item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
+				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
 					<?php
 					// Regular behaviour - display image with link around it
 					if($atts['use_background_images'] == 0){
@@ -163,13 +163,13 @@ function cptbc_frontend($atts){
 
 			<?php // Previous / Next controls
 			if( count( $images ) > 1 ){
-				if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+				if($atts['showcontrols'] === 'true' && ($atts['twbs'] == '3' || $atts['twbs'] == '4')) { ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 				<?php } else if($atts['showcontrols'] === 'true'){ ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
-				<?php } else if($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
+				<?php } else if($atts['showcontrols'] === 'custom' && ($atts['twbs'] == '3' || $atts['twbs'] == '4') &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
 				<?php }

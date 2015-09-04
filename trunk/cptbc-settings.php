@@ -38,8 +38,8 @@ function cptbc_set_options (){
 		'twbs' => '3',
 		'use_background_images' => '0',
 		'background_images_height' => '500',
-        'background_images_style_size' => 'cover',
-        'use_javascript_animation' => '1',
+		'background_images_style_size' => 'cover',
+		'use_javascript_animation' => '1',
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -431,16 +431,23 @@ class cptbc_settings_page {
 	
     // Setup Section
 	public function twbs_callback() {
-		if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '3'){
-			$cptbc_twbs3 = ' selected="selected"';
-			$cptbc_twbs2 = '';
-		} else {
+		if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '2'){
+			$cptbc_twbs4 = '';
 			$cptbc_twbs3 = '';
 			$cptbc_twbs2 = ' selected="selected"';
+		} else if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '4'){
+			$cptbc_twbs4 = ' selected="selected"';
+			$cptbc_twbs3 = '';
+			$cptbc_twbs2 = '';
+		} else {
+			$cptbc_twbs4 = '';
+			$cptbc_twbs3 = ' selected="selected"';
+			$cptbc_twbs2 = '';
 		}
 		print '<select id="twbs" name="cptbc_settings[twbs]">
 			<option value="2"'.$cptbc_twbs2.'>2.x</option>
 			<option value="3"'.$cptbc_twbs3.'>3.x (Default)</option>
+			<option value="4"'.$cptbc_twbs4.'>4.x</option>
 		</select>';
         echo '<p class="description">'.__("Set according to which version of Bootstrap you're using.", 'cpt-bootstrap-carousel').'</p>';
 	}
