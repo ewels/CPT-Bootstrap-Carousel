@@ -124,7 +124,7 @@ function cptbc_frontend($atts){
 					} else if($image['url'] && $atts['link_button'] == 0) {
 						echo '<a href="'.$image['url'].'"';
 						if($image['url_openblank']) {
-							$linkstart .= ' target="_blank"';
+							echo ' target="_blank"';
 						}
 						echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
 					} 
