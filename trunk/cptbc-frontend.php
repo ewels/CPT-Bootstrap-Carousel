@@ -130,6 +130,7 @@ function cptbc_frontend($atts){
 					} 
 					// The Caption div
 					if(($atts['showtitle'] === 'true' && strlen($image['title']) > 0) || ($atts['showcaption'] === 'true' && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
+						if(isset($atts['before_caption_div'])) echo $atts['before_caption_div'];
 						echo '<div class="carousel-caption">';
 						// Title
 						if($atts['showtitle'] === 'true' && strlen($image['title']) > 0){
@@ -156,6 +157,7 @@ function cptbc_frontend($atts){
 							if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
 						}
 						echo '</div>';
+						if(isset($atts['after_caption_div'])) echo $atts['after_caption_div'];
 					} ?>
 				</div>
 			<?php } ?>
