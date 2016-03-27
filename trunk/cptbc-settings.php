@@ -24,6 +24,8 @@ function cptbc_set_options (){
 		'orderby' => 'menu_order',
 		'order' => 'ASC',
 		'category' => '',
+		'before_caption_div' => '',
+		'after_caption_div' => '',
 		'before_title' => '<h4>',
 		'after_title' => '</h4>',
 		'before_caption' => '<p>',
@@ -273,6 +275,20 @@ class cptbc_settings_page {
 				'cptbc_settings_markup' // Section
 		);
 		add_settings_field(
+				'before_caption_div', // ID
+				__('HTML before caption div', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'before_caption_div_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_markup' // Section
+		);
+		add_settings_field(
+				'after_caption_div', // ID
+				__('HTML after caption div', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'after_caption_div_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_markup' // Section
+		);
+		add_settings_field(
 				'before_title', // ID
 				__('HTML before title', 'cpt-bootstrap-carousel'), // Title
 				array( $this, 'before_title_callback' ), // Callback
@@ -309,7 +325,7 @@ class cptbc_settings_page {
 		foreach($input as $key => $var){
 			if($key == 'twbs' || $key == 'interval' || $key == 'background_images_height'){
 				$new_input[$key] = absint( $input[$key] );
-			} else if ($key == 'link_button_before' || $key == 'link_button_after' || $key == 'before_title' || $key == 'after_title' || $key == 'before_caption' || $key == 'after_caption'){
+			} else if ($key == 'link_button_before' || $key == 'link_button_after' || $key == 'before_title' || $key == 'after_title' || $key == 'before_caption' || $key == 'after_caption' || $key == 'before_caption_div' || $key == 'after_caption_div'){
 				$new_input[$key] = $input[$key]; // Don't sanitise these, meant to be html!
 			} else { 
 				$new_input[$key] = sanitize_text_field( $input[$key] );
@@ -584,7 +600,15 @@ class cptbc_settings_page {
 	public function after_caption_callback() {
 			printf('<input type="text" id="after_caption" name="cptbc_settings[after_caption]" value="%s" size="15" />',
 					isset( $this->options['after_caption'] ) ? esc_attr( $this->options['after_caption']) : '</p>');
-	}	
+	}
+	public function before_caption_div_callback() {
+			printf('<input type="text" id="before_caption_div" name="cptbc_settings[before_caption_div]" value="%s" size="15" />',
+					isset( $this->options['before_caption_div'] ) ? esc_attr( $this->options['before_caption_div']) : '');
+	}
+	public function after_caption_div_callback() {
+			printf('<input type="text" id="after_caption_div" name="cptbc_settings[after_caption_div]" value="%s" size="15" />',
+					isset( $this->options['after_caption_div'] ) ? esc_attr( $this->options['after_caption_div']) : '');
+	}
 	
 }
 
