@@ -42,6 +42,8 @@ function cptbc_set_options (){
 		'background_images_height' => '500',
 		'background_images_style_size' => 'cover',
 		'use_javascript_animation' => '1',
+		'media_image_size' => 'none',
+		'media_max_width' => '992'
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -197,6 +199,20 @@ class cptbc_settings_page {
 				'use_background_images', // ID
 				__('Use background images?', 'cpt-bootstrap-carousel'), // Title 
 				array( $this, 'use_background_images_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_setup' // Section		   
+		);
+		add_settings_field(
+				'media_image_size', // ID
+				__('Media Image Size', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'media_image_size_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_setup' // Section		   
+		);
+		add_settings_field(
+				'media_max_width', // ID
+				__('Media Max Width', 'cpt-bootstrap-carousel'), // Title 
+				array( $this, 'media_max_width_callback' ), // Callback
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_setup' // Section		   
 		);
@@ -499,6 +515,29 @@ class cptbc_settings_page {
 		echo '>Yes</option>';
 		print '</select>';
         echo '<p class="description">'.__("Experimental feature - Use CSS background images so that pictures auto-fill the space available.", 'cpt-bootstrap-carousel').'</p>';
+	}
+	public function media_image_size_callback() {
+		$image_sizes = get_intermediate_image_sizes();
+		print '<select id="media_image_size" name="cptbc_settings[media_image_size]">
+			<option value="none"';
+			if(isset( $this->options['media_image_size'] ) && $this->options['media_image_size'] == 'none'){
+				print ' selected="selected"';
+			}
+			echo '>None (default)</option>';
+		foreach($image_sizes as $size){
+			print '<option value="'.$size.'"';
+			if(isset( $this->options['media_image_size'] ) && $this->options['media_image_size'] == $size){
+				print ' selected="selected"';
+			}
+			print ">".ucfirst($size)."</option>";
+		}
+		print '</select>';
+        echo '<p class="description">'.__("If using background images obove and if the document small, you can set a smaller image size to increase page load times.", 'cpt-bootstrap-carousel').'</p>';
+	}
+	public function media_max_width_callback() {
+		printf('<input type="text" id="media_max_width" name="cptbc_settings[media_max_width]" value="%s" size="15" />',
+				isset( $this->options['media_max_width'] ) ? esc_attr( $this->options['media_max_width']) : '992');
+        echo '<p class="description">'.__("If using background images above, how small do you want the document to change the carousel image?", 'cpt-bootstrap-carousel').'</p>';
 	}
 	public function background_images_height_callback() {
 		printf('<input type="text" id="background_images_height" name="cptbc_settings[background_images_height]" value="%s" size="15" />',

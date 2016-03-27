@@ -20,6 +20,9 @@ function cptbc_shortcode($atts, $content = null) {
 		$options = get_option( 'cptbc_settings' );
 	}
 	$options['id'] = '';
+	$options['pause'] = 'hover'; // used for data-pause flag
+	$options['fill'] = 'false';  // full height carousel from div position y
+	$options['fill_min'] = '400'; // the minimum carousel size
 
 	// Parse incomming $atts into an array and merge it with $defaults
 	$atts = shortcode_atts($options, $atts);
@@ -30,7 +33,6 @@ add_shortcode('image-carousel', 'cptbc_shortcode');
 
 // Display carousel
 function cptbc_frontend($atts){
-
 	// Build the attributes
 	$id = rand(0, 999); // use a random ID so that the CSS IDs work with multiple on one page
 	$args = array(
@@ -55,6 +57,9 @@ function cptbc_frontend($atts){
 	if(!isset($atts['use_background_images'])) $atts['use_background_images'] = '0';
 	if(!isset($atts['use_javascript_animation'])) $atts['use_javascript_animation'] = '1';
     if(!isset($atts['select_background_images_style_size'])) $atts['select_background_images_style_size'] = 'cover';
+    if(!isset($atts['media_image_size'])) $atts['media_image_size'] = 'none'; // the image-size for @media(max-width)
+    if(!isset($atts['media_max_width'])) $atts['media_max_width'] = '992'; // the max-width for @media
+
 	if($atts['id'] != ''){
 		$args['p'] = $atts['id'];
 	}
@@ -63,6 +68,11 @@ function cptbc_frontend($atts){
 	$loop = new WP_Query( $args );
 	$images = array();
 	$output = '';
+	$images_css_media = array();
+
+	// we need an internal style for @media
+	$output_css = '<style type="text/css">';
+	$output_css_media = '@media (max-width: ' . $atts['media_max_width'] . 'px) {';
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
 		if ( '' != get_the_post_thumbnail(get_the_ID(), $atts['image_size']) ) {
@@ -76,6 +86,26 @@ function cptbc_frontend($atts){
 			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank', true);
 			$link_text = get_post_meta(get_the_ID(), 'cptbc_image_link_text', true);
 			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
+
+			// generate the style
+			if($atts['use_background_images'] == 1) {
+				// for image-size
+				$output_css .= '#cptbc-item-' . $post_id . '{ height: ' . $atts['background_images_height'] . 'px; background: url(\'' . $image_src . '\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . '; }';
+			
+
+				if ($atts['media_image_size'] != 'none' && '' != get_the_post_thumbnail(get_the_ID(), $atts['media_image_size']) ) {	
+					// for media_image_size		
+					$image = get_the_post_thumbnail( get_the_ID(), $atts['media_image_size'] );
+					$image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), $atts['media_image_size']);
+					$image_src = $image_src[0];
+					$url = get_post_meta(get_the_ID(), 'cptbc_image_url', true);
+					$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank', true);
+					$link_text = get_post_meta(get_the_ID(), 'cptbc_image_link_text', true);
+					$images_css_media[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
+					
+					$output_css_media .= '#cptbc-item-' . $post_id. '{ height: ' . $atts['background_images_height'] . 'px; background: url(\'' . $image_src . '\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . '; }';
+				}
+			}
 		}
 	}
 
@@ -83,7 +113,7 @@ function cptbc_frontend($atts){
 	if(count($images) > 0){
 		ob_start();
 		?>
-		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
+		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>" data-pause="<?php echo $atts['pause']; ?>">
 			
 			<?php // First content - the carousel indicators
 			if( count( $images ) > 1 ){ ?>
@@ -115,7 +145,7 @@ function cptbc_frontend($atts){
 					$linkend = '</a>';
 				} ?>
 
-				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
+				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>">
 					<?php
 					// Regular behaviour - display image with link around it
 					if($atts['use_background_images'] == 0){
@@ -190,13 +220,44 @@ function cptbc_frontend($atts){
 		</script>
         <?php }
 
+        // Javascript fill page carousel
+        if ($atts['fill'] == 'true')
+        {
+        	?>
+        	<script>
+				jQuery(window).resize(function() {
+					carouselToFullpage<?php echo $id; ?>();
+				});
+
+				function carouselToFullpage<?php echo $id; ?>()
+				{	
+					var restHeight = jQuery(window).height() - jQuery('#cptbc_<?php echo $id; ?>').offset().top;
+
+					restHeight = restHeight < <?php echo $atts['fill_min']; ?> ? <?php echo $atts['fill_min']; ?> : restHeight;
+
+					var items = jQuery("[id^=cptbc-item-]")
+					for (var i = 0; i < items.length; i++)
+					{
+						jQuery(items[i]).css("height", restHeight+"px");
+					}
+				}
+				jQuery(document).ready(carouselToFullpage<?php echo $id; ?>);
+			</script>
+        	<?php
+        }
+
         // Collect the output
 		$output = ob_get_contents();
 		ob_end_clean();
+
+		// build all together
+		$output_css = $output_css . $output_css_media . '}</style>';
+		$output = $output_css . $output;
+
 	} else {
 		$output = '<!-- CPT Bootstrap Carousel - no images found for #cptbc_'.$id.' -->';
 	}
-	
+
 	// Restore original Post Data
 	wp_reset_postdata();  
 	
