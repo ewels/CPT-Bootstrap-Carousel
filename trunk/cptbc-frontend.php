@@ -115,7 +115,7 @@ function cptbc_frontend($atts){
 					$linkend = '</a>';
 				} ?>
 
-				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="height: '.$atts['background_images_height'].'px; background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
+				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="' .(($atts['background_images_height'] != 0) ? 'height: ' . $atts['background_images_height'] . 'px; ' : "") . ' background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
 					<?php
 					// Regular behaviour - display image with link around it
 					if($atts['use_background_images'] == 0){
