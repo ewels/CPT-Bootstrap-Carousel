@@ -56,7 +56,7 @@ function cptbc_post_type() {
 }
 // Create a taxonomy for the carousel post type
 function cptbc_taxonomies () {
-	$args = array('hierarchical' => true);
+	$args = array('hierarchical' => true, 'label' => 'Carousel Categories');
 	register_taxonomy( 'carousel_category', 'cptbc', $args );
 }
 add_action( 'init', 'cptbc_taxonomies', 0 );
