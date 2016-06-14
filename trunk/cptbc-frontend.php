@@ -223,9 +223,12 @@ function cptbc_frontend($atts){
 
 				// Check & load video auto pause requirements
 				if (count($video_providers) > 0) { ?>
+					<script>
+						var $myCarousel = jQuery('#cptbc_<?php echo $id; ?>');
+
 					<?php foreach ($video_providers as $provider):
 						if ($provider == 'youtube') { ?>
-						<script>
+
 							// See http://jsfiddle.net/8R5y6/
 							function callYoutubePlayer(frame_id, func, args) {
 							    if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
@@ -244,16 +247,17 @@ function cptbc_frontend($atts){
 							    }
 							}
 
-							var $myCarousel = jQuery('#cptbc_<?php echo $id; ?>');
+
 							$myCarousel.on("slide.bs.carousel", function (event) {
 								var $currentSlide = $myCarousel.find(".active iframe.provider-youtube");
 								if (!$currentSlide.length) { return; }
 								callYoutubePlayer($currentSlide, 'pauseVideo')
 							});
-						</script>
+
+
 						<?php }
 						if ($provider == 'vimeo') { ?>
-							<script>
+
 							// Youtube version hacked into vimeo version
 							function callVimeoPlayer(frame_id, action, args) {
 							    if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
@@ -271,16 +275,16 @@ function cptbc_frontend($atts){
 									}
 					    }
 
-							var $myCarousel = jQuery('#cptbc_<?php echo $id; ?>');
+
 							$myCarousel.on("slide.bs.carousel", function (event) {
 								var $currentSlide = $myCarousel.find(".active iframe.provider-vimeo");
 								if (!$currentSlide.length) { return; }
 								callVimeoPlayer($currentSlide, 'pause')
 							});
-							</script>
+
 						<?php }
 					endforeach; ?>
-					<script>
+
 
 					</script>
 				<?php }
