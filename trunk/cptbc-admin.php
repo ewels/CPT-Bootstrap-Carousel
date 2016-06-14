@@ -13,26 +13,26 @@
 
 // Add column in admin list view to show featured image
 // http://wp.tutsplus.com/tutorials/creative-coding/add-a-custom-column-in-posts-and-custom-post-types-admin-screen/
-function cptbc_get_featured_image($post_ID) {
-	$post_thumbnail_id = get_post_thumbnail_id($post_ID);
-	if ($post_thumbnail_id) {
-		$post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'featured_preview');
-		return $post_thumbnail_img[0];
-	}
+function cptbc_get_featured_image($post_ID) {  
+	$post_thumbnail_id = get_post_thumbnail_id($post_ID);  
+	if ($post_thumbnail_id) {  
+		$post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'featured_preview');  
+		return $post_thumbnail_img[0];  
+	}  
 }
-function cptbc_columns_head($defaults) {
-	$defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');
-	$defaults['category'] = __('Category', 'cpt-bootstrap-carousel');
-	return $defaults;
-}
-function cptbc_columns_content($column_name, $post_ID) {
-	if ($column_name == 'featured_image') {
-		$post_featured_image = cptbc_get_featured_image($post_ID);
-		if ($post_featured_image) {
-			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';
-		}
+function cptbc_columns_head($defaults) {  
+	$defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');  
+	$defaults['category'] = __('Category', 'cpt-bootstrap-carousel');  
+	return $defaults;  
+}  
+function cptbc_columns_content($column_name, $post_ID) {  
+	if ($column_name == 'featured_image') {  
+		$post_featured_image = cptbc_get_featured_image($post_ID);  
+		if ($post_featured_image) {  
+			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';  
+		}  
 	}
-	if ($column_name == 'category') {
+	if ($column_name == 'category') {  
 		$post_categories = get_the_terms($post_ID, 'carousel_category');
 		if ($post_categories) {
 			$output = '';
@@ -45,7 +45,7 @@ function cptbc_columns_content($column_name, $post_ID) {
 		}
 	}
 }
-add_filter('manage_cptbc_posts_columns', 'cptbc_columns_head');
+add_filter('manage_cptbc_posts_columns', 'cptbc_columns_head');  
 add_action('manage_cptbc_posts_custom_column', 'cptbc_columns_content', 10, 2);
 
 // Extra admin field for image URL
@@ -63,19 +63,19 @@ function cptbc_image_url(){
 		<input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" style="width: 100%"/> <br />
 		<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small>
 	</p>
-
+	
 	<p>
 		<label>
 			<input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?>
 		</label>
 	</p>
-
+	
 	<p>
 		<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
 		<input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" style="width: 100%"/> <br />
 		<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
 	</p>
-
+	
 	<hr />
 
 	<p><strong>Note: Using a video replaces the slide text &amp; button (if shown), Youtube &amp; Vimeo are supported</strong></p>
@@ -128,38 +128,38 @@ function cptbc_contextual_help_tab() {
                 <p>You can read the full plugin documentation on the <a href="http://wordpress.org/plugins/cpt-bootstrap-carousel/" target="_blank">WordPress plugins page</a></p>
                 <p>Most settings can be changed in the <a href="">settings page</a> but you can also specify options for individual carousels
                 using the following settings:</p>
-
+		
                 <ul>
                 <li><code>interval</code> <em>(default 5000)</em>
                 <ul>
                 <li>Length of time for the caption to pause on each image. Time in milliseconds.</li>
                 </ul></li>
-
+			
                 <li><code>showcaption</code> <em>(default true)</em>
                 <ul>
                 <li>Whether to display the text caption on each image or not. true or false.</li>
                 </ul></li>
-
+			
                 <li><code>showcontrols</code> <em>(default true)</em>
                 <ul>
                 <li>Whether to display the control arrows or not. true or false.</li>
                 </ul></li>
-
+			
                 <li><code>orderby</code> and <code>order</code> <em>(default menu_order ASC)</em>
                 <ul>
                 <li>What order to display the posts in. Uses WP_Query terms.</li>
                 </ul></li>
-
+			
                 <li><code>category</code> <em>(default all)</em>
                 <ul>
                 <li>Filter carousel items by a comma separated list of carousel category slugs.</li>
                 </ul></li>
-
+			
                 <li><code>image_size</code> <em>(default full)</em>
                 <ul>
                 <li>WordPress image size to use, useful for small carousels</li>
                 </ul></li>
-
+			
                 <li><code>id</code> <em>(default all)</em>
                 <ul>
                 <li>Specify the ID of a specific carousel post to display only one image.</li>';
@@ -168,7 +168,7 @@ function cptbc_contextual_help_tab() {
         }
         $help .= '
             </ul></li>
-
+			
         <li><code>twbs</code> <em>(default 3)</em>
         <ul>
         <li>Output markup for Twitter Bootstrap Version 2, 3 or 4.</li>
