@@ -56,15 +56,24 @@ function cptbc_image_url(){
 	$cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
 	$cptbc_image_link_text = isset($custom['cptbc_image_link_text']) ?  $custom['cptbc_image_link_text'][0] : '';
 	?>
-	<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
-	<input name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
-	<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small><br /><br />
+	<p>
+		<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
+		<input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
+		<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small>
+	</p>
 	
-	<label><input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?></label><br /><br />
+	<p>
+		<label>
+			<input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?>
+		</label>
+	</p>
 	
-	<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
-	<input name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" /> <br />
-	<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
+	<p>
+		<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
+		<input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" /> <br />
+		<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
+	</p>
+	
 	<?php
 }
 function cptbc_admin_init_custpost(){
@@ -137,9 +146,9 @@ function cptbc_contextual_help_tab() {
         $help .= '
             </ul></li>
 			
-        <li><code>twbs</code> <em>(default 2)</em>
+        <li><code>twbs</code> <em>(default 3)</em>
         <ul>
-        <li>Output markup for Twitter Bootstrap Version 2 or 3.</li>
+        <li>Output markup for Twitter Bootstrap Version 2, 3 or 4.</li>
         </ul></li>
         </ul>
         ';
