@@ -62,6 +62,8 @@ function cptbc_frontend($atts){
 	// Collect the carousel content. Needs printing in two loops later (bullets and content)
 	$loop = new WP_Query( $args );
 	$images = array();
+	$video_providers = array();
+
 	$output = '';
 	while ( $loop->have_posts() ) {
 		$loop->the_post();
@@ -75,7 +77,9 @@ function cptbc_frontend($atts){
 			$url = get_post_meta(get_the_ID(), 'cptbc_image_url', true);
 			$url_openblank = get_post_meta(get_the_ID(), 'cptbc_image_url_openblank', true);
 			$link_text = get_post_meta(get_the_ID(), 'cptbc_image_link_text', true);
-			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
+			$video_url = get_post_meta(get_the_ID(), 'cptbc_video_url', true);
+			$video_aspect = get_post_meta(get_the_ID(), 'cptbc_video_aspect', true);
+			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'video_url' => esc_url($video_url), 'video_aspect' => $video_aspect, 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
 		}
 	}
 
@@ -84,7 +88,8 @@ function cptbc_frontend($atts){
 		ob_start();
 		?>
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
-			
+
+
 			<?php // First content - the carousel indicators
 			if( count( $images ) > 1 ){ ?>
 				<ol class="carousel-indicators">
@@ -98,11 +103,12 @@ function cptbc_frontend($atts){
 			<?php
 			// Carousel Content
 			foreach ($images as $key => $image) {
-				
+
 				if( !isset($atts['link_button']) ) {
 					$atts['link_button'] = 0;
 				}
-				
+
+
 				// Build anchor link so it can be reused
 				$linkstart = '';
 				$linkend = '';
@@ -118,47 +124,72 @@ function cptbc_frontend($atts){
 				<div class="<?php echo $atts['twbs'] == '4' ? 'carousel-' : ''; ?>item <?php echo $key == 0 ? 'active' : ''; ?>" id="cptbc-item-<?php echo $image['post_id']; ?>" <?php if($atts['use_background_images'] == 1){ echo ' style="' .(($atts['background_images_height'] != 0) ? 'height: ' . $atts['background_images_height'] . 'px; ' : "") . ' background: url(\''.$image['img_src'].'\') no-repeat center center ; -webkit-background-size: ' . $atts['select_background_images_style_size'] . '; -moz-background-size: ' . $atts['select_background_images_style_size'] . '; -o-background-size: ' . $atts['select_background_images_style_size'] . '; background-size: ' . $atts['select_background_images_style_size'] . ';"'; } ?>>
 					<?php
 					// Regular behaviour - display image with link around it
-					if($atts['use_background_images'] == 0){
-						echo $linkstart.$image['image'].$linkend;
-					// Backgorund images mode - need block level link inside carousel link if we have a linl
-					} else if($image['url'] && $atts['link_button'] == 0) {
-						echo '<a href="'.$image['url'].'"';
-						if($image['url_openblank']) {
-							echo ' target="_blank"';
-						}
-						echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
-					} 
-					// The Caption div
-					if(($atts['showtitle'] === 'true' && strlen($image['title']) > 0) || ($atts['showcaption'] === 'true' && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
-						if(isset($atts['before_caption_div'])) echo $atts['before_caption_div'];
-						echo '<div class="carousel-caption">';
-						// Title
-						if($atts['showtitle'] === 'true' && strlen($image['title']) > 0){
-							echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title'];
-						}
-						// Caption
-						if($atts['showcaption'] === 'true' && strlen($image['content']) > 0){
-							echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption'];
-						}
-						// Link Button
-						if($image['url'] && $atts['link_button'] == 1){ 
-							if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
-							$target = '';
+					if ($image['video_url']) { ?>
+							<div class="embed-responsive <?php echo $image['video_aspect']; ?>">
+								<?php
+									$provider;
+									// Check which video provider and set the JS API param
+									if (strpos($image['video_url'], 'youtube')) {
+										$provider = 'youtube';
+										$image['video_url'] .= (strpos($image['video_url'], '?')) ? '&enablejsapi=1' : '?enablejsapi=1';
+									} else if (strpos($image['video_url'], 'vimeo')) {
+										$provider = 'vimeo';
+										$image['video_url'] .= (strpos($image['video_url'], '?')) ? '&api=1' : '?api=1';
+									}
+
+									// if not in list add it
+									//if ($video_providers)
+									if (!in_array( $provider, $video_providers)) {
+										$video_providers[] = $provider;
+									}
+								?>
+								<iframe id="<?php echo 'video-' . $key; ?>" width="100%" class="embed-responsive-item provider-<?php echo $provider; ?>" height="100%" src="<?php echo $image['video_url']; ?>" frameborder="0" allowfullscreen=""></iframe>
+							</div>
+					<?php
+						} else {
+						if($atts['use_background_images'] == 0){
+							echo $linkstart.$image['image'].$linkend;
+						// Background images mode - need block level link inside carousel link if we have a linl
+						} else if($image['url'] && $atts['link_button'] == 0) {
+							echo '<a href="'.$image['url'].'"';
 							if($image['url_openblank']) {
-								$target = ' target="_blank"';
+								echo ' target="_blank"';
 							}
-							echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">';
-							if(isset($image['link_text']) && strlen($image['link_text']) > 0) {
-								echo $image['link_text'];
-							} else {
-								echo $atts['link_button_text'];
-							}
-							echo '</a>';
-							if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
+							echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
 						}
-						echo '</div>';
-						if(isset($atts['after_caption_div'])) echo $atts['after_caption_div'];
-					} ?>
+						// The Caption div
+						if(($atts['showtitle'] === 'true' && strlen($image['title']) > 0) || ($atts['showcaption'] === 'true' && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
+							if(isset($atts['before_caption_div'])) echo $atts['before_caption_div'];
+							echo '<div class="carousel-caption">';
+							// Title
+							if($atts['showtitle'] === 'true' && strlen($image['title']) > 0){
+								echo $atts['before_title'].$linkstart.$image['title'].$linkend.$atts['after_title'];
+							}
+							// Caption
+							if($atts['showcaption'] === 'true' && strlen($image['content']) > 0){
+								echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption'];
+							}
+							// Link Button
+							if($image['url'] && $atts['link_button'] == 1){
+								if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
+								$target = '';
+								if($image['url_openblank']) {
+									$target = ' target="_blank"';
+								}
+								echo '<a href="'.$image['url'].'" '.$target.' class="'.$atts['link_button_class'].'">';
+								if(isset($image['link_text']) && strlen($image['link_text']) > 0) {
+									echo $image['link_text'];
+								} else {
+									echo $atts['link_button_text'];
+								}
+								echo '</a>';
+								if(isset($atts['link_button_after'])) echo $atts['link_button_after'];
+							}
+							echo '</div>';
+							if(isset($atts['after_caption_div'])) echo $atts['after_caption_div'];
+
+						}
+					} // End video if ?>
 				</div>
 			<?php } ?>
 			</div>
@@ -190,16 +221,80 @@ function cptbc_frontend($atts){
 		</script>
         <?php }
 
+				// Check & load video auto pause requirements
+				if (count($video_providers) > 0) { ?>
+					<?php foreach ($video_providers as $provider):
+						if ($provider == 'youtube') { ?>
+						<script>
+							// See http://jsfiddle.net/8R5y6/
+							function callYoutubePlayer(frame_id, func, args) {
+							    if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
+							    var iframe = document.getElementById(frame_id);
+							    if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+							        iframe = iframe.getElementsByTagName('iframe')[0];
+							    }
+							    if (iframe) {
+							        // Frame exists,
+							        iframe.contentWindow.postMessage(JSON.stringify({
+							            "event": "command",
+							            "func": func,
+							            "args": args || [],
+							            "id": frame_id
+							        }), "*");
+							    }
+							}
+
+							var $myCarousel = jQuery('#cptbc_<?php echo $id; ?>');
+							$myCarousel.on("slide.bs.carousel", function (event) {
+								var $currentSlide = $myCarousel.find(".active iframe.provider-youtube");
+								if (!$currentSlide.length) { return; }
+								callYoutubePlayer($currentSlide, 'pauseVideo')
+							});
+						</script>
+						<?php }
+						if ($provider == 'vimeo') { ?>
+							<script>
+							// Youtube version hacked into vimeo version
+							function callVimeoPlayer(frame_id, action, args) {
+							    if (window.jQuery && frame_id instanceof jQuery) frame_id = frame_id.get(0).id;
+									var iframe = document.getElementById(frame_id);
+										if (iframe && iframe.tagName.toUpperCase() != 'IFRAME') {
+												iframe = iframe.getElementsByTagName('iframe')[0];
+										}
+										if (iframe) {
+						        var data = { method: action };
+						        if (args) {
+						            data.value = args;
+						        }
+										url = iframe.src.split('?')[0];
+						        iframe.contentWindow.postMessage(JSON.stringify(data), url);
+									}
+					    }
+
+							var $myCarousel = jQuery('#cptbc_<?php echo $id; ?>');
+							$myCarousel.on("slide.bs.carousel", function (event) {
+								var $currentSlide = $myCarousel.find(".active iframe.provider-vimeo");
+								if (!$currentSlide.length) { return; }
+								callVimeoPlayer($currentSlide, 'pause')
+							});
+							</script>
+						<?php }
+					endforeach; ?>
+					<script>
+
+					</script>
+				<?php }
+
         // Collect the output
 		$output = ob_get_contents();
 		ob_end_clean();
 	} else {
 		$output = '<!-- CPT Bootstrap Carousel - no images found for #cptbc_'.$id.' -->';
 	}
-	
+
 	// Restore original Post Data
-	wp_reset_postdata();  
-	
+	wp_reset_postdata();
+
 	return $output;
 }
 
