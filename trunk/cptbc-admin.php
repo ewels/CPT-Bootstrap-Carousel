@@ -55,10 +55,12 @@ function cptbc_image_url(){
 	$cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
 	$cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
 	$cptbc_image_link_text = isset($custom['cptbc_image_link_text']) ?  $custom['cptbc_image_link_text'][0] : '';
+	$cptbc_video_url = isset($custom['cptbc_video_url']) ?  $custom['cptbc_video_url'][0] : '';
+	$cptbc_video_aspect = isset($custom['cptbc_video_aspect']) ?  $custom['cptbc_video_aspect'][0] : '';
 	?>
 	<p>
 		<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
-		<input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" /> <br />
+		<input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" style="width: 100%"/> <br />
 		<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small>
 	</p>
 	
@@ -70,14 +72,31 @@ function cptbc_image_url(){
 	
 	<p>
 		<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
-		<input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" /> <br />
+		<input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" style="width: 100%"/> <br />
 		<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
 	</p>
 	
+	<hr />
+
+	<p><strong>Note: Using a video replaces the slide text &amp; button (if shown), Youtube &amp; Vimeo are supported</strong></p>
+
+	<p>
+		<label><?php _e('Video URL', 'cpt-bootstrap-carousel'); ?>:</label>
+		<input type="text" name="cptbc_video_url" value="<?php echo $cptbc_video_url; ?>" style="width: 100%"/> <br />
+		<small><em><?php _e('(use only the url, not the full embed code)', 'cpt-bootstrap-carousel'); ?></em></small>
+	</p>
+
+	<p>
+		<label><?php _e('Video Aspect Ratio', 'cpt-bootstrap-carousel'); ?>:</label>
+		<select name="cptbc_video_aspect">
+			<option value="embed-responsive-16by9" <?php if ($cptbc_video_aspect == "embed-responsive-16by9") echo 'selected'; ?>>16:9</option>
+			<option value="embed-responsive-4by3" <?php if ($cptbc_video_aspect == "embed-responsive-4by3") echo 'selected'; ?>>4:3</option>
+		</select> <br />
+	</p>
 	<?php
 }
 function cptbc_admin_init_custpost(){
-	add_meta_box("cptbc_image_url", "Image Link URL", "cptbc_image_url", "cptbc", "side", "low");
+	add_meta_box("cptbc_image_url", "Slide Options", "cptbc_image_url", "cptbc", "side", "low");
 }
 add_action("add_meta_boxes", "cptbc_admin_init_custpost");
 function cptbc_mb_save_details(){
@@ -90,6 +109,10 @@ function cptbc_mb_save_details(){
 		update_post_meta($post->ID, "cptbc_image_url", esc_url($_POST["cptbc_image_url"]));
 		update_post_meta($post->ID, "cptbc_image_url_openblank", $openblank);
 		update_post_meta($post->ID, "cptbc_image_link_text", sanitize_text_field($_POST["cptbc_image_link_text"]));
+	}
+	if (isset($_POST["cptbc_video_url"])) {
+		update_post_meta($post->ID, "cptbc_video_url", esc_url($_POST["cptbc_video_url"]));
+		update_post_meta($post->ID, "cptbc_video_aspect", sanitize_text_field($_POST["cptbc_video_aspect"]));
 	}
 }
 add_action('save_post', 'cptbc_mb_save_details');
