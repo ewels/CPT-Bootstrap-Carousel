@@ -195,14 +195,14 @@ function cptbc_frontend($atts){
 			<?php // Previous / Next controls
 			if( count( $images ) > 1 ){
 				if($atts['showcontrols'] === 'true' && ($atts['twbs'] == '3' || $atts['twbs'] == '4')) { ?>
-					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					<button class="left carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></button>
+					<button class="right carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></button>
 				<?php } else if($atts['showcontrols'] === 'true'){ ?>
-					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
-					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
+					<button class="left carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</button>
+					<button class="right carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="next">›</button>
 				<?php } else if($atts['showcontrols'] === 'custom' && ($atts['twbs'] == '3' || $atts['twbs'] == '4') &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
-					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
-					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+					<button class="left carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></button>
+					<button class="right carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></button>
 				<?php }
 			} ?>
 
