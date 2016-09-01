@@ -203,8 +203,51 @@ function cptbc_frontend($atts){
 				<?php } else if($atts['showcontrols'] === 'custom' && ($atts['twbs'] == '3' || $atts['twbs'] == '4') &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
 					<button class="left carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></button>
 					<button class="right carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></button>
-				<?php }
-			} ?>
+				<?php } ?>
+
+				<div class="carousel-controls">
+					<button class="btn btn-default btn-xs carousel-pause <?php echo (int) $atts['interval'] > 0 ?: 'hidden'; ?>">
+						<span class="glyphicon glyphicon-pause"></span>
+						Pause
+					</button>
+					<button class="btn btn-default btn-xs carousel-play hidden">
+						<span class="glyphicon glyphicon-play"></span>
+						Play
+					</button>
+				</div>
+
+				<script>
+				jQuery(document).ready(function($) {
+					/**
+					 * Carousel Pause / Play button behaviour
+					 */
+
+					var $carousel = $('#cptbc_<?php echo $id; ?>'),
+						$carouselControls = $carousel.find('.carousel-controls'),
+						$carouselPause = $carouselControls.find('.carousel-pause'),
+						$carouselPlay = $carouselControls.find('.carousel-play');
+
+					// Pauses the Carousel, and updates the button
+					var pauseCarousel = function() {
+						$carouselPause.addClass('hidden');
+						$carouselPlay.removeClass('hidden');
+						$carousel.carousel('pause');
+					};
+
+					// Resmes the Carousel, and updates the button
+					var resumeCarousel = function() {
+						$carouselPlay.addClass('hidden');
+						$carouselPause.removeClass('hidden');
+						$carousel.carousel('cycle');
+					};
+
+					// Event listeners
+					$carouselPause.on('click', pauseCarousel);
+					$carouselPlay.on('click', resumeCarousel);
+				});
+				</script>
+
+			<?php } ?>
 
 		</div>
 
