@@ -15,7 +15,7 @@
 register_activation_hook(__FILE__, 'cptbc_set_options');
 function cptbc_set_options (){
 	$defaults = array(
-		'interval' => '5000',
+		'interval' => '0',
 		'showtitle' => 'true',
 		'showcaption' => 'true',
 		'showcontrols' => 'true',
