@@ -244,6 +244,18 @@ function cptbc_frontend($atts){
 					// Event listeners
 					$carouselPause.on('click', pauseCarousel);
 					$carouselPlay.on('click', resumeCarousel);
+
+					/**
+					 * Carousel auto-pause when user interacts with UI
+					 */
+
+					var $carousel = $('#cptbc_<?php echo $id; ?>'),
+						$carouselControl = $carousel.find('.carousel-control'), // Left and Right buttons
+						$carouselIndicators = $carousel.find('.carousel-indicators');
+
+					// Event listeners
+					$carouselControl.on('click', pauseCarousel);
+					$carouselIndicators.on('click', pauseCarousel);
 				});
 				</script>
 
