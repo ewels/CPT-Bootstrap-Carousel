@@ -205,59 +205,61 @@ function cptbc_frontend($atts){
 					<button class="right carousel-control" data-target="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></button>
 				<?php } ?>
 
-				<div class="carousel-controls">
-					<button class="btn btn-default btn-xs carousel-pause <?php echo (int) $atts['interval'] > 0 ?: 'hidden'; ?>">
-						<span class="glyphicon glyphicon-pause"></span>
-						Pause
-					</button>
-					<button class="btn btn-default btn-xs carousel-play hidden">
-						<span class="glyphicon glyphicon-play"></span>
-						Play
-					</button>
-				</div>
+				<?php if ((int) $atts['interval'] > 0): ?>
+					<div class="carousel-controls">
+						<button class="btn btn-default btn-xs carousel-pause">
+							<span class="glyphicon glyphicon-pause"></span>
+							Pause
+						</button>
+						<button class="btn btn-default btn-xs carousel-play hidden">
+							<span class="glyphicon glyphicon-play"></span>
+							Play
+						</button>
+					</div>
 
-				<script>
-				jQuery(document).ready(function($) {
-					/**
-					 * Carousel Pause / Play button behaviour
-					 */
+					<script>
+					jQuery(document).ready(function($) {
+						/**
+						 * Carousel Pause / Play button behaviour
+						 */
 
-					var $carousel = $('#cptbc_<?php echo $id; ?>'),
-						$carouselControls = $carousel.find('.carousel-controls'),
-						$carouselPause = $carouselControls.find('.carousel-pause'),
-						$carouselPlay = $carouselControls.find('.carousel-play');
+						var $carousel = $('#cptbc_<?php echo $id; ?>'),
+							$carouselControls = $carousel.find('.carousel-controls'),
+							$carouselPause = $carouselControls.find('.carousel-pause'),
+							$carouselPlay = $carouselControls.find('.carousel-play');
 
-					// Pauses the Carousel, and updates the button
-					var pauseCarousel = function() {
-						$carouselPause.addClass('hidden');
-						$carouselPlay.removeClass('hidden');
-						$carousel.carousel('pause');
-					};
+						// Pauses the Carousel, and updates the button
+						var pauseCarousel = function() {
+							$carouselPause.addClass('hidden');
+							$carouselPlay.removeClass('hidden');
+							$carousel.carousel('pause');
+						};
 
-					// Resmes the Carousel, and updates the button
-					var resumeCarousel = function() {
-						$carouselPlay.addClass('hidden');
-						$carouselPause.removeClass('hidden');
-						$carousel.carousel('cycle');
-					};
+						// Resmes the Carousel, and updates the button
+						var resumeCarousel = function() {
+							$carouselPlay.addClass('hidden');
+							$carouselPause.removeClass('hidden');
+							$carousel.carousel('cycle');
+						};
 
-					// Event listeners
-					$carouselPause.on('click', pauseCarousel);
-					$carouselPlay.on('click', resumeCarousel);
+						// Event listeners
+						$carouselPause.on('click', pauseCarousel);
+						$carouselPlay.on('click', resumeCarousel);
 
-					/**
-					 * Carousel auto-pause when user interacts with UI
-					 */
+						/**
+						 * Carousel auto-pause when user interacts with UI
+						 */
 
-					var $carousel = $('#cptbc_<?php echo $id; ?>'),
-						$carouselControl = $carousel.find('.carousel-control'), // Left and Right buttons
-						$carouselIndicators = $carousel.find('.carousel-indicators');
+						var $carousel = $('#cptbc_<?php echo $id; ?>'),
+							$carouselControl = $carousel.find('.carousel-control'), // Left and Right buttons
+							$carouselIndicators = $carousel.find('.carousel-indicators');
 
-					// Event listeners
-					$carouselControl.on('click', pauseCarousel);
-					$carouselIndicators.on('click', pauseCarousel);
-				});
-				</script>
+						// Event listeners
+						$carouselControl.on('click', pauseCarousel);
+						$carouselIndicators.on('click', pauseCarousel);
+					});
+					</script>
+				<?php endif; ?>
 
 			<?php } ?>
 
