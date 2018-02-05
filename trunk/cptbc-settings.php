@@ -417,9 +417,9 @@ class cptbc_settings_page {
 			$cptbc_showindicators_t = ' selected="selected"';
 			$cptbc_showindicators_f = '';
 		}
-		print '<select id="showcontrols" name="cptbc_settings[showcontrols]">
-			<option value="true"'.$cptbc_showcontrols_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
-			<option value="false"'.$cptbc_showcontrols_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
+		print '<select id="showindicators" name="cptbc_settings[showindicators]">
+			<option value="true"'.$cptbc_showindicators_t.'>'.__('Show', 'cpt-bootstrap-carousel').'</option>
+			<option value="false"'.$cptbc_showindicators_f.'>'.__('Hide', 'cpt-bootstrap-carousel').'</option>
 		</select>';
 	}
 	public function orderby_callback() {
