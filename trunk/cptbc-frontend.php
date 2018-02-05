@@ -88,25 +88,29 @@ function cptbc_frontend($atts){
 		ob_start();
 		?>
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
-			
-			<?php // First content - the carousel indicators
-			if( count( $images ) > 1 ){ ?>
-				<ol class="carousel-indicators">
-				<?php foreach ($images as $key => $image) { ?>
-					<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
-				<?php } ?>
-				</ol>
-			<?php } ?>
+
+			<?php
+			if($atts['showindicators'] === 'true') {
+			// First content - the carousel indicators
+				if( count( $images ) > 1 ){ ?>
+					<ol class="carousel-indicators">
+					<?php foreach ($images as $key => $image) { ?>
+						<li data-target="#cptbc_<?php echo $id; ?>" data-slide-to="<?php echo $key; ?>" <?php echo $key == 0 ? 'class="active"' : ''; ?>></li>
+					<?php } ?>
+					</ol>
+				<?php
+				}
+			} ?>
 
 			<div class="carousel-inner">
 			<?php
 			// Carousel Content
 			foreach ($images as $key => $image) {
-				
+
 				if( !isset($atts['link_button']) ) {
 					$atts['link_button'] = 0;
 				}
-				
+
 				// Build anchor link so it can be reused
 				$linkstart = '';
 				$linkend = '';
@@ -154,7 +158,7 @@ function cptbc_frontend($atts){
 							echo ' target="_blank"';
 						}
 						echo ' style="display:block; width:100%; height:100%;">&nbsp;</a>';
-					} 
+					}
 					// The Caption div
 					if(($atts['showtitle'] === 'true' && strlen($image['title']) > 0) || ($atts['showcaption'] === 'true' && strlen($image['content']) > 0) || ($image['url'] && $atts['link_button'] == 1))  {
 						if(isset($atts['before_caption_div'])) echo $atts['before_caption_div'];
@@ -168,7 +172,7 @@ function cptbc_frontend($atts){
 							echo $atts['before_caption'].$linkstart.$image['content'].$linkend.$atts['after_caption'];
 						}
 						// Link Button
-						if($image['url'] && $atts['link_button'] == 1){ 
+						if($image['url'] && $atts['link_button'] == 1){
 							if(isset($atts['link_button_before'])) echo $atts['link_button_before'];
 							$target = '';
 							if($image['url_openblank']) {
@@ -194,15 +198,21 @@ function cptbc_frontend($atts){
 
 			<?php // Previous / Next controls
 			if( count( $images ) > 1 ){
-				if($atts['showcontrols'] === 'true' && ($atts['twbs'] == '3' || $atts['twbs'] == '4')) { ?>
-					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-				<?php } else if($atts['showcontrols'] === 'true'){ ?>
+				if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+					<a class="left carousel-control-left" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+					<a class="right carousel-control-right" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+				<?php } elseif ($atts['showcontrols'] === 'true' && $atts['twbs'] == '4') { ?>
+					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
+					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+				<?php } elseif ($atts['showcontrols'] === 'true') { ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
-				<?php } else if($atts['showcontrols'] === 'custom' && ($atts['twbs'] == '3' || $atts['twbs'] == '4') &&  $atts['customprev'] != '' &&  $atts['customnext'] != ''){ ?>
-					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
-					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+				<?php } elseif ($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' && $atts['customprev'] != '' &&  $atts['customnext'] != '') { ?>
+					<a class="left carousel-control" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
+					<a class="right carousel-control" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+				<? } elseif ($atts['showcontrols'] === 'custom' && $atts['twbs'] == '4' && $atts['customprev'] != '' &&  $atts['customnext'] != '') { ?>
+					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
+					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
 				<?php }
 			} ?>
 
@@ -285,10 +295,9 @@ function cptbc_frontend($atts){
 	} else {
 		$output = '<!-- CPT Bootstrap Carousel - no images found for #cptbc_'.$id.' -->';
 	}
-	
+
 	// Restore original Post Data
-	wp_reset_postdata();  
-	
+	wp_reset_postdata();
+
 	return $output;
 }
-
