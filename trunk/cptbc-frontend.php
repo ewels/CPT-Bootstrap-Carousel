@@ -90,7 +90,7 @@ function cptbc_frontend($atts){
 		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
 
 			<?php
-			if($atts['showindicators'] === 'true') {
+			if( $atts['showindicators'] === 'true' ) {
 			// First content - the carousel indicators
 				if( count( $images ) > 1 ){ ?>
 					<ol class="carousel-indicators">
@@ -198,19 +198,19 @@ function cptbc_frontend($atts){
 
 			<?php // Previous / Next controls
 			if( count( $images ) > 1 ){
-				if($atts['showcontrols'] === 'true' && $atts['twbs'] == '3') { ?>
+				if( $atts['showcontrols'] === 'true' && $atts['twbs' ] == '3') { ?>
 					<a class="left carousel-control-left" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 					<a class="right carousel-control-right" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-				<?php } elseif ($atts['showcontrols'] === 'true' && $atts['twbs'] == '4') { ?>
+				<?php } elseif ( $atts['showcontrols'] === 'true' && $atts['twbs'] == '4' ) { ?>
 					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
 					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
-				<?php } elseif ($atts['showcontrols'] === 'true') { ?>
+				<?php } elseif ( $atts['showcontrols'] === 'true' ) { ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
-				<?php } elseif ($atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' && $atts['customprev'] != '' &&  $atts['customnext'] != '') { ?>
+				<?php } elseif ( $atts['showcontrols'] === 'custom' && $atts['twbs'] == '3' && $atts['customprev'] != '' &&  $atts['customnext'] != '' ) { ?>
 					<a class="left carousel-control" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
 					<a class="right carousel-control" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
-				<? } elseif ($atts['showcontrols'] === 'custom' && $atts['twbs'] == '4' && $atts['customprev'] != '' &&  $atts['customnext'] != '') { ?>
+				<? } elseif ( $atts['showcontrols'] === 'custom' && $atts['twbs'] == '4' && $atts['customprev'] != '' &&  $atts['customnext'] != '' ) { ?>
 					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
 					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
 				<?php }
