@@ -199,11 +199,11 @@ function cptbc_frontend($atts){
 			<?php // Previous / Next controls
 			if( count( $images ) > 1 ){
 				if( $atts['showcontrols'] === 'true' && $atts['twbs' ] == '3') { ?>
-					<a class="left carousel-control-left" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					<a class="right carousel-control-right" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 				<?php } elseif ( $atts['showcontrols'] === 'true' && $atts['twbs'] == '4' ) { ?>
-					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="<?php echo $atts['customprev'] ?> icon-prev"></span></a>
-					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="<?php echo $atts['customnext'] ?> icon-next"></span></a>
+					<a class="carousel-control-prev" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="prev"><span class="carousel-control-prev-icon icon-prev"></span></a>
+					<a class="carousel-control-next" role="button" href="#cptbc_<?php echo $id; ?>" data-slide="next"><span class="carousel-control-next-icon icon-next"></span></a>
 				<?php } elseif ( $atts['showcontrols'] === 'true' ) { ?>
 					<a class="left carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="prev">‹</a>
 					<a class="right carousel-control" href="#cptbc_<?php echo $id; ?>" data-slide="next">›</a>
