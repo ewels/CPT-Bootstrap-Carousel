@@ -3,7 +3,7 @@
 Plugin Name: CPT Bootstrap Carousel
 Plugin URI: http://www.tallphil.co.uk/bootstrap-carousel/
 Description: A custom post type for choosing images and content which outputs <a href="http://getbootstrap.com/javascript/#carousel" target="_blank">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap javascript and CSS to be loaded separately.
-Version: 1.9.2dev
+Version: 1.10
 Author: Phil Ewels
 Author URI: http://phil.ewels.co.uk
 Text Domain: cpt-bootstrap-carousel
@@ -41,17 +41,17 @@ function cptbc_post_type() {
 		'public' => true,
 		'exclude_from_search' => true,
 		'publicly_queryable' => false,
-		'show_ui' => true, 
-		'show_in_menu' => true, 
+		'show_ui' => true,
+		'show_in_menu' => true,
 		'query_var' => true,
 		'rewrite' => true,
 		'capability_type' => 'page',
-		'has_archive' => true, 
+		'has_archive' => true,
 		'hierarchical' => false,
 		'menu_position' => 21,
 		'menu_icon' => 'dashicons-images-alt',
 		'supports' => array('title','excerpt','thumbnail', 'page-attributes')
-	); 
+	);
 	register_post_type('cptbc', $args);
 }
 // Create a taxonomy for the carousel post type
@@ -67,7 +67,7 @@ add_action( 'init', 'cptbc_taxonomies', 0 );
 function cptbc_addFeaturedImageSupport() {
 	$supportedTypes = get_theme_support( 'post-thumbnails' );
 	if( $supportedTypes === false ) {
-		add_theme_support( 'post-thumbnails', array( 'cptbc' ) );	  
+		add_theme_support( 'post-thumbnails', array( 'cptbc' ) );
 		add_image_size('featured_preview', 100, 55, true);
 	} elseif( is_array( $supportedTypes ) ) {
 		$supportedTypes[0][] = 'cptbc';
@@ -81,4 +81,3 @@ add_action( 'after_setup_theme', 'cptbc_addFeaturedImageSupport');
 require_once('cptbc-admin.php');
 require_once('cptbc-settings.php');
 require_once('cptbc-frontend.php');
-

@@ -3,8 +3,8 @@ Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 4.3
-Stable tag: 1.9.2dev
+Tested up to: 5.1.1
+Stable tag: 1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ A custom post type for choosing images and content which outputs Bootstrap Image
 
 == Description ==
 
-A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`. 
+A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`.
 
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
@@ -155,6 +155,15 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation).
 
 == Changelog ==
+
+= 1.10.1 =
+* Added support for Bootstrap 4
+* Added support for video backgrounds, youtube or vimeo
+* Tested with WordPress 5.1.1
+* Separated settings option for _Show Caption / Titles?_ into two, one for each.
+* Fixed minor front end bug when using background images. Thanks to @thendigital
+* New Indonesian translation by Jordan Silaen from http://chameleonjohn.com/
+* Many other tweaks and improvements
 
 = 1.9.1 =
 * Titles and captions now show if present, independently of each other (previously both needed to be filled in)

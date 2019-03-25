@@ -1,7 +1,7 @@
 CPT Bootstrap Carousel
 ======================
 
-A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`. 
+A custom post type for choosing images and content which outputs a [carousel](http://getbootstrap.com/javascript/#carousel) from [Twitter Bootstrap](http://www.getbootstrap.com) using the shortcode `[image-carousel]`.
 
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
@@ -51,7 +51,7 @@ As of version 1.5, nearly all of these options can be set in the CPT Bootstrap C
 * `twbs` _(default 2)_
 	* Output markup for Twitter Bootstrap Version 2 or 3.
 	* `[image-carousel twbs="3"]`
-	
+
 Credits
 -------
 This plugin was written by @tallphil with help and suggestions from several others including (but not limited to) @reddo, @joshgerdes, @atnon, @grahamharper, @rchq, @oheijo, @smtk, @cla63, @cookierebes and @sipman.
@@ -86,7 +86,7 @@ Installation
 1. Create new items in the `Carousel` post type, uploading a Featured Image for each.
 	1. *Optional:* You can hyperlink each image by entering the desired url `Image Link URL` admin metabox when adding a new carousel image.
 
-	
+
 Frequently Asked Questions
 --------------------------
 
@@ -143,10 +143,14 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
-* __1.9.2dev__
+* __1.10__
+  * Added support for Bootstrap 4
+  * Added support for video backgrounds, youtube or vimeo
+  * Tested with WordPress 5.1.1
   * Separated settings option for _Show Caption / Titles?_ into two, one for each.
   * Fixed minor front end bug when using background images. Thanks to @thendigital
   * New Indonesian translation by Jordan Silaen from http://chameleonjohn.com/
+  * Many other tweaks and improvements
 * __1.9.1__
   * Titles and captions now show if present, independently of each other (previously both needed to be filled in)
     * You can hide them by leaving blank, or setting _Show Slide Titles / Captions?_ to False in the settings
