@@ -143,6 +143,8 @@ You need to make sure that each image is the same height. You can do this by set
 
 Changelog
 ---------
+* __1.11dev__
+  * _..nothing yet.._
 * __1.10__
   * Added support for Bootstrap 4
   * Added support for video backgrounds, youtube or vimeo

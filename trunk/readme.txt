@@ -4,7 +4,7 @@ Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
 Tested up to: 5.1.1
-Stable tag: 1.10
+Stable tag: 1.11dev
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
