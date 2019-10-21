@@ -79,7 +79,18 @@ function cptbc_frontend($atts){
 			$link_text = get_post_meta(get_the_ID(), 'cptbc_image_link_text', true);
 			$video_url = get_post_meta(get_the_ID(), 'cptbc_video_url', true);
 			$video_aspect = get_post_meta(get_the_ID(), 'cptbc_video_aspect', true);
-			$images[] = array('post_id' => $post_id, 'title' => $title, 'content' => $content, 'image' => $image, 'img_src' => $image_src, 'url' => esc_url($url), 'video_url' => esc_url($video_url), 'video_aspect' => $video_aspect, 'url_openblank' => $url_openblank == "1" ? true : false, 'link_text' => $link_text);
+			$images[] = array(
+				'post_id' => $post_id,
+				'title' => $title,
+				'content' => $content,
+				'image' => $image,
+				'img_src' => $image_src,
+				'url' => esc_url($url),
+				'video_url' => esc_url($video_url),
+				'video_aspect' => $video_aspect,
+				'url_openblank' => $url_openblank == "1" ? true : false,
+				'link_text' => $link_text
+			);
 		}
 	}
 
@@ -87,7 +98,7 @@ function cptbc_frontend($atts){
 	if(count($images) > 0){
 		ob_start();
 		?>
-		<div id="cptbc_<?php echo $id; ?>" class="carousel slide" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
+		<div id="cptbc_<?php echo $id; ?>" class="carousel slide<?php if($atts['use_carousel_fade'] == '1'){ echo ' carousel-fade'; } ?>" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
 
 			<?php
 			if( $atts['showindicators'] === 'true' ) {

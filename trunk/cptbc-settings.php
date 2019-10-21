@@ -43,6 +43,7 @@ function cptbc_set_options (){
 		'background_images_height' => '500',
 		'background_images_style_size' => 'cover',
 		'use_javascript_animation' => '1',
+		'use_carousel_fade' => '0',
 	);
 	add_option('cptbc_settings', $defaults);
 }
@@ -226,6 +227,13 @@ class cptbc_settings_page {
 				'use_javascript_animation', // ID
 				__('Use Javascript to animate carousel?', 'cpt-bootstrap-carousel'), // Title
 				array( $this, 'use_javascript_animation_callback' ), // Callback
+				'cpt-bootstrap-carousel', // Page
+				'cptbc_settings_setup' // Section
+		);
+		add_settings_field(
+				'use_carousel_fade', // ID
+				__('Crossfade images instead of slide animation?', 'cpt-bootstrap-carousel'), // Title
+				array( $this, 'use_carousel_fade_callback' ), // Callback
 				'cpt-bootstrap-carousel', // Page
 				'cptbc_settings_setup' // Section
 		);
@@ -541,6 +549,21 @@ class cptbc_settings_page {
 		echo '>No</option>';
 		print '</select>';
         echo '<p class="description">'.__("The Bootstrap Carousel is designed to work usign data-attributes. Sometimes the animation doesn't work correctly with this, so the default is to include a small portion of Javascript to fire the carousel. You can choose not to include this here.", 'cpt-bootstrap-carousel').'</p>';
+	}
+	public function use_carousel_fade_callback() {
+		print '<select id="use_carousel_fade" name="cptbc_settings[use_carousel_fade]">';
+		print '<option value="0"';
+		if(isset( $this->options['use_carousel_fade'] ) && $this->options['use_carousel_fade'] == 0){
+			print ' selected="selected"';
+		}
+		echo '>No (Default)</option>';
+		print '<option value="1"';
+		if(isset( $this->options['use_carousel_fade'] ) && $this->options['use_carousel_fade'] == 1){
+			print ' selected="selected"';
+		}
+		echo '>Yes</option>';
+		print '</select>';
+        echo '<p class="description">'.__("If selected, images will cross-fade instead of sliding. BS4 only.", 'cpt-bootstrap-carousel').'</p>';
 	}
 	public function background_images_style_size_callback() {
 		print '<select id="select_background_images_style_size" name="cptbc_settings[select_background_images_style_size]">';
