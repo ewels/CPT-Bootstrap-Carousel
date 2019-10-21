@@ -480,13 +480,13 @@ class cptbc_settings_page {
 			$cptbc_twbs4 = '';
 			$cptbc_twbs3 = '';
 			$cptbc_twbs2 = ' selected="selected"';
-		} else if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '4'){
-			$cptbc_twbs4 = ' selected="selected"';
-			$cptbc_twbs3 = '';
-			$cptbc_twbs2 = '';
-		} else {
+		} else if(isset( $this->options['twbs'] ) && $this->options['twbs'] == '3'){
 			$cptbc_twbs4 = '';
 			$cptbc_twbs3 = ' selected="selected"';
+			$cptbc_twbs2 = '';
+		} else {
+			$cptbc_twbs4 = ' selected="selected"';
+			$cptbc_twbs3 = '';
 			$cptbc_twbs2 = '';
 		}
 		print '<select id="twbs" name="cptbc_settings[twbs]">

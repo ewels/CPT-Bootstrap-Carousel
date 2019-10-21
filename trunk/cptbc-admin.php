@@ -169,7 +169,7 @@ function cptbc_contextual_help_tab() {
         $help .= '
             </ul></li>
 
-        <li><code>twbs</code> <em>(default 3)</em>
+        <li><code>twbs</code> <em>(default 4)</em>
         <ul>
         <li>Output markup for Twitter Bootstrap Version 2, 3 or 4.</li>
         </ul></li>
