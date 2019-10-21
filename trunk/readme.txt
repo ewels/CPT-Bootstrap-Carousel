@@ -156,6 +156,9 @@ You need to make sure that each image is the same height. You can do this by set
 
 == Changelog ==
 
+= 1.11 =
+* Added support for crossfading images instead of sliding
+
 = 1.10.1 =
 * Added support for Bootstrap 4
 * Added support for video backgrounds, youtube or vimeo
