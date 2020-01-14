@@ -6,9 +6,8 @@ A custom post type for choosing images and content which outputs a [carousel](ht
 The plugin assumes that you're already using Bootstrap, so you need to load the Bootstrap javascript and CSS separately.
 
 * [Download Twitter Bootstrap](http://getbootstrap.com/)
-* [Bootstrap WordPress Theme](http://320press.com/wpbs/)
 * [Bootstrap CDN](http://www.bootstrapcdn.com/) _(hotlink CSS and javascript files)_
-* [Bootstrap Carousel in action](http://getbootstrap.com/javascript/#carousel)
+* [Bootstrap Carousel in action](https://getbootstrap.com/docs/4.4/components/carousel/)
 
 Also hosted on the [WordPress Plugins Directory](http://wordpress.org/support/view/plugin-reviews/cpt-bootstrap-carousel).
 
