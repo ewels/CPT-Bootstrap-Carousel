@@ -33,3 +33,5 @@ wp_readme = re.sub(r" +\n", "\n", wp_readme)
 
 with open('readme.txt', 'w') as fh:
     fh.write(wp_readme)
+
+print("Finished! Wordpress readme ended up looking like this:\n\n\n\n{}".format(wp_readme))
