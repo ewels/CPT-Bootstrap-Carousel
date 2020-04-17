@@ -14,106 +14,106 @@
 // Add column in admin list view to show featured image
 // http://wp.tutsplus.com/tutorials/creative-coding/add-a-custom-column-in-posts-and-custom-post-types-admin-screen/
 function cptbc_get_featured_image($post_ID) {
-	$post_thumbnail_id = get_post_thumbnail_id($post_ID);
-	if ($post_thumbnail_id) {
-		$post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'featured_preview');
-		return $post_thumbnail_img[0];
-	}
+    $post_thumbnail_id = get_post_thumbnail_id($post_ID);
+    if ($post_thumbnail_id) {
+        $post_thumbnail_img = wp_get_attachment_image_src($post_thumbnail_id, 'featured_preview');
+        return $post_thumbnail_img[0];
+    }
 }
 function cptbc_columns_head($defaults) {
-	$defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');
-	$defaults['category'] = __('Category', 'cpt-bootstrap-carousel');
-	return $defaults;
+    $defaults['featured_image'] = __('Featured Image', 'cpt-bootstrap-carousel');
+    $defaults['category'] = __('Category', 'cpt-bootstrap-carousel');
+    return $defaults;
 }
 function cptbc_columns_content($column_name, $post_ID) {
-	if ($column_name == 'featured_image') {
-		$post_featured_image = cptbc_get_featured_image($post_ID);
-		if ($post_featured_image) {
-			echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';
-		}
-	}
-	if ($column_name == 'category') {
-		$post_categories = get_the_terms($post_ID, 'carousel_category');
-		if ($post_categories) {
-			$output = '';
-			foreach($post_categories as $cat){
-				$output .= $cat->name.', ';
-			}
-			echo trim($output, ', ');
-		} else {
-			echo 'No categories';
-		}
-	}
+    if ($column_name == 'featured_image') {
+        $post_featured_image = cptbc_get_featured_image($post_ID);
+        if ($post_featured_image) {
+            echo '<a href="'.get_edit_post_link($post_ID).'"><img src="' . $post_featured_image . '" alt="" style="max-width:100%;" /></a>';
+        }
+    }
+    if ($column_name == 'category') {
+        $post_categories = get_the_terms($post_ID, 'carousel_category');
+        if ($post_categories) {
+            $output = '';
+            foreach($post_categories as $cat){
+                $output .= $cat->name.', ';
+            }
+            echo trim($output, ', ');
+        } else {
+            echo 'No categories';
+        }
+    }
 }
 add_filter('manage_cptbc_posts_columns', 'cptbc_columns_head');
 add_action('manage_cptbc_posts_custom_column', 'cptbc_columns_content', 10, 2);
 
 // Extra admin field for image URL
 function cptbc_image_url(){
-	global $post;
-	$custom = get_post_custom($post->ID);
-	$cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
-	$cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
-	$cptbc_image_link_text = isset($custom['cptbc_image_link_text']) ?  $custom['cptbc_image_link_text'][0] : '';
-	$cptbc_video_url = isset($custom['cptbc_video_url']) ?  $custom['cptbc_video_url'][0] : '';
-	$cptbc_video_aspect = isset($custom['cptbc_video_aspect']) ?  $custom['cptbc_video_aspect'][0] : '';
-	?>
-	<p>
-		<label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
-		<input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" style="width: 100%"/> <br />
-		<small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small>
-	</p>
+    global $post;
+    $custom = get_post_custom($post->ID);
+    $cptbc_image_url = isset($custom['cptbc_image_url']) ?  $custom['cptbc_image_url'][0] : '';
+    $cptbc_image_url_openblank = isset($custom['cptbc_image_url_openblank']) ?  $custom['cptbc_image_url_openblank'][0] : '0';
+    $cptbc_image_link_text = isset($custom['cptbc_image_link_text']) ?  $custom['cptbc_image_link_text'][0] : '';
+    $cptbc_video_url = isset($custom['cptbc_video_url']) ?  $custom['cptbc_video_url'][0] : '';
+    $cptbc_video_aspect = isset($custom['cptbc_video_aspect']) ?  $custom['cptbc_video_aspect'][0] : '';
+    ?>
+    <p>
+        <label><?php _e('Image URL', 'cpt-bootstrap-carousel'); ?>:</label>
+        <input type="url" name="cptbc_image_url" value="<?php echo $cptbc_image_url; ?>" style="width: 100%"/> <br />
+        <small><em><?php _e('(optional - leave blank for no link)', 'cpt-bootstrap-carousel'); ?></em></small>
+    </p>
 
-	<p>
-		<label>
-			<input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?>
-		</label>
-	</p>
+    <p>
+        <label>
+            <input type="checkbox" name="cptbc_image_url_openblank" <?php if($cptbc_image_url_openblank == 1){ echo ' checked="checked"'; } ?> value="1" /> <?php _e('Open link in new window?', 'cpt-bootstrap-carousel'); ?>
+        </label>
+    </p>
 
-	<p>
-		<label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
-		<input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" style="width: 100%"/> <br />
-		<small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
-	</p>
+    <p>
+        <label><?php _e('Button Text', 'cpt-bootstrap-carousel'); ?>:</label>
+        <input type="text" name="cptbc_image_link_text" value="<?php echo $cptbc_image_link_text; ?>" style="width: 100%"/> <br />
+        <small><em><?php _e('(optional - leave blank for default, only shown if using link buttons)', 'cpt-bootstrap-carousel'); ?></em></small>
+    </p>
 
-	<hr />
+    <hr />
 
-	<p><strong>Note: Using a video replaces the slide text &amp; button (if shown), Youtube &amp; Vimeo are supported</strong></p>
+    <p><strong>Note: Using a video replaces the slide text &amp; button (if shown), Youtube &amp; Vimeo are supported</strong></p>
 
-	<p>
-		<label><?php _e('Video URL', 'cpt-bootstrap-carousel'); ?>:</label>
-		<input type="text" name="cptbc_video_url" value="<?php echo $cptbc_video_url; ?>" style="width: 100%"/> <br />
-		<small><em><?php _e('(use only the url, not the full embed code)', 'cpt-bootstrap-carousel'); ?></em></small>
-	</p>
+    <p>
+        <label><?php _e('Video URL', 'cpt-bootstrap-carousel'); ?>:</label>
+        <input type="text" name="cptbc_video_url" value="<?php echo $cptbc_video_url; ?>" style="width: 100%"/> <br />
+        <small><em><?php _e('(use only the url, not the full embed code)', 'cpt-bootstrap-carousel'); ?></em></small>
+    </p>
 
-	<p>
-		<label><?php _e('Video Aspect Ratio', 'cpt-bootstrap-carousel'); ?>:</label>
-		<select name="cptbc_video_aspect">
-			<option value="embed-responsive-16by9" <?php if ($cptbc_video_aspect == "embed-responsive-16by9") echo 'selected'; ?>>16:9</option>
-			<option value="embed-responsive-4by3" <?php if ($cptbc_video_aspect == "embed-responsive-4by3") echo 'selected'; ?>>4:3</option>
-		</select> <br />
-	</p>
-	<?php
+    <p>
+        <label><?php _e('Video Aspect Ratio', 'cpt-bootstrap-carousel'); ?>:</label>
+        <select name="cptbc_video_aspect">
+            <option value="embed-responsive-16by9" <?php if ($cptbc_video_aspect == "embed-responsive-16by9") echo 'selected'; ?>>16:9</option>
+            <option value="embed-responsive-4by3" <?php if ($cptbc_video_aspect == "embed-responsive-4by3") echo 'selected'; ?>>4:3</option>
+        </select> <br />
+    </p>
+    <?php
 }
 function cptbc_admin_init_custpost(){
-	add_meta_box("cptbc_image_url", "Slide Options", "cptbc_image_url", "cptbc", "side", "low");
+    add_meta_box("cptbc_image_url", "Slide Options", "cptbc_image_url", "cptbc", "side", "low");
 }
 add_action("add_meta_boxes", "cptbc_admin_init_custpost");
 function cptbc_mb_save_details(){
-	global $post;
-	if (isset($_POST["cptbc_image_url"])) {
-		$openblank = 0;
-		if(isset($_POST["cptbc_image_url_openblank"]) && $_POST["cptbc_image_url_openblank"] == '1'){
-			$openblank = 1;
-		}
-		update_post_meta($post->ID, "cptbc_image_url", esc_url($_POST["cptbc_image_url"]));
-		update_post_meta($post->ID, "cptbc_image_url_openblank", $openblank);
-		update_post_meta($post->ID, "cptbc_image_link_text", sanitize_text_field($_POST["cptbc_image_link_text"]));
-	}
-	if (isset($_POST["cptbc_video_url"])) {
-		update_post_meta($post->ID, "cptbc_video_url", esc_url($_POST["cptbc_video_url"]));
-		update_post_meta($post->ID, "cptbc_video_aspect", sanitize_text_field($_POST["cptbc_video_aspect"]));
-	}
+    global $post;
+    if (isset($_POST["cptbc_image_url"])) {
+        $openblank = 0;
+        if(isset($_POST["cptbc_image_url_openblank"]) && $_POST["cptbc_image_url_openblank"] == '1'){
+            $openblank = 1;
+        }
+        update_post_meta($post->ID, "cptbc_image_url", esc_url($_POST["cptbc_image_url"]));
+        update_post_meta($post->ID, "cptbc_image_url_openblank", $openblank);
+        update_post_meta($post->ID, "cptbc_image_link_text", sanitize_text_field($_POST["cptbc_image_link_text"]));
+    }
+    if (isset($_POST["cptbc_video_url"])) {
+        update_post_meta($post->ID, "cptbc_video_url", esc_url($_POST["cptbc_video_url"]));
+        update_post_meta($post->ID, "cptbc_video_aspect", sanitize_text_field($_POST["cptbc_video_aspect"]));
+    }
 }
 add_action('save_post', 'cptbc_mb_save_details');
 

@@ -12,8 +12,8 @@ License: GPLv2
 
 // Initialise - load in translations
 function cptbc_loadtranslations () {
-	$plugin_dir = basename(dirname(__FILE__)).'/languages';
-	load_plugin_textdomain( 'cpt-bootstrap-carousel', false, $plugin_dir );
+    $plugin_dir = basename(dirname(__FILE__)).'/languages';
+    load_plugin_textdomain( 'cpt-bootstrap-carousel', false, $plugin_dir );
 }
 add_action('plugins_loaded', 'cptbc_loadtranslations');
 
