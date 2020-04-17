@@ -2,7 +2,10 @@
 # https://github.com/10up/action-wordpress-plugin-deploy
 
 name: Deploy to WordPress.org
-on: push
+on:
+  push:
+    tags:
+    - "*"
 jobs:
   tag:
     name: New tag
@@ -17,4 +20,3 @@ jobs:
         SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
         SLUG: cpt-bootstrap-carousel
-        VERSION: 1.11
