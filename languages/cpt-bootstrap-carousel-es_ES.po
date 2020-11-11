@@ -1,0 +1,181 @@
+# Copyright (C) 2013 CPT Bootstrap Carousel
+# This file is distributed under the same license as the CPT Bootstrap Carousel package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Traducción a Español\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/cpt-bootstrap-carousel\n"
+"POT-Creation-Date: 2013-12-15 15:20:37+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2020-11-11 13:48+0100\n"
+"Language-Team: IBIDEM GROUP <https://www.ibidemgroup.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: \n"
+"Language: es_ES\n"
+
+#: cpt-bootstrap-carousel.php:26
+msgid "Carousel Images"
+msgstr "Imágenes del carrusel"
+
+#: cpt-bootstrap-carousel.php:27
+msgid "Carousel Image"
+msgstr "Imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:28
+msgid "Add New"
+msgstr "Añadir nueva"
+
+#: cpt-bootstrap-carousel.php:29
+msgid "Add New Carousel Image"
+msgstr "Añadir nueva imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:30
+msgid "Edit Carousel Image"
+msgstr "Editar imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:31
+msgid "New Carousel Image"
+msgstr "Nueva imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:32
+msgid "View Carousel Image"
+msgstr "Ver imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:33
+msgid "Search Carousel Images"
+msgstr "Buscar imágenes del carrusel"
+
+#: cpt-bootstrap-carousel.php:34
+msgid "No Carousel Image"
+msgstr "No hay ninguna imagen del carrusel"
+
+#: cpt-bootstrap-carousel.php:35
+msgid "No Carousel Images found in Trash"
+msgstr "No se han encontrado imágenes del carrusel en la papelera"
+
+#: cpt-bootstrap-carousel.php:37
+msgid "Carousel"
+msgstr "Carrusel"
+
+#: cpt-bootstrap-carousel.php:89
+msgid "Featured Image"
+msgstr "Imagen destacada"
+
+#: cpt-bootstrap-carousel.php:110
+msgid "Image URL"
+msgstr "URL de imagen"
+
+#: cpt-bootstrap-carousel.php:112
+msgid "(optional - leave blank for no link)"
+msgstr "(opcional - dejar en blanco si no hay link)"
+
+#: cpt-bootstrap-carousel.php:113
+msgid "Open link in new window?"
+msgstr "¿Abrir en una ventana nueva?"
+
+#: cpt-bootstrap-carousel.php:166 cpt-bootstrap-carousel.php:179
+#: cpt-bootstrap-carousel.php:389
+msgid "Settings"
+msgstr "Ajustes"
+
+#: cpt-bootstrap-carousel.php:180
+msgid ""
+"You can set the default behaviour of your carousels here. All of these "
+"settings can be overridden by using %s shortcode attributes %s."
+msgstr ""
+"Define el comportamiento por defecto del carrusel aquí. Para anular "
+"ajustes, usa %s parámetros shortcode %s."
+
+#: cpt-bootstrap-carousel.php:210
+msgid "Twitter Bootstrap Version"
+msgstr "Versión de Bootstrap para Twitter"
+
+#: cpt-bootstrap-carousel.php:218
+msgid "Slide Interval (milliseconds)"
+msgstr "Intervalo entre diapositivas (milisegundos)"
+
+#: cpt-bootstrap-carousel.php:226
+msgid "Show Slide Captions?"
+msgstr "¿Mostrar títulos de diapositivas?"
+
+#: cpt-bootstrap-carousel.php:234
+msgid "Show Slide Controls?"
+msgstr "¿Mostrar control de diapositivas?"
+
+#: cpt-bootstrap-carousel.php:242
+msgid "Order Slides By"
+msgstr "Ordenar diapositivas por"
+
+#: cpt-bootstrap-carousel.php:250
+msgid "Ordering Direction"
+msgstr "Definir dirección"
+
+#: cpt-bootstrap-carousel.php:258
+msgid "Restrict to Category"
+msgstr "Limitar a categoría"
+
+#: cpt-bootstrap-carousel.php:315 cpt-bootstrap-carousel.php:329
+msgid "Show"
+msgstr "Mostrar"
+
+#: cpt-bootstrap-carousel.php:316 cpt-bootstrap-carousel.php:330
+msgid "Hide"
+msgstr "Ocultar"
+
+#: cpt-bootstrap-carousel.php:336
+msgid "Menu order, as set in Carousel overview page"
+msgstr "Orden del menú, establecido en la página general de Carrusel"
+
+#: cpt-bootstrap-carousel.php:337
+msgid "Date slide was published"
+msgstr "Fecha de publicación de diapositiva"
+
+#: cpt-bootstrap-carousel.php:338
+msgid "Random ordering"
+msgstr "Orden aleatorio"
+
+#: cpt-bootstrap-carousel.php:339
+msgid "Slide title"
+msgstr "Título de diapositiva"
+
+#: cpt-bootstrap-carousel.php:361
+msgid "Ascending"
+msgstr "Ascendente"
+
+#: cpt-bootstrap-carousel.php:362
+msgid "Decending"
+msgstr "Descendente"
+
+#: cpt-bootstrap-carousel.php:369
+msgid "All Categories"
+msgstr "Todas las categorías"
+
+#. Plugin Name of the plugin/theme
+msgid "CPT Bootstrap Carousel"
+msgstr "CPT Bootstrap Carousel"
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.tallphil.co.uk/bootstrap-carousel/"
+msgstr "http://www.tallphil.co.uk/bootstrap-carousel/"
+
+#. Description of the plugin/theme
+msgid ""
+"A custom post type for choosing images and content which outputs <a href="
+"\"http://twitter.github.io/bootstrap/javascript.html#carousel\" target="
+"\"_blank\">Bootstrap Carousel</a> from a shortcode. Requires Bootstrap "
+"javascript and CSS to be loaded separately."
+msgstr ""
+"Personaliza tus entradas con imágenes y contenidos generados por <a href="
+"\"http://twitter.github.io/bootstrap/javascript.html#carousel\" target="
+"\"_blank\">Bootstrap Carousel</a> a partir de un shortcode. Requiere la "
+"descarga de Bootstrap javascript y CSS."
+
+#. Author of the plugin/theme
+msgid "Phil Ewels"
+msgstr "Phil Ewels"
+
+#. Author URI of the plugin/theme
+msgid "http://phil.ewels.co.uk"
+msgstr "http://phil.ewels.co.uk"
