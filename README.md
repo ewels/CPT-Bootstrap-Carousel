@@ -4,7 +4,7 @@ Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 5.4
+Tested up to: 5.5.3
 Requires PHP: 5.2.4
 Stable tag: 1.12
 License: GPLv2 or later
