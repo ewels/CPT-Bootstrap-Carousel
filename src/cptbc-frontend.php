@@ -98,7 +98,7 @@ function cptbc_frontend($atts){
     if(count($images) > 0){
         ob_start();
         ?>
-        <div id="cptbc_<?php echo $id; ?>" class="carousel slide<?php if($atts['use_carousel_fade'] == '1'){ echo ' carousel-fade'; } ?>" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo $atts['interval']; ?>">
+        <div id="cptbc_<?php echo $id; ?>" class="carousel slide<?php if($atts['use_carousel_fade'] == '1'){ echo ' carousel-fade'; } ?>" <?php if($atts['use_javascript_animation'] == '0'){ echo ' data-ride="carousel"'; } ?> data-interval="<?php echo htmlspecialchars($atts['interval']); ?>">
 
             <?php
             if( $atts['showindicators'] === 'true' ) {
@@ -234,7 +234,7 @@ function cptbc_frontend($atts){
         <script type="text/javascript">
             jQuery(document).ready(function() {
                 jQuery('#cptbc_<?php echo $id; ?>').carousel({
-                    interval: <?php echo $atts['interval']; ?>
+                    interval: <?php echo htmlspecialchars($atts['interval']); ?>
                 });
             });
         </script>
