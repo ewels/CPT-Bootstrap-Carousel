@@ -4,7 +4,7 @@ Contributors: tallphil
 Donate Link: http://www.tallphil.co.uk/bootstrap-carousel/
 Tags: carousel, slider, image, bootstrap
 Requires at least: 3.0.1
-Tested up to: 5.5.3
+Tested up to: 6.1.1
 Requires PHP: 5.2.4
 Stable tag: 1.12
 License: GPLv2 or later
@@ -92,7 +92,8 @@ If you would like to contribute to this plugin, please make a personal fork of t
 1. Make sure that your theme is loading the [Twitter Bootstrap](http://www.getbootstrap.com) CSS and Carousel javascript
 2. Place the `[image-carousel]` shortcode in a Page or Post
 3. Create new items in the `Carousel` post type, uploading a Featured Image for each.
-  * (Optional) You can hyperlink each image by entering the desired url `Image Link URL` admin metabox when adding a new carousel image.
+
+* (Optional) You can hyperlink each image by entering the desired url `Image Link URL` admin metabox when adding a new carousel image.
 
 ## Frequently Asked Questions
 
@@ -157,6 +158,11 @@ You need to make sure that each image is the same height. You can do this by set
 3. Example output. Requires Bootstrap CSS and Javascript to be loaded (see documentation). ![screenshot-3](.wordpress-org/screenshot-3.png)
 
 ## Changelog
+
+### 1.13
+
+* Security fix by [@aedelgod](https://github.com/aedelgod) to avoid XSS shortcode injection
+* Update GitHub action for deployment to attach zip file to GitHub release
 
 ### 1.12
 
